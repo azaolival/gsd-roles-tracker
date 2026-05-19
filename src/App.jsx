@@ -1,4 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { Pipeline } from "./Pipeline";
+import { WorkflowDrawer } from "./WorkflowDrawer";
+import { usePipeline } from "./hooks/usePipeline";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MORTGAGE PRODUCT ROLE ECOSYSTEM · Compiled May 17, 2026
@@ -959,13 +962,27 @@ const FAMILY_LABELS = {
   "COMPLIANCE": "Compliance Analyst (Tech-facing)",
 };
 
-export default function App() {
+const PIPELINE_STATUS_META = {
+  TARGETED:      { label:"Targeted",   color:"#6b7280", bg:"#f1f5f9" },
+  IN_PROGRESS:   { label:"Working",    color:"#b45309", bg:"#fef3c7" },
+  APPLIED:       { label:"Applied",    color:"#1d4ed8", bg:"#dbeafe" },
+  CALLBACK:      { label:"Callback",   color:"#7c3aed", bg:"#ede9fe" },
+  INTERVIEW:     { label:"Interview!", color:"#059669", bg:"#d1fae5" },
+  OFFER:         { label:"Offer!",     color:"#92400e", bg:"#fef9c3" },
+  COLD_OUTREACH: { label:"Outreach",   color:"#c2410c", bg:"#fff7ed" },
+  NO_THANKS:     { label:"No Thanks",  color:"#dc2626", bg:"#fee2e2" },
+  GHOSTED:       { label:"Ghosted",    color:"#94a3b8", bg:"#f8fafc" },
+};
+
+export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
+  const pipelineRoleIds = useMemo(() => new Set(pipelineStatusMap.keys()), [pipelineStatusMap]);
   const [search, setSearch]           = useState("");
   const [bucketFilter, setBucket]     = useState("All");
   const [familyFilter, setFamily]     = useState("All");
   const [tierFilter, setTier]         = useState("All");
   const [showNotes, setNotes]         = useState(true);
   const [collapsed, setCollapsed]     = useState({});
+  const [appliedOnly, setAppliedOnly] = useState(false);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -976,14 +993,15 @@ export default function App() {
         const mb = bucketFilter === "All" || j.bucket === bucketFilter;
         const mf = familyFilter === "All" || j.family === familyFilter;
         const mt = tierFilter === "All" || (SALARY_EST[j.id]?.tier === tierFilter);
-        return ms && mb && mf && mt;
+        const ma = !appliedOnly || pipelineRoleIds.has(j.id);
+        return ms && mb && mf && mt && ma;
       })
       .sort((a, b) => {
         const ta = TIER_ORDER[SALARY_EST[a.id]?.tier] ?? 9;
         const tb = TIER_ORDER[SALARY_EST[b.id]?.tier] ?? 9;
         return ta - tb;
       });
-  }, [search, bucketFilter, familyFilter, tierFilter]);
+  }, [search, bucketFilter, familyFilter, tierFilter, appliedOnly, pipelineRoleIds]);
 
   const byBucket = useMemo(() => {
     const g = {};
@@ -1037,6 +1055,12 @@ export default function App() {
                 <div style={{ fontSize:32, fontWeight:700, color:"#0891b2", lineHeight:1 }}>{filtered.length}</div>
                 <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>total roles</div>
               </div>
+              {pipelineStatusMap.size > 0 && (
+                <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
+                  <div style={{ fontSize:32, fontWeight:700, color:"#059669", lineHeight:1 }}>{pipelineStatusMap.size}</div>
+                  <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>in pipeline</div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -1093,6 +1117,16 @@ export default function App() {
                 {tier === "A" ? "★ " : ""}{m.label} ({tierCounts[tier]})
               </button>
             ))}
+            {pipelineStatusMap.size > 0 && (
+              <button onClick={() => setAppliedOnly(s => !s)}
+                style={{ fontSize:13, fontWeight:700, padding:"5px 16px", borderRadius:6,
+                  border:`1.5px solid #059669`,
+                  background: appliedOnly ? "#059669" : "#ffffff",
+                  color: appliedOnly ? "#ffffff" : "#059669",
+                  cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif", marginLeft:"auto" }}>
+                {appliedOnly ? "✓ Pipeline Only" : "Pipeline Only"} ({pipelineStatusMap.size})
+              </button>
+            )}
           </div>
 
           {/* Role family filter row */}
@@ -1183,6 +1217,17 @@ export default function App() {
                                 padding:"2px 9px", borderRadius:5 }}>
                                 {job.family}
                               </span>
+                              {pipelineStatusMap.has(job.id) && (() => {
+                                const st = pipelineStatusMap.get(job.id);
+                                const sm = PIPELINE_STATUS_META[st] || {};
+                                return (
+                                  <span style={{ fontSize:11, fontWeight:700, fontFamily:"'IBM Plex Mono',monospace",
+                                    color: sm.color, background: sm.bg, border:`1.5px solid ${sm.color}50`,
+                                    padding:"2px 9px", borderRadius:5, letterSpacing:"0.05em" }}>
+                                    {sm.label || st}
+                                  </span>
+                                );
+                              })()}
                               <span style={{ fontSize:16, fontWeight:700, color:"#0f172a", lineHeight:1.3, fontFamily:"'Inter',sans-serif" }}>
                                 {job.title}
                               </span>
@@ -1232,14 +1277,15 @@ export default function App() {
                               fontFamily:"'IBM Plex Mono',monospace" }}>
                               {job.source}
                             </span>
-                            <a href={job.url} target="_blank" rel="noreferrer"
+                            <button onClick={() => onSelectRole ? onSelectRole(job) : window.open(job.url,"_blank")}
                               style={{ fontSize:14, fontWeight:700, color:"#ffffff",
-                                background: m.c, padding:"9px 18px", borderRadius:8,
-                                textDecoration:"none", marginTop:2, whiteSpace:"nowrap",
+                                background: pipelineRoleIds.has(job.id) ? "#059669" : "#0891b2",
+                                padding:"9px 18px", borderRadius:8, border:"none",
+                                cursor:"pointer", marginTop:2, whiteSpace:"nowrap",
                                 fontFamily:"'Inter',sans-serif",
-                                boxShadow:`0 2px 6px ${m.c}50` }}>
-                              Apply →
-                            </a>
+                                boxShadow: pipelineRoleIds.has(job.id) ? "0 2px 6px rgba(5,150,105,0.35)" : "0 2px 6px rgba(8,145,178,0.35)" }}>
+                              {pipelineRoleIds.has(job.id) ? "In Pipeline ✓" : "Track + Apply →"}
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -1264,6 +1310,156 @@ export default function App() {
         fontFamily:"'IBM Plex Mono',monospace", lineHeight:1.6 }}>
         Compiled May 17, 2026 · Sources: Greenhouse, Lever, Ashby, Glassdoor, Indeed, Built In SF, LinkedIn, Spectrum Equity, Teal HQ, company career pages · Verify before applying
       </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GSD PORTAL — unified shell: Roles Board + Pipeline Kanban + Workflow Drawer
+// ─────────────────────────────────────────────────────────────────────────────
+export default function App() {
+  const pipeline = usePipeline();
+  const [tab, setTab] = useState("board");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerJob, setDrawerJob] = useState(null);    // board job object
+  const [drawerCardId, setDrawerCardId] = useState(null); // pipeline card id
+
+  // Derive the pipeline card to show in drawer — auto-updates when cards change
+  const drawerCard = useMemo(() => {
+    if (drawerCardId) return pipeline.cards.find(c => c.id === drawerCardId) || null;
+    if (drawerJob) return pipeline.cards.find(c =>
+      c.roleId === drawerJob.id ||
+      (c.company.toLowerCase() === drawerJob.company.toLowerCase() &&
+       c.title.toLowerCase() === drawerJob.title.toLowerCase())
+    ) || null;
+    return null;
+  }, [pipeline.cards, drawerCardId, drawerJob]);
+
+  // Map of board role IDs → pipeline status (for badge + button state in RolesBoard)
+  const pipelineStatusMap = useMemo(() => {
+    const m = new Map();
+    pipeline.cards.forEach(c => { if (c.roleId) m.set(c.roleId, c.status); });
+    return m;
+  }, [pipeline.cards]);
+
+  const handleSelectRole = useCallback((job) => {
+    setDrawerJob(job);
+    setDrawerCardId(null);
+    setDrawerOpen(true);
+  }, []);
+
+  const handleOpenCard = useCallback((card) => {
+    setDrawerCardId(card.id);
+    setDrawerJob(null);
+    setDrawerOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setDrawerOpen(false);
+    setDrawerJob(null);
+    setDrawerCardId(null);
+  }, []);
+
+  const handleAddToPipeline = useCallback((cardData) => {
+    pipeline.addCard(cardData);
+    // drawerCard useMemo will auto-find the new card and switch to edit mode
+  }, [pipeline]);
+
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const pstClock = now.toLocaleString("en-US", {
+    timeZone: "America/Los_Angeles",
+    weekday: "short", month: "short", day: "numeric",
+    hour: "numeric", minute: "2-digit", second: "2-digit",
+    hour12: true,
+  });
+
+  const tabStyle = (active) => ({
+    padding:"9px 20px", borderRadius:7, border:"none", cursor:"pointer",
+    fontSize:14, fontWeight:600, fontFamily:"'Inter',sans-serif",
+    background: active ? "#0891b2" : "transparent",
+    color: active ? "#ffffff" : "#64748b",
+    transition:"background .15s, color .15s",
+  });
+
+  return (
+    <div style={{ minHeight:"100vh", background:"#f8fafc",
+      fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+      {/* Top nav */}
+      <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0",
+        position:"sticky", top:0, zIndex:30, boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
+        <div style={{ maxWidth:1400, margin:"0 auto", padding:"10px 28px",
+          display:"flex", alignItems:"center", gap:8 }}>
+          <div style={{ fontSize:18, fontWeight:800, color:"#0f172a",
+            fontFamily:"'Inter',sans-serif", letterSpacing:-.3, marginRight:16 }}>
+            GSD Portal
+          </div>
+          <button onClick={() => setTab("board")} style={tabStyle(tab === "board")}>
+            Roles Board
+            <span style={{ fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
+              marginLeft:7, opacity:.7 }}>
+              {jobs.length}
+            </span>
+          </button>
+          <button onClick={() => setTab("pipeline")} style={tabStyle(tab === "pipeline")}>
+            Pipeline
+            <span style={{ fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
+              marginLeft:7, opacity:.7 }}>
+              {pipeline.cards.length}
+            </span>
+          </button>
+          {pipeline.cards.filter(c => ["CALLBACK","INTERVIEW","OFFER","COLD_OUTREACH"].includes(c.status)).length > 0 && (
+            <span style={{ marginLeft:4, fontSize:12, fontWeight:700, color:"#059669",
+              fontFamily:"'IBM Plex Mono',monospace",
+              background:"#f0fdf4", border:"1.5px solid #bbf7d0",
+              padding:"3px 10px", borderRadius:20 }}>
+              {pipeline.cards.filter(c => ["CALLBACK","INTERVIEW","OFFER","COLD_OUTREACH"].includes(c.status)).length} active
+            </span>
+          )}
+
+          {/* Live PST clock */}
+          <div style={{ marginLeft:"auto", display:"flex", alignItems:"center", gap:7, flexShrink:0 }}>
+            <span style={{ width:7, height:7, borderRadius:"50%", background:"#22c55e", flexShrink:0,
+              boxShadow:"0 0 0 2px rgba(34,197,94,0.25)",
+              animation:"pulse 2s ease-in-out infinite" }}/>
+            <span style={{ fontSize:12, fontFamily:"'IBM Plex Mono',monospace", color:"#64748b",
+              letterSpacing:.2, whiteSpace:"nowrap" }}>
+              {pstClock} PST
+            </span>
+          </div>
+          <style>{`@keyframes pulse { 0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,.25)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,.1)} }`}</style>
+        </div>
+      </div>
+
+      {tab === "board" && (
+        <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} />
+      )}
+      {tab === "pipeline" && (
+        <Pipeline
+          cards={pipeline.cards}
+          moveCard={pipeline.moveCard}
+          deleteCard={pipeline.deleteCard}
+          exportData={pipeline.exportData}
+          importData={pipeline.importData}
+          onOpenDrawer={handleOpenCard}
+        />
+      )}
+
+      <WorkflowDrawer
+        open={drawerOpen}
+        onClose={handleClose}
+        role={drawerJob || drawerCard}
+        card={drawerCard}
+        onAddToPipeline={handleAddToPipeline}
+        onUpdateCard={pipeline.updateCard}
+        onMoveCard={pipeline.moveCard}
+      />
     </div>
   );
 }
