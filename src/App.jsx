@@ -39,23 +39,23 @@ const B = {
 };
 
 const META = {
-  [B.BAY]: { c:"#0d47a1", bg:"#e3f2fd", sub:"SF · East Bay · Peninsula · 2–3 days/wk in office" },
-  [B.SB]:  { c:"#6a1b9a", bg:"#f3e5f5", sub:"San Jose · Santa Clara · Palo Alto · Pleasanton · daily commute" },
-  [B.REM]: { c:"#1b5e20", bg:"#e8f5e9", sub:"Fully remote — open to Paso Robles / CA applicants" },
+  [B.BAY]: { c:"#0369a1", bg:"#e0f2fe", sub:"SF · East Bay · Peninsula · 2–3 days/wk in office" },
+  [B.SB]:  { c:"#6d28d9", bg:"#ede9fe", sub:"San Jose · Santa Clara · Palo Alto · Pleasanton · daily commute" },
+  [B.REM]: { c:"#047857", bg:"#d1fae5", sub:"Fully remote — open to Paso Robles / CA applicants" },
 };
 
 const FAMILY_COLORS = {
-  "PM/PO/BA":   "#1565c0",
-  "DELIVERY":   "#bf360c",
-  "SCRUM":      "#e65100",
-  "IMPL":       "#00695c",
-  "SOLNS":      "#4527a0",
-  "CSM":        "#283593",
-  "OPS":        "#558b2f",
-  "CHANGE":     "#6d4c41",
-  "QA":         "#00838f",
-  "DATA":       "#37474f",
-  "COMPLIANCE": "#880e4f",
+  "PM/PO/BA":   "#0369a1",
+  "DELIVERY":   "#b45309",
+  "SCRUM":      "#c2410c",
+  "IMPL":       "#065f46",
+  "SOLNS":      "#4c1d95",
+  "CSM":        "#1e40af",
+  "OPS":        "#3f6212",
+  "CHANGE":     "#78350f",
+  "QA":         "#155e75",
+  "DATA":       "#1e293b",
+  "COMPLIANCE": "#881337",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -66,9 +66,9 @@ const FAMILY_COLORS = {
 // est = estimated base salary range (when not listed in posting)
 // ─────────────────────────────────────────────────────────────────────────────
 const TIER_META = {
-  A: { label:"A  $175K–$235K", color:"#c8860a", bg:"#fff8e1", desc:"Attack now" },
-  B: { label:"B  $130K–$174K", color:"#1976d2", bg:"#e3f2fd", desc:"Solid ground" },
-  C: { label:"C  $115K–$129K", color:"#616161", bg:"#f5f5f5", desc:"Floor only" },
+  A: { label:"A  $175K–$235K", color:"#b45309", bg:"#fef3c7", desc:"Attack now" },
+  B: { label:"B  $130K–$174K", color:"#1d4ed8", bg:"#dbeafe", desc:"Solid ground" },
+  C: { label:"C  $115K–$129K", color:"#4b5563", bg:"#f3f4f6", desc:"Floor only" },
 };
 
 const SALARY_EST = {
@@ -1001,116 +1001,124 @@ export default function App() {
   const toggle = b => setCollapsed(s => ({ ...s, [b]: !s[b] }));
 
   return (
-    <div style={{ minHeight:"100vh", background:"#f1f0ed", fontFamily:"Georgia,'Times New Roman',serif" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+    <div style={{ minHeight:"100vh", background:"#f8fafc", fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif", color:"#0f172a" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
-      <div style={{ background:"#0b0f19", color:"#fff", padding:"20px 24px 14px", position:"sticky", top:0, zIndex:30, borderBottom:"3px solid #c8860a" }}>
-        <div style={{ maxWidth:1080, margin:"0 auto" }}>
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12, flexWrap:"wrap" }}>
+      <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0", position:"sticky", top:0, zIndex:30, boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
+        <div style={{ maxWidth:1120, margin:"0 auto", padding:"18px 28px 14px" }}>
+
+          {/* Title + stats row */}
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:16, flexWrap:"wrap", marginBottom:14 }}>
             <div>
-              <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"#c8860a", letterSpacing:"0.22em", textTransform:"uppercase", marginBottom:4 }}>
-                Mortgage Product Role Ecosystem · Verified Active · May 17, 2026
+              <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:11, fontWeight:600, color:"#0891b2", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:5 }}>
+                Mortgage Product Role Ecosystem · Verified Active · May 2026
               </div>
-              <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:18, fontWeight:900, margin:0, color:"#fff", lineHeight:1.2 }}>
-                Mortgage Tech Roles — Expanded Families
+              <h1 style={{ fontFamily:"'Inter',sans-serif", fontSize:24, fontWeight:700, margin:0, color:"#0f172a", lineHeight:1.2, letterSpacing:"-0.01em" }}>
+                Operation GSD — Roles Tracker
               </h1>
-              <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, color:"#555", marginTop:3 }}>
+              <div style={{ fontSize:13, color:"#64748b", marginTop:4, lineHeight:1.5 }}>
                 PM · PO · BA · Delivery · Scrum · Implementation · Solutions · CSM · Ops · QA · Compliance
               </div>
             </div>
-            <div style={{ display:"flex", gap:12, alignItems:"center" }}>
+
+            {/* Bucket counts + total */}
+            <div style={{ display:"flex", gap:20, alignItems:"center", flexShrink:0 }}>
               {Object.values(B).map(b => {
                 const m = META[b]; const ct = byBucket[b]?.length ?? 0;
-                const col = m.c === "#0d47a1" ? "#64b5f6" : m.c === "#6a1b9a" ? "#ce93d8" : "#81c784";
                 return (
                   <div key={b} style={{ textAlign:"center" }}>
-                    <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:20, fontWeight:700, color:col }}>{ct}</div>
-                    <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:7, color:"#555" }}>{b.split(" ")[0]}</div>
+                    <div style={{ fontSize:26, fontWeight:700, color:m.c, lineHeight:1 }}>{ct}</div>
+                    <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>{b.split(" ")[0]}</div>
                   </div>
                 );
               })}
-              <div style={{ borderLeft:"1px solid #1e1e1e", paddingLeft:12 }}>
-                <div style={{ fontFamily:"'Playfair Display',serif", fontSize:28, fontWeight:900, color:"#c8860a" }}>{filtered.length}</div>
-                <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:7, color:"#555" }}>total roles</div>
+              <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
+                <div style={{ fontSize:32, fontWeight:700, color:"#0891b2", lineHeight:1 }}>{filtered.length}</div>
+                <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>total roles</div>
               </div>
             </div>
           </div>
 
-          {/* disclaimer */}
-          <div style={{ background:"#111827", border:"1px solid #1f2a44", borderRadius:3, padding:"5px 10px", marginTop:9,
-            fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"#6979b8", lineHeight:1.6 }}>
-            ⚠ All listings confirmed active Apr–May 2026. "Various" company entries represent an active role-family category — search each company's career page + LinkedIn. Verify before applying.
+          {/* Search row */}
+          <div style={{ display:"flex", gap:8, marginBottom:10, flexWrap:"wrap" }}>
+            <input value={search} onChange={e => setSearch(e.target.value)}
+              placeholder="Search title · company · skill · city · keyword…"
+              style={{ flex:1, minWidth:240, padding:"10px 16px", borderRadius:8,
+                border:"1px solid #e2e8f0", background:"#f8fafc", color:"#0f172a",
+                fontSize:14, fontFamily:"'Inter',sans-serif", outline:"none",
+                boxShadow:"inset 0 1px 2px rgba(0,0,0,0.04)" }} />
+            <select value={bucketFilter} onChange={e => setBucket(e.target.value)}
+              style={{ padding:"10px 14px", borderRadius:8, border:"1px solid #e2e8f0",
+                background:"#f8fafc", color:"#374151", fontSize:14,
+                fontFamily:"'Inter',sans-serif", cursor:"pointer" }}>
+              {ALL_BUCKETS.map(b => <option key={b}>{b}</option>)}
+            </select>
+            <button onClick={() => setNotes(s => !s)}
+              style={{ padding:"10px 18px", borderRadius:8,
+                border:`1.5px solid ${showNotes ? "#0891b2" : "#e2e8f0"}`,
+                background: showNotes ? "#e0f9ff" : "#ffffff",
+                color: showNotes ? "#0891b2" : "#6b7280",
+                fontSize:14, fontFamily:"'Inter',sans-serif", cursor:"pointer", fontWeight:600, whiteSpace:"nowrap" }}>
+              {showNotes ? "Hide Notes" : "Show Notes"}
+            </button>
+            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All") && (
+              <button onClick={() => { setSearch(""); setBucket("All"); setFamily("All"); setTier("All"); }}
+                style={{ padding:"10px 18px", borderRadius:8, border:"1px solid #e2e8f0",
+                  background:"#ffffff", color:"#6b7280", fontSize:14,
+                  fontFamily:"'Inter',sans-serif", cursor:"pointer" }}>
+                Clear filters
+              </button>
+            )}
           </div>
 
-          {/* SALARY TIER FILTER */}
-          <div style={{ display:"flex", gap:6, marginTop:10, alignItems:"center", flexWrap:"wrap" }}>
-            <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"#666", marginRight:4 }}>SALARY TIER:</span>
+          {/* Tier filter row */}
+          <div style={{ display:"flex", gap:6, marginBottom:8, alignItems:"center", flexWrap:"wrap" }}>
+            <span style={{ fontSize:11, color:"#94a3b8", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", marginRight:4, letterSpacing:"0.08em" }}>SALARY:</span>
             <button onClick={() => setTier("All")}
-              style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, padding:"4px 12px", borderRadius:3,
-                border:"1px solid #444", background: tierFilter === "All" ? "#444" : "transparent",
-                color: tierFilter === "All" ? "#fff" : "#aaa", cursor:"pointer", fontWeight:600 }}>
+              style={{ fontSize:13, fontWeight:600, padding:"5px 14px", borderRadius:6,
+                border:"1.5px solid #e2e8f0",
+                background: tierFilter === "All" ? "#0f172a" : "#ffffff",
+                color: tierFilter === "All" ? "#ffffff" : "#6b7280",
+                cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
               All ({jobs.length})
             </button>
             {Object.entries(TIER_META).map(([tier, m]) => (
               <button key={tier} onClick={() => setTier(tierFilter === tier ? "All" : tier)}
-                style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, padding:"4px 12px", borderRadius:3,
-                  border:`1px solid ${m.color}`,
-                  background: tierFilter === tier ? m.color : "transparent",
-                  color: tierFilter === tier ? (tier === "A" ? "#000" : "#fff") : m.color,
-                  cursor:"pointer", fontWeight:700, whiteSpace:"nowrap" }}>
-                {m.label} — {m.desc} ({tierCounts[tier]})
+                style={{ fontSize:13, fontWeight:700, padding:"5px 16px", borderRadius:6,
+                  border:`1.5px solid ${m.color}`,
+                  background: tierFilter === tier ? m.color : "#ffffff",
+                  color: tierFilter === tier ? "#ffffff" : m.color,
+                  cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif" }}>
+                {tier === "A" ? "★ " : ""}{m.label} ({tierCounts[tier]})
               </button>
             ))}
           </div>
 
-          {/* ROLE FAMILY LEGEND */}
-          <div style={{ display:"flex", gap:6, marginTop:8, flexWrap:"wrap" }}>
+          {/* Role family filter row */}
+          <div style={{ display:"flex", gap:5, flexWrap:"wrap", marginBottom:10 }}>
             {Object.entries(FAMILY_LABELS).map(([k, v]) => (
               <button key={k} onClick={() => setFamily(familyFilter === k ? "All" : k)}
-                style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, padding:"2px 8px", borderRadius:3,
-                  border:`1px solid ${FAMILY_COLORS[k]}`,
-                  background: familyFilter === k ? FAMILY_COLORS[k] : "transparent",
-                  color: familyFilter === k ? "#fff" : FAMILY_COLORS[k],
-                  cursor:"pointer", whiteSpace:"nowrap" }}>
-                {k} — {v}
+                style={{ fontSize:12, fontWeight:600, padding:"4px 12px", borderRadius:6,
+                  border:`1.5px solid ${FAMILY_COLORS[k]}`,
+                  background: familyFilter === k ? FAMILY_COLORS[k] : "#ffffff",
+                  color: familyFilter === k ? "#ffffff" : FAMILY_COLORS[k],
+                  cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif" }}>
+                {k}
               </button>
             ))}
           </div>
 
-          {/* FILTERS */}
-          <div style={{ display:"flex", gap:7, marginTop:8, flexWrap:"wrap" }}>
-            <input value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="Search title · company · skill · city · keyword…"
-              style={{ flex:1, minWidth:200, padding:"6px 10px", borderRadius:3,
-                border:"1px solid #222", background:"#141b2a", color:"#fff",
-                fontSize:12, fontFamily:"'IBM Plex Mono',monospace", outline:"none" }} />
-            <select value={bucketFilter} onChange={e => setBucket(e.target.value)}
-              style={{ padding:"6px 8px", borderRadius:3, border:"1px solid #222",
-                background:"#141b2a", color:"#ccc", fontSize:10, fontFamily:"'IBM Plex Mono',monospace" }}>
-              {ALL_BUCKETS.map(b => <option key={b}>{b}</option>)}
-            </select>
-            <button onClick={() => setNotes(s => !s)}
-              style={{ padding:"6px 11px", borderRadius:3, border:"1px solid #c8860a",
-                background: showNotes ? "#c8860a" : "transparent",
-                color: showNotes ? "#000" : "#c8860a",
-                fontSize:9, fontFamily:"'IBM Plex Mono',monospace", cursor:"pointer", fontWeight:600 }}>
-              {showNotes ? "HIDE" : "SHOW"} NOTES
-            </button>
-            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All") && (
-              <button onClick={() => { setSearch(""); setBucket("All"); setFamily("All"); setTier("All"); }}
-                style={{ padding:"6px 11px", borderRadius:3, border:"1px solid #666",
-                  background:"transparent", color:"#888",
-                  fontSize:9, fontFamily:"'IBM Plex Mono',monospace", cursor:"pointer" }}>
-                CLEAR
-              </button>
-            )}
+          {/* Disclaimer */}
+          <div style={{ background:"#f0f9ff", border:"1px solid #bae6fd", borderRadius:8, padding:"8px 14px",
+            fontSize:12, color:"#0369a1", lineHeight:1.5, fontFamily:"'IBM Plex Mono',monospace" }}>
+            All listings confirmed active Apr–May 2026. "Various" entries = active role category — search each company's career page + LinkedIn. Verify before applying.
           </div>
         </div>
       </div>
 
       {/* ── BODY ───────────────────────────────────────────────── */}
-      <div style={{ maxWidth:1080, margin:"0 auto", padding:"16px 24px 50px" }}>
+      <div style={{ maxWidth:1120, margin:"0 auto", padding:"22px 28px 60px" }}>
         {Object.values(B).map(bucket => {
           const m = META[bucket];
           const items = byBucket[bucket];
@@ -1118,115 +1126,142 @@ export default function App() {
           const isOpen = !collapsed[bucket];
 
           return (
-            <div key={bucket} style={{ marginBottom:26 }}>
-              {/* bucket header */}
+            <div key={bucket} style={{ marginBottom:28 }}>
+              {/* Bucket header button */}
               <button onClick={() => toggle(bucket)}
-                style={{ width:"100%", background:"none", border:"none", cursor:"pointer", textAlign:"left", padding:0, marginBottom:0 }}>
-                <div style={{ background:m.c, borderRadius:"4px 4px 0 0", padding:"9px 15px",
+                style={{ width:"100%", background:"none", border:"none", cursor:"pointer", textAlign:"left", padding:0 }}>
+                <div style={{ background:m.c, borderRadius: isOpen ? "10px 10px 0 0" : "10px", padding:"13px 20px",
                   display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                   <div>
-                    <span style={{ fontFamily:"'Playfair Display',serif", fontSize:14, fontWeight:900, color:"#fff" }}>
+                    <span style={{ fontSize:17, fontWeight:700, color:"#ffffff", fontFamily:"'Inter',sans-serif" }}>
                       {bucket}
-                      <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:10, fontWeight:400,
-                        background:"rgba(255,255,255,0.18)", padding:"2px 8px", borderRadius:3, marginLeft:10 }}>
+                      <span style={{ fontSize:13, fontWeight:500, background:"rgba(255,255,255,0.2)",
+                        padding:"2px 10px", borderRadius:5, marginLeft:10 }}>
                         {items.length} roles
                       </span>
                     </span>
-                    <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"rgba(255,255,255,0.6)", marginTop:2 }}>{m.sub}</div>
+                    <div style={{ fontSize:12, color:"rgba(255,255,255,0.75)", marginTop:3, fontFamily:"'Inter',sans-serif" }}>{m.sub}</div>
                   </div>
-                  <span style={{ color:"rgba(255,255,255,0.6)", fontSize:12, fontFamily:"'IBM Plex Mono',monospace" }}>
+                  <span style={{ color:"rgba(255,255,255,0.8)", fontSize:14, fontFamily:"'IBM Plex Mono',monospace" }}>
                     {isOpen ? "▲" : "▼"}
                   </span>
                 </div>
               </button>
 
-              {isOpen && items.map((job, idx) => {
-                const fc = FAMILY_COLORS[job.family] || "#555";
-                const sd = SALARY_EST[job.id];
-                const tm = sd ? TIER_META[sd.tier] : null;
-                return (
-                  <div key={job.id}
-                    style={{ background: sd?.tier === "A" ? "#fffdf5" : "#fff",
-                      border:"1px solid #e6e3df",
-                      borderLeft:`4px solid ${tm ? tm.color : m.c}`,
-                      borderRadius: idx === items.length-1 ? "0 0 4px 4px" : 0,
-                      padding:"11px 14px",
-                      borderTop: idx === 0 ? "none" : "1px solid #eee",
-                      transition:"box-shadow 0.12s" }}
-                    onMouseEnter={e => e.currentTarget.style.boxShadow="0 3px 14px rgba(0,0,0,0.09)"}
-                    onMouseLeave={e => e.currentTarget.style.boxShadow="none"}>
-                    <div style={{ display:"flex", justifyContent:"space-between", gap:10, alignItems:"flex-start" }}>
-                      {/* LEFT */}
-                      <div style={{ flex:1 }}>
-                        <div style={{ display:"flex", alignItems:"baseline", gap:7, marginBottom:2, flexWrap:"wrap" }}>
-                          <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"#ccc", minWidth:30 }}>#{idx+1}</span>
-                          {/* salary tier badge */}
-                          {tm && <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, fontWeight:800,
-                            color: sd.tier === "A" ? "#000" : tm.color,
-                            background: tm.bg, border:`1px solid ${tm.color}`,
-                            padding:"1px 6px", borderRadius:2, letterSpacing:"0.05em" }}>
-                            {sd.tier === "A" ? "★ TIER A" : sd.tier === "B" ? "TIER B" : "TIER C"}
-                          </span>}
-                          {/* role family badge */}
-                          <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, fontWeight:600,
-                            color:fc, background:fc+"18", border:`1px solid ${fc}44`,
-                            padding:"1px 6px", borderRadius:2 }}>{job.family}</span>
-                          <span style={{ fontFamily:"'Playfair Display',serif", fontSize:13, fontWeight:700,
-                            color:"#111", lineHeight:1.3 }}>{job.title}</span>
+              {isOpen && (
+                <div style={{ border:`1px solid ${m.c}35`, borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden", boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  {items.map((job, idx) => {
+                    const fc = FAMILY_COLORS[job.family] || "#64748b";
+                    const sd = SALARY_EST[job.id];
+                    const tm = sd ? TIER_META[sd.tier] : null;
+                    return (
+                      <div key={job.id}
+                        style={{ background: sd?.tier === "A" ? "#fffef5" : "#ffffff",
+                          borderLeft:`4px solid ${tm ? tm.color : m.c}`,
+                          padding:"16px 20px",
+                          borderTop: idx === 0 ? "none" : "1px solid #f1f5f9",
+                          transition:"background 0.1s" }}
+                        onMouseEnter={e => e.currentTarget.style.background="#f8fafc"}
+                        onMouseLeave={e => e.currentTarget.style.background = sd?.tier === "A" ? "#fffef5" : "#ffffff"}>
+                        <div style={{ display:"flex", justifyContent:"space-between", gap:14, alignItems:"flex-start" }}>
+
+                          {/* LEFT */}
+                          <div style={{ flex:1 }}>
+                            {/* Badge + title row */}
+                            <div style={{ display:"flex", alignItems:"center", gap:7, marginBottom:6, flexWrap:"wrap" }}>
+                              <span style={{ fontSize:12, color:"#cbd5e1", fontFamily:"'IBM Plex Mono',monospace", minWidth:28 }}>#{idx+1}</span>
+                              {tm && (
+                                <span style={{ fontSize:11, fontWeight:700, fontFamily:"'IBM Plex Mono',monospace",
+                                  color: sd.tier === "A" ? "#92400e" : tm.color,
+                                  background: tm.bg, border:`1.5px solid ${tm.color}50`,
+                                  padding:"2px 9px", borderRadius:5, letterSpacing:"0.05em" }}>
+                                  {sd.tier === "A" ? "★ TIER A" : sd.tier === "B" ? "TIER B" : "TIER C"}
+                                </span>
+                              )}
+                              <span style={{ fontSize:11, fontWeight:600, fontFamily:"'IBM Plex Mono',monospace",
+                                color:fc, background:fc+"15", border:`1.5px solid ${fc}40`,
+                                padding:"2px 9px", borderRadius:5 }}>
+                                {job.family}
+                              </span>
+                              <span style={{ fontSize:16, fontWeight:700, color:"#0f172a", lineHeight:1.3, fontFamily:"'Inter',sans-serif" }}>
+                                {job.title}
+                              </span>
+                            </div>
+
+                            {/* Company / city / salary */}
+                            <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:8, marginBottom:8 }}>
+                              <span style={{ fontSize:15, fontWeight:600, color:"#1e293b", fontFamily:"'Inter',sans-serif" }}>{job.company}</span>
+                              <span style={{ fontSize:14, color:"#cbd5e1" }}>·</span>
+                              <span style={{ fontSize:14, color:"#64748b", fontFamily:"'Inter',sans-serif" }}>{job.city}</span>
+                              {sd && <>
+                                <span style={{ fontSize:14, color:"#cbd5e1" }}>·</span>
+                                <span style={{ fontSize:13, fontWeight:600, fontFamily:"'IBM Plex Mono',monospace",
+                                  color: sd.tier === "A" ? "#b45309" : sd.tier === "B" ? "#1d4ed8" : "#4b5563" }}>
+                                  {sd.est}{job.salary && job.salary !== sd.est ? " (listed)" : ""}
+                                </span>
+                              </>}
+                            </div>
+
+                            {/* Tags */}
+                            <div style={{ display:"flex", flexWrap:"wrap", gap:5, marginBottom: showNotes && job.notes ? 9 : 0 }}>
+                              {(job.tags||[]).map(t => (
+                                <span key={t} style={{ fontSize:12, fontFamily:"'IBM Plex Mono',monospace",
+                                  background:m.bg, color:m.c,
+                                  padding:"3px 9px", borderRadius:5, border:`1px solid ${m.c}30` }}>
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+
+                            {/* Notes */}
+                            {showNotes && job.notes && (
+                              <div style={{ fontSize:13, color:"#475569", lineHeight:1.65,
+                                paddingTop:5, paddingLeft:12,
+                                borderLeft:`3px solid ${m.bg}`,
+                                fontFamily:"'Inter',sans-serif" }}>
+                                {job.notes}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* RIGHT */}
+                          <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6, flexShrink:0 }}>
+                            <span style={{ fontSize:12, color:"#94a3b8", fontFamily:"'IBM Plex Mono',monospace" }}>📅 {job.posted}</span>
+                            <span style={{ fontSize:11, color:"#94a3b8", background:"#f8fafc",
+                              padding:"3px 9px", borderRadius:5, border:"1px solid #e2e8f0",
+                              fontFamily:"'IBM Plex Mono',monospace" }}>
+                              {job.source}
+                            </span>
+                            <a href={job.url} target="_blank" rel="noreferrer"
+                              style={{ fontSize:14, fontWeight:700, color:"#ffffff",
+                                background: m.c, padding:"9px 18px", borderRadius:8,
+                                textDecoration:"none", marginTop:2, whiteSpace:"nowrap",
+                                fontFamily:"'Inter',sans-serif",
+                                boxShadow:`0 2px 6px ${m.c}50` }}>
+                              Apply →
+                            </a>
+                          </div>
                         </div>
-                        <div style={{ paddingLeft:30, display:"flex", flexWrap:"wrap", alignItems:"center", gap:7, marginBottom:5 }}>
-                          <span style={{ fontFamily:"'Source Serif 4',serif", fontSize:12, fontWeight:600, color:"#333" }}>{job.company}</span>
-                          <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, color:"#bbb" }}>·</span>
-                          <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, color:"#777" }}>{job.city}</span>
-                          {sd && <>
-                            <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, color:"#bbb" }}>·</span>
-                            <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9,
-                              color: sd.tier === "A" ? "#c8860a" : sd.tier === "B" ? "#1976d2" : "#616161",
-                              fontWeight:600 }}>{sd.est}{job.salary && job.salary !== sd.est ? " (listed)" : ""}</span>
-                          </>}
-                        </div>
-                        <div style={{ paddingLeft:30, display:"flex", flexWrap:"wrap", gap:3, marginBottom: showNotes && job.notes ? 6 : 0 }}>
-                          {(job.tags||[]).map(t => (
-                            <span key={t} style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8,
-                              background:m.bg, color:m.c, padding:"1px 5px", borderRadius:2,
-                              border:`1px solid ${m.c}22` }}>{t}</span>
-                          ))}
-                        </div>
-                        {showNotes && job.notes && (
-                          <div style={{ paddingLeft:30, fontFamily:"'Source Serif 4',serif", fontSize:11,
-                            color:"#555", lineHeight:1.55, paddingTop:3,
-                            borderLeft:`2px solid ${m.bg}` }}>{job.notes}</div>
-                        )}
                       </div>
-                      {/* RIGHT */}
-                      <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:4, flexShrink:0 }}>
-                        <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"#999" }}>📅 {job.posted}</span>
-                        <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:7, color:"#bbb",
-                          background:"#f8f7f4", padding:"2px 5px", borderRadius:2, border:"1px solid #eee" }}>{job.source}</span>
-                        <a href={job.url} target="_blank" rel="noreferrer"
-                          style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:9, color:m.c, fontWeight:600,
-                            padding:"4px 9px", border:`1px solid ${m.c}`, borderRadius:3,
-                            textDecoration:"none", marginTop:2, whiteSpace:"nowrap" }}>
-                          Apply →
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              )}
             </div>
           );
         })}
+
         {filtered.length === 0 && (
-          <div style={{ textAlign:"center", padding:60, color:"#aaa", fontFamily:"'IBM Plex Mono',monospace", fontSize:12 }}>
+          <div style={{ textAlign:"center", padding:80, color:"#94a3b8", fontSize:16, fontFamily:"'Inter',sans-serif" }}>
             No matches. Try clearing a filter.
           </div>
         )}
       </div>
 
       {/* FOOTER */}
-      <div style={{ borderTop:"1px solid #ddd", padding:"12px 24px", textAlign:"center",
-        fontFamily:"'IBM Plex Mono',monospace", fontSize:8, color:"#bbb", background:"#eae8e4" }}>
+      <div style={{ borderTop:"1px solid #e2e8f0", padding:"16px 28px", textAlign:"center",
+        fontSize:12, color:"#94a3b8", background:"#ffffff",
+        fontFamily:"'IBM Plex Mono',monospace", lineHeight:1.6 }}>
         Compiled May 17, 2026 · Sources: Greenhouse, Lever, Ashby, Glassdoor, Indeed, Built In SF, LinkedIn, Spectrum Equity, Teal HQ, company career pages · Verify before applying
       </div>
     </div>
