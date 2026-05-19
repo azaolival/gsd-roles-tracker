@@ -99,6 +99,7 @@ const SALARY_EST = {
   B21:{ tier:"C", est:"$90K–$120K"   },   // SavvyMoney Sr. Solutions Consultant (listed)
   B22:{ tier:"B", est:"$125K–$140K"  },   // SavvyMoney Sr. Manager Partner Onboarding (listed)
   B23:{ tier:"B", est:"$145K–$170K"  },   // SavvyMoney Sr. Technical PM (listed)
+  B24:{ tier:"A", est:"$146K–$235K"  },   // DocuSign Sr. PM Agentic Experiences (listed)
   // ── SOUTH BAY ───────────────────────────────────────────────────────────────
   S01:{ tier:"B", est:"~$145K–$175K" },   // ICE PM Mortgage Servicing
   S02:{ tier:"B", est:"~$140K–$175K" },   // PayPal Sr. Product Analyst
@@ -369,6 +370,15 @@ const jobs = [
     url:"https://careers.spectrumequity.com/companies/savvymoney-inc/jobs/50573227-senior-technical-product-manager-dublin-ca-or-usa-remote", source:"Spectrum Equity",
     tags:["technical PM","product manager","lending","digital banking","SaaS","fintech","APIs"],
     notes:"Technical PM for credit score + PF products integrated with 43+ digital banking platforms. $145K–$170K + equity. Hybrid Dublin CA or fully remote." },
+
+  { id:"B24", bucket:B.BAY, family:"PM/PO/BA",
+    title:"Senior Product Manager — Agentic Experiences",
+    company:"DocuSign", city:"San Francisco CA (Hybrid)",
+    salary:"$146K–$235K + RSUs + Bonus", posted:"Active May 2026",
+    url:"https://uscareers-docusign.icims.com/jobs/29181/senior-product-manager---agentic-experiences/job",
+    source:"iCIMS / DocuSign Careers",
+    tags:["agentic AI","product manager","LLM","procurement","intelligent agreements","CLM","enterprise SaaS","AI agents","workflow automation"],
+    notes:"Lead agentic AI experiences for DocuSign Navigator — AI agents for procurement workflows (savings identification, renewal optimization, vendor analysis). Reports to Sr. Director PM. 8+ yrs PM req. Agentic AI + enterprise SaaS required. LLM/agentic systems preferred. SF/Chicago/Seattle hybrid." },
 
   // ══════════════════════════════════════════════════════════════════════════
   // 🏢  SOUTH BAY / SILICON VALLEY ONSITE
