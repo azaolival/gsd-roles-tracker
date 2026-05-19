@@ -1335,6 +1335,8 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
 export default function App() {
   const pipeline = usePipeline();
   const [tab, setTab] = useState("board");
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("gsd-dark") === "1");
+  const toggleDark = () => setDarkMode(d => { const n = !d; localStorage.setItem("gsd-dark", n ? "1" : "0"); return n; });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerJob, setDrawerJob] = useState(null);    // board job object
   const [drawerCardId, setDrawerCardId] = useState(null); // pipeline card id
@@ -1382,14 +1384,14 @@ export default function App() {
 
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
-    const t = setInterval(() => setNow(new Date()), 1000);
+    const t = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(t);
   }, []);
 
   const pstClock = now.toLocaleString("en-US", {
     timeZone: "America/Los_Angeles",
     weekday: "short", month: "short", day: "numeric",
-    hour: "numeric", minute: "2-digit", second: "2-digit",
+    hour: "numeric", minute: "2-digit",
     hour12: true,
   });
 
@@ -1401,9 +1403,17 @@ export default function App() {
     transition:"background .15s, color .15s",
   });
 
+  const iconBtn = {
+    padding:"6px 10px", borderRadius:7, border:"1px solid #e2e8f0",
+    background:"transparent", cursor:"pointer", fontSize:16, lineHeight:1,
+    color:"#64748b", transition:"background .15s",
+  };
+
   return (
     <div style={{ height:"100vh", overflow:"hidden", display:"flex", flexDirection:"column", background:"#f8fafc",
-      fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif" }}>
+      fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif",
+      filter: darkMode ? "invert(1) hue-rotate(180deg)" : "none",
+      transition:"filter .25s" }}>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 
       {/* Top nav */}
@@ -1438,8 +1448,8 @@ export default function App() {
             </span>
           )}
 
-          {/* Live PST clock */}
-          <div style={{ marginLeft:"auto", display:"flex", alignItems:"center", gap:7, flexShrink:0 }}>
+          {/* Live PST clock + controls */}
+          <div style={{ marginLeft:"auto", display:"flex", alignItems:"center", gap:8, flexShrink:0 }}>
             <span style={{ width:7, height:7, borderRadius:"50%", background:"#22c55e", flexShrink:0,
               boxShadow:"0 0 0 2px rgba(34,197,94,0.25)",
               animation:"pulse 2s ease-in-out infinite" }}/>
@@ -1447,6 +1457,12 @@ export default function App() {
               letterSpacing:.2, whiteSpace:"nowrap" }}>
               {pstClock} PST
             </span>
+            <button onClick={() => window.location.reload()} title="Refresh page" style={iconBtn}>
+              ↻
+            </button>
+            <button onClick={toggleDark} title={darkMode ? "Switch to light mode" : "Switch to dark mode"} style={iconBtn}>
+              {darkMode ? "☀" : "🌙"}
+            </button>
           </div>
           <style>{`@keyframes pulse { 0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,.25)} 50%{box-shadow:0 0 0 5px rgba(34,197,94,.1)} }`}</style>
         </div>
