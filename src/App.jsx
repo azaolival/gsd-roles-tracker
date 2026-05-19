@@ -993,11 +993,25 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
   const [showNotes, setNotes]         = useState(true);
   const [collapsed, setCollapsed]     = useState({});
   const [appliedOnly, setAppliedOnly] = useState(false);
+  const [dismissed, setDismissed]     = useState(() => new Set(JSON.parse(localStorage.getItem("gsd-dismissed") || "[]")));
+
+  const dismissRole = (id) => setDismissed(prev => {
+    const next = new Set(prev);
+    next.add(id);
+    localStorage.setItem("gsd-dismissed", JSON.stringify([...next]));
+    return next;
+  });
+
+  const restoreAll = () => {
+    localStorage.removeItem("gsd-dismissed");
+    setDismissed(new Set());
+  };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
     return jobs
       .filter(j => {
+        if (dismissed.has(j.id)) return false;
         const ms = !q || [j.title, j.company, j.city, j.family, ...(j.tags||[]), j.notes||""]
           .join(" ").toLowerCase().includes(q);
         const mb = bucketFilter === "All" || j.bucket === bucketFilter;
@@ -1069,6 +1083,15 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
                 <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
                   <div style={{ fontSize:32, fontWeight:700, color:"#059669", lineHeight:1 }}>{pipelineStatusMap.size}</div>
                   <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>in pipeline</div>
+                </div>
+              )}
+              {dismissed.size > 0 && (
+                <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20, textAlign:"center" }}>
+                  <div style={{ fontSize:32, fontWeight:700, color:"#94a3b8", lineHeight:1 }}>{dismissed.size}</div>
+                  <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>hidden</div>
+                  <button onClick={restoreAll} style={{ fontSize:10, color:"#0891b2", background:"none", border:"none", cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", padding:0, marginTop:2 }}>
+                    restore all
+                  </button>
                 </div>
               )}
             </div>
@@ -1298,6 +1321,17 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
                                 fontFamily:"'Inter',sans-serif",
                                 boxShadow: pipelineRoleIds.has(job.id) ? "0 2px 6px rgba(5,150,105,0.35)" : "0 2px 6px rgba(8,145,178,0.35)" }}>
                               {pipelineRoleIds.has(job.id) ? "In Pipeline ✓" : "Track + Apply →"}
+                            </button>
+                            <button
+                              onClick={() => dismissRole(job.id)}
+                              title="Not a fit — remove from board"
+                              style={{ fontSize:11, fontWeight:500, color:"#cbd5e1", background:"none",
+                                border:"1px solid #e2e8f0", borderRadius:6, padding:"4px 10px",
+                                cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace",
+                                transition:"color .15s, border-color .15s" }}
+                              onMouseEnter={e => { e.currentTarget.style.color="#ef4444"; e.currentTarget.style.borderColor="#fca5a5"; }}
+                              onMouseLeave={e => { e.currentTarget.style.color="#cbd5e1"; e.currentTarget.style.borderColor="#e2e8f0"; }}>
+                              ✕ no thanks
                             </button>
                           </div>
                         </div>
