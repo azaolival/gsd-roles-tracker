@@ -1029,11 +1029,11 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
   const toggle = b => setCollapsed(s => ({ ...s, [b]: !s[b] }));
 
   return (
-    <div style={{ minHeight:"100vh", background:"#f8fafc", fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif", color:"#0f172a" }}>
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", overflow:"hidden", background:"#f8fafc", fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif", color:"#0f172a" }}>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
-      <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0", position:"sticky", top:0, zIndex:30, boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
+      <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0", zIndex:20, boxShadow:"0 1px 4px rgba(0,0,0,0.06)", flexShrink:0 }}>
         <div style={{ maxWidth:1120, margin:"0 auto", padding:"18px 28px 14px" }}>
 
           {/* Title + stats row */}
@@ -1160,6 +1160,9 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
           </div>
         </div>
       </div>
+
+      {/* ── SCROLLABLE AREA (body + footer) ────────────────────── */}
+      <div style={{ flex:1, overflowY:"auto" }}>
 
       {/* ── BODY ───────────────────────────────────────────────── */}
       <div style={{ maxWidth:1120, margin:"0 auto", padding:"22px 28px 60px" }}>
@@ -1320,6 +1323,8 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
         fontFamily:"'IBM Plex Mono',monospace", lineHeight:1.6 }}>
         Compiled May 17, 2026 · Sources: Greenhouse, Lever, Ashby, Glassdoor, Indeed, Built In SF, LinkedIn, Spectrum Equity, Teal HQ, company career pages · Verify before applying
       </div>
+
+      </div>{/* end scrollable area */}
     </div>
   );
 }
@@ -1397,13 +1402,13 @@ export default function App() {
   });
 
   return (
-    <div style={{ minHeight:"100vh", background:"#f8fafc",
+    <div style={{ height:"100vh", overflow:"hidden", display:"flex", flexDirection:"column", background:"#f8fafc",
       fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 
       {/* Top nav */}
       <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0",
-        position:"sticky", top:0, zIndex:30, boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
+        zIndex:30, boxShadow:"0 1px 4px rgba(0,0,0,0.06)", flexShrink:0 }}>
         <div style={{ maxWidth:1400, margin:"0 auto", padding:"10px 28px",
           display:"flex", alignItems:"center", gap:8 }}>
           <div style={{ fontSize:18, fontWeight:800, color:"#0f172a",
@@ -1447,19 +1452,21 @@ export default function App() {
         </div>
       </div>
 
-      {tab === "board" && (
-        <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} />
-      )}
-      {tab === "pipeline" && (
-        <Pipeline
-          cards={pipeline.cards}
-          moveCard={pipeline.moveCard}
-          deleteCard={pipeline.deleteCard}
-          exportData={pipeline.exportData}
-          importData={pipeline.importData}
-          onOpenDrawer={handleOpenCard}
-        />
-      )}
+      <div style={{ flex:1, overflow:"hidden", display:"flex", flexDirection:"column" }}>
+        {tab === "board" && (
+          <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} />
+        )}
+        {tab === "pipeline" && (
+          <Pipeline
+            cards={pipeline.cards}
+            moveCard={pipeline.moveCard}
+            deleteCard={pipeline.deleteCard}
+            exportData={pipeline.exportData}
+            importData={pipeline.importData}
+            onOpenDrawer={handleOpenCard}
+          />
+        )}
+      </div>
 
       <WorkflowDrawer
         open={drawerOpen}
