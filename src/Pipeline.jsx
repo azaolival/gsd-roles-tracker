@@ -1,28 +1,28 @@
-// Pipeline.jsx — GSD job search kanban with session-aware queue UX
+// Pipeline.jsx — GSD job search kanban · unified grid view with search
 
 const TIER_COLOR = { A:"#b45309", B:"#1d4ed8", C:"#4b5563" };
 const TIER_BG    = { A:"#fef3c7", B:"#dbeafe", C:"#f3f4f6" };
 
-// Columns the user actively works through (left → right)
 const FLOW_COLS = [
-  { key:"TARGETED",    label:"Queue",        sub:"Identified — not applied", color:"#6366f1", bg:"#eef2ff", border:"#c7d2fe", action:true },
-  { key:"IN_PROGRESS", label:"Working",      sub:"Tailor & apply in progress", color:"#b45309", bg:"#fffbeb", border:"#fde68a", action:true },
-  { key:"APPLIED",     label:"Applied",      sub:"Submitted — monitoring",   color:"#0891b2", bg:"#f0f9ff", border:"#bae6fd" },
-  { key:"COLD_OUTREACH",label:"Cold Outreach",sub:"No open role — radar only",color:"#c2410c", bg:"#fff7ed", border:"#fed7aa" },
+  { key:"TARGETED",     label:"Queue",         sub:"Identified — not applied",   color:"#6366f1", bg:"#eef2ff", border:"#c7d2fe", action:true },
+  { key:"IN_PROGRESS",  label:"Working",       sub:"Tailor & apply in progress", color:"#b45309", bg:"#fffbeb", border:"#fde68a", action:true },
+  { key:"APPLIED",      label:"Applied",       sub:"Submitted — monitoring",     color:"#0891b2", bg:"#f0f9ff", border:"#bae6fd" },
+  { key:"COLD_OUTREACH",label:"Cold Outreach", sub:"No open role — radar only",  color:"#c2410c", bg:"#fff7ed", border:"#fed7aa" },
 ];
 
-// Hot signals — these get a separate elevated zone
 const HOT_COLS = [
-  { key:"CALLBACK",  label:"Callback",   color:"#7c3aed", bg:"#faf5ff", border:"#ddd6fe" },
-  { key:"INTERVIEW", label:"Interview!", color:"#059669", bg:"#ecfdf5", border:"#a7f3d0" },
-  { key:"OFFER",     label:"Offer!",     color:"#92400e", bg:"#fefce8", border:"#fde047" },
+  { key:"CALLBACK",  label:"Callback",   sub:"They reached out",  color:"#7c3aed", bg:"#faf5ff", border:"#ddd6fe", isHot:true },
+  { key:"INTERVIEW", label:"Interview!", sub:"In the process",    color:"#059669", bg:"#ecfdf5", border:"#a7f3d0", isHot:true },
+  { key:"OFFER",     label:"Offer!",     sub:"Offer in hand",     color:"#92400e", bg:"#fefce8", border:"#fde047", isHot:true },
 ];
 
-// Dead — collapsed by default
 const DEAD_COLS = [
-  { key:"NO_THANKS", label:"No Thanks", color:"#dc2626", bg:"#fef2f2", border:"#fecaca" },
-  { key:"GHOSTED",   label:"Ghosted",   color:"#94a3b8", bg:"#f8fafc", border:"#e2e8f0" },
+  { key:"NO_THANKS",          label:"No Thanks",          sub:"My call — passed",      color:"#dc2626", bg:"#fef2f2", border:"#fecaca", isDead:true },
+  { key:"NOT_MOVING_FORWARD", label:"Not Moving Forward", sub:"Company passed on me",  color:"#be185d", bg:"#fdf2f8", border:"#fbcfe8", isDead:true },
+  { key:"GHOSTED",            label:"Ghosted",            sub:"No response",           color:"#94a3b8", bg:"#f8fafc", border:"#e2e8f0", isDead:true },
 ];
+
+const ALL_COLS = [...FLOW_COLS, ...HOT_COLS, ...DEAD_COLS];
 
 function stepsCount(steps) {
   if (!steps) return 0;
@@ -251,79 +251,105 @@ function HotCard({ card, onOpen, colColor, colBg, colBorder }) {
 }
 
 export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, lastSavedAt, onOpenDrawer }) {
+  const [logSearch, setLogSearch]       = React.useState("");
+  const [showTypeahead, setShowTypeahead] = React.useState(false);
+  const [deadOpen, setDeadOpen]         = React.useState(false);
+
   const byStatus = {};
-  [...FLOW_COLS, ...HOT_COLS, ...DEAD_COLS].forEach(s => { byStatus[s.key] = []; });
+  ALL_COLS.forEach(s => { byStatus[s.key] = []; });
   (cards || []).forEach(c => {
-    const key = c.status;
-    if (byStatus[key]) byStatus[key].push(c);
+    if (byStatus[c.status] !== undefined) byStatus[c.status].push(c);
     else byStatus["GHOSTED"].push(c);
   });
 
-  // Sort queue by tier (A first), then date added
   const tierOrder = { A: 0, B: 1, C: 2 };
   byStatus["TARGETED"].sort((a, b) => {
-    const ta = tierOrder[a.tier] ?? 9;
-    const tb = tierOrder[b.tier] ?? 9;
+    const ta = tierOrder[a.tier] ?? 9, tb = tierOrder[b.tier] ?? 9;
     if (ta !== tb) return ta - tb;
     return (a.dateAdded || "").localeCompare(b.dateAdded || "");
   });
 
-  const totalCards = (cards || []).length;
+  const totalCards   = (cards || []).length;
   const appliedToday = (cards || []).filter(c => c.dateApplied === today()).length;
-  const hotCount = HOT_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
-  const queueCount = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
-  const appliedCount = byStatus["APPLIED"].length;
+  const hotCount     = HOT_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
+  const queueCount   = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
+  const submittedCount = byStatus["APPLIED"].length + hotCount;
+  const deadCount    = DEAD_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
 
-  const [deadOpen, setDeadOpen] = React.useState(false);
+  const q = logSearch.trim().toLowerCase();
+  const filterCards = (list) => {
+    if (!q) return list;
+    return list.filter(c =>
+      (c.title   || "").toLowerCase().includes(q) ||
+      (c.company || "").toLowerCase().includes(q) ||
+      (c.notes   || "").toLowerCase().includes(q) ||
+      (c.pocName || "").toLowerCase().includes(q)
+    );
+  };
+  const isFiltered = q !== "";
+
+  const suggestions = React.useMemo(() => {
+    if (logSearch.trim().length < 2) return [];
+    const lq = logSearch.trim().toLowerCase();
+    const seen = new Set();
+    const out  = [];
+    (cards || []).forEach(c => {
+      [["company", c.company], ["title", c.title]].forEach(([type, val]) => {
+        if (!val) return;
+        const key = `${type}:${val}`;
+        if (!seen.has(key) && val.toLowerCase().includes(lq)) {
+          seen.add(key);
+          out.push({ type, value: val });
+        }
+      });
+    });
+    return out.slice(0, 6);
+  }, [logSearch, cards]);
+
+  const filteredTotal = isFiltered
+    ? ALL_COLS.reduce((n, col) => n + filterCards(byStatus[col.key]).length, 0)
+    : totalCards;
+
+  const visibleCols = deadOpen ? ALL_COLS : ALL_COLS.filter(c => !c.isDead);
+  const colTemplate = visibleCols.map(col =>
+    col.isDead ? "minmax(160px, 0.85fr)" : "minmax(0, 1fr)"
+  ).join(" ");
+
+  const FIRST_DEAD_IDX = FLOW_COLS.length + HOT_COLS.length;
+  const FIRST_HOT_IDX  = FLOW_COLS.length;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden",
-      fontFamily: "-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif",
-      background: "#f8fafc" }}>
+    <div style={{ display:"flex", flexDirection:"column", height:"100%", overflow:"hidden",
+      fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif",
+      background:"#f8fafc" }}>
 
-      {/* ── SESSION STATS BAR ─────────────────────────────────────────── */}
-      <div style={{ background: "#0f172a", padding: "12px 28px",
-        display: "flex", alignItems: "center", gap: 0, overflowX: "auto", flexShrink: 0 }}>
-
+      {/* ── STATS BAR ────────────────────────────────────────────────── */}
+      <div style={{ background:"#0f172a", padding:"10px 20px",
+        display:"flex", alignItems:"center", flexShrink:0, gap:0, overflowX:"auto" }}>
         {[
-          { label: "Queue", value: queueCount, color: queueCount > 0 ? "#fde047" : "#475569",
-            sub: queueCount > 0 ? "ready to work" : "all clear" },
-          { label: "Applied Today", value: appliedToday, color: "#38bdf8", sub: "this session" },
-          { label: "Total Applied", value: appliedCount + byStatus["APPLIED"].length > 0 ? appliedCount : totalCards - hotCount - queueCount, color: "#94a3b8", sub: "all time" },
-          { label: "Active Signals", value: hotCount, color: hotCount > 0 ? "#4ade80" : "#475569",
-            sub: hotCount > 0 ? "callback / interview / offer" : "monitoring" },
-        ].map((s, i, arr) => (
-          <div key={s.label} style={{ textAlign: "center", padding: "0 24px",
-            borderRight: i < arr.length - 1 ? "1px solid #1e293b" : "none", flexShrink: 0 }}>
-            <div style={{ fontSize: 26, fontWeight: 800, color: s.color, lineHeight: 1,
-              fontFamily: "'IBM Plex Mono',monospace" }}>
-              {s.value}
-            </div>
-            <div style={{ fontSize: 11, color: "#64748b", marginTop: 3,
-              fontFamily: "'Inter',sans-serif" }}>
-              {s.label}
-            </div>
-            <div style={{ fontSize: 10, color: "#334155", marginTop: 1,
-              fontFamily: "'IBM Plex Mono',monospace" }}>
-              {s.sub}
-            </div>
+          { label:"Queue",          value:queueCount,     color:queueCount>0?"#fde047":"#475569",  sub:queueCount>0?"ready to work":"all clear" },
+          { label:"Applied Today",  value:appliedToday,   color:"#38bdf8",                         sub:"this session" },
+          { label:"Submitted",      value:submittedCount, color:"#94a3b8",                         sub:"applied + callbacks" },
+          { label:"Active Signals", value:hotCount,       color:hotCount>0?"#4ade80":"#475569",    sub:hotCount>0?"callback · interview · offer":"monitoring" },
+        ].map((s,i,arr) => (
+          <div key={s.label} style={{ textAlign:"center", padding:"0 20px",
+            borderRight: i<arr.length-1 ? "1px solid #1e293b":"none", flexShrink:0 }}>
+            <div style={{ fontSize:24, fontWeight:800, color:s.color, lineHeight:1, fontFamily:"'IBM Plex Mono',monospace" }}>{s.value}</div>
+            <div style={{ fontSize:11, color:"#64748b", marginTop:3, fontFamily:"'Inter',sans-serif" }}>{s.label}</div>
+            <div style={{ fontSize:10, color:"#334155", marginTop:1, fontFamily:"'IBM Plex Mono',monospace" }}>{s.sub}</div>
           </div>
         ))}
-
-        {/* Export / Import */}
-        <div style={{ marginLeft: "auto", flexShrink: 0, display: "flex", gap: 8, alignItems: "center", paddingLeft: 20 }}>
-          <button onClick={exportData} style={{
-            padding: "7px 14px", background: "transparent", border: "1px solid #334155",
-            borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: "pointer",
-            color: "#94a3b8", fontFamily: "'Inter',sans-serif", whiteSpace: "nowrap" }}>
+        <div style={{ marginLeft:"auto", flexShrink:0, display:"flex", gap:8, alignItems:"center", paddingLeft:20 }}>
+          <button onClick={exportData} style={{ padding:"7px 14px", background:"transparent",
+            border:"1px solid #334155", borderRadius:7, fontSize:12, fontWeight:600,
+            cursor:"pointer", color:"#94a3b8", fontFamily:"'Inter',sans-serif", whiteSpace:"nowrap" }}>
             Export
           </button>
-          <label style={{
-            padding: "7px 14px", background: "transparent", border: "1px solid #334155",
-            borderRadius: 7, fontSize: 12, fontWeight: 600, cursor: "pointer",
-            color: "#94a3b8", fontFamily: "'Inter',sans-serif", whiteSpace: "nowrap" }}>
+          <label style={{ padding:"7px 14px", background:"transparent", border:"1px solid #334155",
+            borderRadius:7, fontSize:12, fontWeight:600, cursor:"pointer",
+            color:"#94a3b8", fontFamily:"'Inter',sans-serif", whiteSpace:"nowrap" }}>
             Import
-            <input type="file" accept=".json" style={{ display: "none" }} onChange={e => {
+            <input type="file" accept=".json" style={{ display:"none" }} onChange={e => {
               const file = e.target.files[0]; if (!file) return;
               const reader = new FileReader();
               reader.onload = ev => {
@@ -352,176 +378,216 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
         </div>
       </div>
 
-      {/* ── HOT SIGNALS ZONE ──────────────────────────────────────────── */}
-      {hotCount > 0 && (
-        <div style={{ background: "#fffbeb", borderBottom: "2px solid #fde68a",
-          padding: "14px 28px", flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-            <span style={{ fontSize: 12, fontWeight: 800, color: "#92400e",
-              fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.1em" }}>
-              🔥 ACTIVE SIGNALS
-            </span>
-            <span style={{ fontSize: 11, color: "#b45309", fontFamily: "'IBM Plex Mono',monospace" }}>
-              {hotCount} live — work these first
-            </span>
-          </div>
-          <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 4 }}>
-            {HOT_COLS.map(col => (
-              byStatus[col.key].map(card => (
-                <div key={card.id} style={{ flexShrink: 0, width: 260 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: col.color,
-                    fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.08em",
-                    marginBottom: 6, textTransform: "uppercase" }}>
-                    {col.label}
-                  </div>
-                  <HotCard card={card} onOpen={onOpenDrawer}
-                    colColor={col.color} colBg={col.bg} colBorder={col.border} />
+      {/* ── SEARCH + ARCHIVE TOGGLE ──────────────────────────────────── */}
+      <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0",
+        padding:"9px 16px", display:"flex", alignItems:"center", gap:12,
+        flexShrink:0, position:"relative", zIndex:20 }}>
+
+        <div style={{ position:"relative", flex:1, maxWidth:440 }}>
+          <span style={{ position:"absolute", left:10, top:"50%", transform:"translateY(-50%)",
+            fontSize:14, color:"#94a3b8", pointerEvents:"none" }}>🔍</span>
+          <input
+            value={logSearch}
+            onChange={e => { setLogSearch(e.target.value); setShowTypeahead(true); }}
+            onBlur={() => setTimeout(() => setShowTypeahead(false), 160)}
+            onFocus={() => setShowTypeahead(true)}
+            placeholder="Search company · role · POC · notes…"
+            style={{ width:"100%", boxSizing:"border-box", paddingLeft:32,
+              paddingRight: logSearch ? 32 : 12, paddingTop:8, paddingBottom:8,
+              border:"1.5px solid #e2e8f0", borderRadius:8, fontSize:13,
+              fontFamily:"'Inter',sans-serif", color:"#0f172a",
+              background:"#f8fafc", outline:"none" }}
+          />
+          {logSearch && (
+            <button onClick={() => setLogSearch("")}
+              style={{ position:"absolute", right:8, top:"50%", transform:"translateY(-50%)",
+                background:"none", border:"none", cursor:"pointer",
+                color:"#94a3b8", fontSize:18, lineHeight:1, padding:0 }}>×</button>
+          )}
+          {showTypeahead && suggestions.length > 0 && (
+            <div style={{ position:"absolute", top:"calc(100% + 4px)", left:0, right:0,
+              background:"#ffffff", border:"1px solid #e2e8f0", borderRadius:8,
+              boxShadow:"0 8px 24px rgba(0,0,0,0.12)", zIndex:100, overflow:"hidden" }}>
+              {suggestions.map((s, i) => (
+                <div key={i}
+                  onClick={() => { setLogSearch(s.value); setShowTypeahead(false); }}
+                  style={{ padding:"8px 14px", cursor:"pointer", fontSize:13,
+                    fontFamily:"'Inter',sans-serif", display:"flex", alignItems:"center", gap:8,
+                    borderTop: i > 0 ? "1px solid #f1f5f9":"none",
+                    background:"#ffffff" }}
+                  onMouseEnter={e => e.currentTarget.style.background="#f8fafc"}
+                  onMouseLeave={e => e.currentTarget.style.background="#ffffff"}>
+                  <span style={{ fontSize:10, fontWeight:600, flexShrink:0,
+                    color: s.type==="company" ? "#0891b2":"#6366f1",
+                    background: s.type==="company" ? "#e0f9ff":"#eef2ff",
+                    padding:"1px 6px", borderRadius:4, fontFamily:"'IBM Plex Mono',monospace" }}>
+                    {s.type === "company" ? "co.":"role"}
+                  </span>
+                  <span style={{ overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap", color:"#0f172a" }}>
+                    {s.value}
+                  </span>
                 </div>
-              ))
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
-      )}
 
-      {/* ── SCROLLABLE BODY (kanban + dead section) ──────────────────── */}
-      <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column" }}>
+        {isFiltered && (
+          <span style={{ fontSize:12, color:"#64748b",
+            fontFamily:"'IBM Plex Mono',monospace", whiteSpace:"nowrap" }}>
+            {filteredTotal} of {totalCards}
+          </span>
+        )}
 
-      {/* ── MAIN KANBAN ───────────────────────────────────────────────── */}
-      <div style={{ display: "flex", gap: 16, padding: "20px 28px 12px",
-        overflowX: "auto", alignItems: "flex-start", flexShrink: 0 }}>
+        <div style={{ flex:1 }} />
 
-        {FLOW_COLS.map(col => {
-          const colCards = byStatus[col.key];
-          const isQueue = col.key === "TARGETED";
-          const isWorking = col.key === "IN_PROGRESS";
+        <button onClick={() => setDeadOpen(s => !s)}
+          style={{ display:"flex", alignItems:"center", gap:6, padding:"7px 14px",
+            background: deadOpen ? "#fdf2f8":"#f8fafc",
+            border:`1px solid ${deadOpen ? "#fbcfe8":"#e2e8f0"}`,
+            borderRadius:8, cursor:"pointer", fontSize:12, fontWeight:600,
+            color: deadOpen ? "#be185d":"#94a3b8",
+            fontFamily:"'IBM Plex Mono',monospace", whiteSpace:"nowrap" }}>
+          <span style={{ fontSize:9 }}>{deadOpen ? "▲":"▼"}</span>
+          Archive
+          <span style={{ fontSize:11, padding:"1px 6px", borderRadius:4,
+            background: deadOpen ? "#fbcfe8":"#e2e8f0",
+            color: deadOpen ? "#be185d":"#94a3b8" }}>
+            {deadCount}
+          </span>
+        </button>
+      </div>
+
+      {/* ── UNIFIED KANBAN GRID ───────────────────────────────────────── */}
+      <div style={{ flex:1, minHeight:0, overflow:"hidden", display:"grid",
+        gridTemplateColumns: colTemplate,
+        borderTop:"1px solid #e2e8f0" }}>
+
+        {visibleCols.map((col, colIdx) => {
+          const allColCards = byStatus[col.key];
+          const colCards    = isFiltered ? filterCards(allColCards) : allColCards;
+          const isQueue     = col.key === "TARGETED";
+          const isWorking   = col.key === "IN_PROGRESS";
+          const isFirstHot  = colIdx === FIRST_HOT_IDX;
+          const isFirstDead = deadOpen && colIdx === FIRST_DEAD_IDX;
+          const isLast      = colIdx === visibleCols.length - 1;
 
           return (
-            <div key={col.key} style={{ flexShrink: 0, width: isQueue ? 272 : 252,
-              display: "flex", flexDirection: "column", gap: 9 }}>
+            <div key={col.key} style={{ display:"flex", flexDirection:"column", height:"100%",
+              overflow:"hidden", minWidth:0,
+              borderRight: isLast ? "none" : "1px solid #e2e8f0",
+              borderLeft: (isFirstHot || isFirstDead) ? "2px solid #cbd5e1":"none",
+              background: col.isDead ? "#f8fafc" : "#ffffff" }}>
 
               {/* Column header */}
-              <div style={{ background: col.bg, border: `1.5px solid ${col.border}`,
-                borderRadius: 9, padding: "9px 12px", display: "flex",
-                alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: col.color,
-                    fontFamily: "'Inter',sans-serif" }}>
-                    {col.label}
-                    {col.action && colCards.length === 0 && (
-                      <span style={{ fontSize: 10, color: col.color, opacity: .6,
-                        fontFamily: "'IBM Plex Mono',monospace", marginLeft: 6 }}>
-                        empty
-                      </span>
+              <div style={{ padding:"9px 10px 7px", flexShrink:0,
+                borderBottom:"1px solid #e2e8f0",
+                borderTop:`3px solid ${col.isDead ? "#e2e8f0" : col.color}`,
+                background: col.isDead ? "#f1f5f9" : col.bg }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:4 }}>
+                  <div style={{ minWidth:0 }}>
+                    <div style={{ fontSize:12, fontWeight:700,
+                      color: col.isDead ? "#94a3b8" : col.color,
+                      fontFamily:"'Inter',sans-serif",
+                      display:"flex", alignItems:"center", gap:4,
+                      overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+                      {col.isHot && <span>🔥</span>}
+                      {col.label}
+                    </div>
+                    {col.sub && (
+                      <div style={{ fontSize:10, color: col.isDead ? "#cbd5e1" : col.color, opacity:.75,
+                        fontFamily:"'IBM Plex Mono',monospace", marginTop:1,
+                        overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+                        {col.sub}
+                      </div>
                     )}
                   </div>
-                  <div style={{ fontSize: 10, color: col.color, opacity: .7,
-                    fontFamily: "'IBM Plex Mono',monospace", marginTop: 1 }}>
-                    {col.sub}
-                  </div>
+                  <span style={{ fontSize:12, fontWeight:800, flexShrink:0,
+                    color: col.isDead ? "#cbd5e1" : col.color,
+                    fontFamily:"'IBM Plex Mono',monospace",
+                    background:"rgba(255,255,255,0.7)", padding:"2px 7px", borderRadius:5 }}>
+                    {isFiltered ? `${colCards.length}/${allColCards.length}` : colCards.length}
+                  </span>
                 </div>
-                <span style={{ fontSize: 14, fontWeight: 800, color: col.color,
-                  fontFamily: "'IBM Plex Mono',monospace",
-                  background: "rgba(255,255,255,0.65)", padding: "2px 8px", borderRadius: 5 }}>
-                  {colCards.length}
-                </span>
               </div>
 
-              {/* Empty queue state */}
-              {isQueue && colCards.length === 0 && (
-                <div style={{ padding: "20px 14px", textAlign: "center",
-                  border: "1.5px dashed #c7d2fe", borderRadius: 9,
-                  background: "rgba(238,242,255,0.5)" }}>
-                  <div style={{ fontSize: 20, marginBottom: 6 }}>✅</div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#6366f1",
-                    fontFamily: "'Inter',sans-serif", marginBottom: 4 }}>
-                    Queue empty
+              {/* Cards (independently scrollable) */}
+              <div style={{ flex:1, overflowY:"auto", minHeight:0,
+                padding:"10px 8px", display:"flex", flexDirection:"column", gap:8 }}>
+
+                {/* Queue: empty state */}
+                {isQueue && allColCards.length === 0 && !isFiltered && (
+                  <div style={{ padding:"18px 8px", textAlign:"center",
+                    border:"1.5px dashed #c7d2fe", borderRadius:9,
+                    background:"rgba(238,242,255,0.5)" }}>
+                    <div style={{ fontSize:18, marginBottom:5 }}>✅</div>
+                    <div style={{ fontSize:11, fontWeight:700, color:"#6366f1",
+                      fontFamily:"'Inter',sans-serif", marginBottom:3 }}>Queue empty</div>
+                    <div style={{ fontSize:10, color:"#818cf8",
+                      fontFamily:"'IBM Plex Mono',monospace", lineHeight:1.5 }}>
+                      Run /u_job_scan<br/>to load new targets
+                    </div>
                   </div>
-                  <div style={{ fontSize: 11, color: "#818cf8",
-                    fontFamily: "'IBM Plex Mono',monospace", lineHeight: 1.5 }}>
-                    Run /u_job_scan to load<br/>new targets from the 139-<br/>company list
+                )}
+
+                {/* Queue cards with NEXT UP treatment */}
+                {isQueue && colCards.map((card, idx) => (
+                  <QueueCard key={card.id} card={card} onOpen={onOpenDrawer} position={idx} />
+                ))}
+
+                {/* Working: empty state */}
+                {isWorking && allColCards.length === 0 && !isFiltered && (
+                  <div style={{ padding:"16px 8px", textAlign:"center", color:"#fbbf24",
+                    fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
+                    border:"1.5px dashed #fde68a", borderRadius:8 }}>
+                    Nothing in progress
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Queue cards with NEXT UP treatment */}
-              {isQueue && colCards.map((card, idx) => (
-                <QueueCard key={card.id} card={card} onOpen={onOpenDrawer} position={idx} />
-              ))}
+                {/* Hot cols: use HotCard */}
+                {col.isHot && colCards.map(card => (
+                  <HotCard key={card.id} card={card} onOpen={onOpenDrawer}
+                    colColor={col.color} colBg={col.bg} colBorder={col.border} />
+                ))}
+                {col.isHot && allColCards.length === 0 && (
+                  <div style={{ padding:"14px 8px", textAlign:"center",
+                    color:col.color, opacity:.35, fontSize:11,
+                    fontFamily:"'IBM Plex Mono',monospace",
+                    border:`1.5px dashed ${col.border}`, borderRadius:8 }}>
+                    monitoring
+                  </div>
+                )}
 
-              {/* Working column */}
-              {isWorking && colCards.length === 0 && (
-                <div style={{ padding: "18px 12px", textAlign: "center", color: "#fbbf24",
-                  fontSize: 11, fontFamily: "'IBM Plex Mono',monospace",
-                  border: "1.5px dashed #fde68a", borderRadius: 8 }}>
-                  Nothing in progress
-                </div>
-              )}
+                {/* Standard cards */}
+                {!isQueue && !col.isHot && colCards.map(card => (
+                  <Card key={card.id} card={card} onOpen={onOpenDrawer}
+                    compact={colCards.length > 10} />
+                ))}
 
-              {/* Standard cards for non-queue columns */}
-              {!isQueue && colCards.map(card => (
-                <Card key={card.id} card={card} onOpen={onOpenDrawer}
-                  compact={col.key === "APPLIED" && colCards.length > 12} />
-              ))}
+                {/* Empty states for standard / dead cols */}
+                {!isQueue && !isWorking && !col.isHot && allColCards.length === 0 && (
+                  <div style={{ padding:"14px 8px", textAlign:"center",
+                    color: col.isDead ? "#e2e8f0":"#cbd5e1", fontSize:11,
+                    fontFamily:"'Inter',sans-serif",
+                    border:`1.5px dashed ${col.isDead ? "#f1f5f9":"#e2e8f0"}`,
+                    borderRadius:8 }}>
+                    {col.isDead ? "—" : "Empty"}
+                  </div>
+                )}
 
-              {!isQueue && !isWorking && colCards.length === 0 && (
-                <div style={{ padding: "18px 12px", textAlign: "center", color: "#cbd5e1",
-                  fontSize: 12, fontFamily: "'Inter',sans-serif",
-                  border: "1.5px dashed #e2e8f0", borderRadius: 8 }}>
-                  Empty
-                </div>
-              )}
+                {/* No-match state when filtered */}
+                {isFiltered && colCards.length === 0 && allColCards.length > 0 && (
+                  <div style={{ padding:"12px 8px", textAlign:"center",
+                    color:"#94a3b8", fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
+                    border:"1.5px dashed #e2e8f0", borderRadius:8 }}>
+                    no matches
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
       </div>
-
-      {/* ── DEAD COLUMNS (collapsed) ──────────────────────────────────── */}
-      <div style={{ padding: "0 28px 32px" }}>
-        <button onClick={() => setDeadOpen(s => !s)}
-          style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 16px",
-            background: deadOpen ? "#f1f5f9" : "transparent",
-            border: "1px solid #e2e8f0", borderRadius: 8, cursor: "pointer",
-            fontSize: 12, color: "#94a3b8", fontFamily: "'IBM Plex Mono',monospace",
-            marginBottom: deadOpen ? 12 : 0 }}>
-          <span style={{ fontSize: 10 }}>{deadOpen ? "▲" : "▼"}</span>
-          Closed / No Response
-          <span style={{ color: "#cbd5e1" }}>
-            ({DEAD_COLS.reduce((n, c) => n + byStatus[c.key].length, 0)})
-          </span>
-        </button>
-
-        {deadOpen && (
-          <div style={{ display: "flex", gap: 16, overflowX: "auto" }}>
-            {DEAD_COLS.map(col => (
-              <div key={col.key} style={{ flexShrink: 0, width: 252, display: "flex",
-                flexDirection: "column", gap: 9 }}>
-                <div style={{ background: col.bg, border: `1.5px solid ${col.border}`,
-                  borderRadius: 9, padding: "9px 12px", display: "flex",
-                  alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: col.color,
-                    fontFamily: "'Inter',sans-serif" }}>{col.label}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: col.color,
-                    fontFamily: "'IBM Plex Mono',monospace",
-                    background: "rgba(255,255,255,0.65)", padding: "1px 7px", borderRadius: 4 }}>
-                    {byStatus[col.key].length}
-                  </span>
-                </div>
-                {byStatus[col.key].map(card => (
-                  <Card key={card.id} card={card} onOpen={onOpenDrawer} compact />
-                ))}
-                {byStatus[col.key].length === 0 && (
-                  <div style={{ padding: "14px 12px", textAlign: "center", color: "#e2e8f0",
-                    fontSize: 12, border: "1.5px dashed #e2e8f0", borderRadius: 8 }}>
-                    Empty
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      </div>{/* end scrollable body */}
     </div>
   );
 }

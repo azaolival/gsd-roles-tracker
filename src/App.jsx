@@ -978,15 +978,16 @@ const FAMILY_LABELS = {
 };
 
 const PIPELINE_STATUS_META = {
-  TARGETED:      { label:"Targeted",   color:"#6b7280", bg:"#f1f5f9" },
-  IN_PROGRESS:   { label:"Working",    color:"#b45309", bg:"#fef3c7" },
-  APPLIED:       { label:"Applied",    color:"#1d4ed8", bg:"#dbeafe" },
-  CALLBACK:      { label:"Callback",   color:"#7c3aed", bg:"#ede9fe" },
-  INTERVIEW:     { label:"Interview!", color:"#059669", bg:"#d1fae5" },
-  OFFER:         { label:"Offer!",     color:"#92400e", bg:"#fef9c3" },
-  COLD_OUTREACH: { label:"Outreach",   color:"#c2410c", bg:"#fff7ed" },
-  NO_THANKS:     { label:"No Thanks",  color:"#dc2626", bg:"#fee2e2" },
-  GHOSTED:       { label:"Ghosted",    color:"#94a3b8", bg:"#f8fafc" },
+  TARGETED:           { label:"Targeted",            color:"#6b7280", bg:"#f1f5f9" },
+  IN_PROGRESS:        { label:"Working",             color:"#b45309", bg:"#fef3c7" },
+  APPLIED:            { label:"Applied",             color:"#1d4ed8", bg:"#dbeafe" },
+  CALLBACK:           { label:"Callback",            color:"#7c3aed", bg:"#ede9fe" },
+  INTERVIEW:          { label:"Interview!",          color:"#059669", bg:"#d1fae5" },
+  OFFER:              { label:"Offer!",              color:"#92400e", bg:"#fef9c3" },
+  COLD_OUTREACH:      { label:"Outreach",            color:"#c2410c", bg:"#fff7ed" },
+  NO_THANKS:          { label:"No Thanks",           color:"#dc2626", bg:"#fee2e2" },
+  NOT_MOVING_FORWARD: { label:"Not Moving Forward",  color:"#be185d", bg:"#fdf2f8" },
+  GHOSTED:            { label:"Ghosted",             color:"#94a3b8", bg:"#f8fafc" },
 };
 
 export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs }) {
@@ -1059,13 +1060,15 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:16, flexWrap:"wrap", marginBottom:14 }}>
             <div>
               <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:11, fontWeight:600, color:"#0891b2", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:5 }}>
-                Mortgage Product Role Ecosystem · Verified Active · May 2026
+                {boardId === "mortgage" ? "Mortgage Product Role Ecosystem · Verified Active · May 2026" : "Industry-Agnostic Prospects · Activate When Net Cast Wider"}
               </div>
               <h1 style={{ fontFamily:"'Inter',sans-serif", fontSize:24, fontWeight:700, margin:0, color:"#0f172a", lineHeight:1.2, letterSpacing:"-0.01em" }}>
                 {boardTitle}
               </h1>
               <div style={{ fontSize:13, color:"#64748b", marginTop:4, lineHeight:1.5 }}>
-                PM · PO · BA · Delivery · Scrum · Implementation · Solutions · CSM · Ops · QA · Compliance
+                {boardId === "mortgage"
+                  ? "PM · PO · BA · Delivery · Scrum · Implementation · Solutions · CSM · Ops · QA · Compliance"
+                  : "Platform · Delivery · Product · Program · Strategy · Implementation · Consulting"}
               </div>
             </div>
 
@@ -1097,7 +1100,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
           </div>
 
           {/* Search row */}
-          <div style={{ display:"flex", gap:8, marginBottom:10, flexWrap:"wrap" }}>
+          <div style={{ display:"flex", gap:8, marginBottom:6, flexWrap:"wrap", alignItems:"center" }}>
             <input value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Search title · company · skill · city · keyword…"
               style={{ flex:1, minWidth:240, padding:"10px 16px", borderRadius:8,
@@ -1125,6 +1128,12 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                   fontFamily:"'Inter',sans-serif", cursor:"pointer" }}>
                 Clear filters
               </button>
+            )}
+            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All") && (
+              <span style={{ fontSize:12, color:"#64748b", fontFamily:"'IBM Plex Mono',monospace",
+                whiteSpace:"nowrap", marginLeft:4 }}>
+                Showing {filtered.length} of {jobsList.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length}
+              </span>
             )}
           </div>
 
@@ -1304,12 +1313,13 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                             </span>
                             <button onClick={() => onSelectRole ? onSelectRole(job) : window.open(job.url,"_blank")}
                               style={{ fontSize:14, fontWeight:700, color:"#ffffff",
-                                background: pipelineRoleIds.has(job.id) ? "#059669" : "#0891b2",
+                                background: pipelineStatusMap.get(job.id) === "TARGETED" ? "#6366f1"
+                                  : pipelineRoleIds.has(job.id) ? "#059669" : "#0891b2",
                                 padding:"9px 18px", borderRadius:8, border:"none",
                                 cursor:"pointer", marginTop:2, whiteSpace:"nowrap",
                                 fontFamily:"'Inter',sans-serif",
-                                boxShadow: pipelineRoleIds.has(job.id) ? "0 2px 6px rgba(5,150,105,0.35)" : "0 2px 6px rgba(8,145,178,0.35)" }}>
-                              {pipelineRoleIds.has(job.id) ? "In Pipeline ✓" : "Track + Apply →"}
+                                boxShadow: pipelineRoleIds.has(job.id) ? "0 2px 6px rgba(99,102,241,0.35)" : "0 2px 6px rgba(8,145,178,0.35)" }}>
+                              {pipelineStatusMap.get(job.id) === "TARGETED" ? "Queued →" : pipelineRoleIds.has(job.id) ? "In Log ✓" : "Track + Apply →"}
                             </button>
                             <button
                               onClick={() => dismissRole(job.id)}

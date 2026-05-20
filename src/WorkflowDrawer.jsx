@@ -52,21 +52,23 @@ const STEPS = [
 ];
 
 const STATUSES = [
-  { key:"TARGETED",      label:"Targeted" },
-  { key:"IN_PROGRESS",   label:"Working" },
-  { key:"APPLIED",       label:"Applied" },
-  { key:"CALLBACK",      label:"Callback" },
-  { key:"INTERVIEW",     label:"Interview" },
-  { key:"OFFER",         label:"Offer!" },
-  { key:"COLD_OUTREACH", label:"Cold Outreach" },
-  { key:"NO_THANKS",     label:"No Thanks" },
-  { key:"GHOSTED",       label:"Ghosted" },
+  { key:"TARGETED",           label:"Targeted" },
+  { key:"IN_PROGRESS",        label:"Working" },
+  { key:"APPLIED",            label:"Applied" },
+  { key:"CALLBACK",           label:"Callback" },
+  { key:"INTERVIEW",          label:"Interview" },
+  { key:"OFFER",              label:"Offer!" },
+  { key:"COLD_OUTREACH",      label:"Cold Outreach" },
+  { key:"NO_THANKS",          label:"No Thanks" },
+  { key:"NOT_MOVING_FORWARD", label:"Not Moving Forward" },
+  { key:"GHOSTED",            label:"Ghosted" },
 ];
 
 const STATUS_COLOR = {
   TARGETED:"#6b7280", IN_PROGRESS:"#b45309", APPLIED:"#1d4ed8",
   CALLBACK:"#7c3aed", INTERVIEW:"#059669", OFFER:"#92400e",
-  COLD_OUTREACH:"#c2410c", NO_THANKS:"#dc2626", GHOSTED:"#94a3b8",
+  COLD_OUTREACH:"#c2410c", NO_THANKS:"#dc2626",
+  NOT_MOVING_FORWARD:"#be185d", GHOSTED:"#94a3b8",
 };
 
 export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onUpdateCard, onMoveCard }) {
