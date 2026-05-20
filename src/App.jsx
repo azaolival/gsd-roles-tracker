@@ -951,6 +951,11 @@ const jobs = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// NON-MORTGAGE JOBS — populate when net must be cast wider (contingency resume)
+// ─────────────────────────────────────────────────────────────────────────────
+const nonMortgageJobs = [];
+
+// ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -984,48 +989,48 @@ const PIPELINE_STATUS_META = {
   GHOSTED:       { label:"Ghosted",    color:"#94a3b8", bg:"#f8fafc" },
 };
 
-export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
+export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs }) {
+  const dismissedKey = boardId === "mortgage" ? "gsd-dismissed" : `gsd-dismissed-${boardId}`;
   const pipelineRoleIds = useMemo(() => new Set(pipelineStatusMap.keys()), [pipelineStatusMap]);
-  const [search, setSearch]           = useState("");
-  const [bucketFilter, setBucket]     = useState("All");
-  const [familyFilter, setFamily]     = useState("All");
-  const [tierFilter, setTier]         = useState("All");
-  const [showNotes, setNotes]         = useState(true);
-  const [collapsed, setCollapsed]     = useState({});
-  const [appliedOnly, setAppliedOnly] = useState(false);
-  const [dismissed, setDismissed]     = useState(() => new Set(JSON.parse(localStorage.getItem("gsd-dismissed") || "[]")));
+  const [search, setSearch]       = useState("");
+  const [bucketFilter, setBucket] = useState("All");
+  const [familyFilter, setFamily] = useState("All");
+  const [tierFilter, setTier]     = useState("All");
+  const [showNotes, setNotes]     = useState(true);
+  const [collapsed, setCollapsed] = useState({});
+  const [dismissed, setDismissed] = useState(() => new Set(JSON.parse(localStorage.getItem(dismissedKey) || "[]")));
 
   const dismissRole = (id) => setDismissed(prev => {
     const next = new Set(prev);
     next.add(id);
-    localStorage.setItem("gsd-dismissed", JSON.stringify([...next]));
+    localStorage.setItem(dismissedKey, JSON.stringify([...next]));
     return next;
   });
 
   const restoreAll = () => {
-    localStorage.removeItem("gsd-dismissed");
+    localStorage.removeItem(dismissedKey);
     setDismissed(new Set());
   };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return jobs
+    return jobsList
       .filter(j => {
         if (dismissed.has(j.id)) return false;
+        if (pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED") return false;
         const ms = !q || [j.title, j.company, j.city, j.family, ...(j.tags||[]), j.notes||""]
           .join(" ").toLowerCase().includes(q);
         const mb = bucketFilter === "All" || j.bucket === bucketFilter;
         const mf = familyFilter === "All" || j.family === familyFilter;
         const mt = tierFilter === "All" || (SALARY_EST[j.id]?.tier === tierFilter);
-        const ma = !appliedOnly || pipelineRoleIds.has(j.id);
-        return ms && mb && mf && mt && ma;
+        return ms && mb && mf && mt;
       })
       .sort((a, b) => {
         const ta = TIER_ORDER[SALARY_EST[a.id]?.tier] ?? 9;
         const tb = TIER_ORDER[SALARY_EST[b.id]?.tier] ?? 9;
         return ta - tb;
       });
-  }, [search, bucketFilter, familyFilter, tierFilter, appliedOnly, pipelineRoleIds]);
+  }, [search, bucketFilter, familyFilter, tierFilter, pipelineRoleIds, pipelineStatusMap, dismissed, jobsList]);
 
   const byBucket = useMemo(() => {
     const g = {};
@@ -1036,9 +1041,9 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
 
   const tierCounts = useMemo(() => {
     const counts = { A: 0, B: 0, C: 0 };
-    jobs.forEach(j => { const t = SALARY_EST[j.id]?.tier; if (t) counts[t]++; });
+    jobsList.forEach(j => { const t = SALARY_EST[j.id]?.tier; if (t) counts[t]++; });
     return counts;
-  }, []);
+  }, [jobsList]);
 
   const toggle = b => setCollapsed(s => ({ ...s, [b]: !s[b] }));
 
@@ -1057,7 +1062,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
                 Mortgage Product Role Ecosystem · Verified Active · May 2026
               </div>
               <h1 style={{ fontFamily:"'Inter',sans-serif", fontSize:24, fontWeight:700, margin:0, color:"#0f172a", lineHeight:1.2, letterSpacing:"-0.01em" }}>
-                Operation GSD — Roles Tracker
+                {boardTitle}
               </h1>
               <div style={{ fontSize:13, color:"#64748b", marginTop:4, lineHeight:1.5 }}>
                 PM · PO · BA · Delivery · Scrum · Implementation · Solutions · CSM · Ops · QA · Compliance
@@ -1077,14 +1082,8 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
               })}
               <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
                 <div style={{ fontSize:32, fontWeight:700, color:"#0891b2", lineHeight:1 }}>{filtered.length}</div>
-                <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>total roles</div>
+                <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>prospects</div>
               </div>
-              {pipelineStatusMap.size > 0 && (
-                <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
-                  <div style={{ fontSize:32, fontWeight:700, color:"#059669", lineHeight:1 }}>{pipelineStatusMap.size}</div>
-                  <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>in pipeline</div>
-                </div>
-              )}
               {dismissed.size > 0 && (
                 <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20, textAlign:"center" }}>
                   <div style={{ fontSize:32, fontWeight:700, color:"#94a3b8", lineHeight:1 }}>{dismissed.size}</div>
@@ -1138,7 +1137,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
                 background: tierFilter === "All" ? "#0f172a" : "#ffffff",
                 color: tierFilter === "All" ? "#ffffff" : "#6b7280",
                 cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
-              All ({jobs.length})
+              All ({jobsList.length})
             </button>
             {Object.entries(TIER_META).map(([tier, m]) => (
               <button key={tier} onClick={() => setTier(tierFilter === tier ? "All" : tier)}
@@ -1150,16 +1149,6 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
                 {tier === "A" ? "★ " : ""}{m.label} ({tierCounts[tier]})
               </button>
             ))}
-            {pipelineStatusMap.size > 0 && (
-              <button onClick={() => setAppliedOnly(s => !s)}
-                style={{ fontSize:13, fontWeight:700, padding:"5px 16px", borderRadius:6,
-                  border:`1.5px solid #059669`,
-                  background: appliedOnly ? "#059669" : "#ffffff",
-                  color: appliedOnly ? "#ffffff" : "#059669",
-                  cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif", marginLeft:"auto" }}>
-                {appliedOnly ? "✓ Pipeline Only" : "Pipeline Only"} ({pipelineStatusMap.size})
-              </button>
-            )}
           </div>
 
           {/* Role family filter row */}
@@ -1344,7 +1333,22 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map() }) {
           );
         })}
 
-        {filtered.length === 0 && (
+        {jobsList.length === 0 && (
+          <div style={{ textAlign:"center", padding:"80px 28px" }}>
+            <div style={{ fontSize:48, marginBottom:16 }}>📋</div>
+            <div style={{ fontSize:20, fontWeight:700, color:"#0f172a", fontFamily:"'Inter',sans-serif", marginBottom:8 }}>
+              {boardTitle} is Ready
+            </div>
+            <div style={{ fontSize:14, color:"#64748b", lineHeight:1.7, maxWidth:480, margin:"0 auto", fontFamily:"'Inter',sans-serif" }}>
+              This board tracks non-mortgage opportunities using your industry-agnostic resume.
+              Run /u_job_scan with expanded search criteria to populate this board when the net needs to be cast wider.
+              <br/><br/>
+              Source: Contingency resume — same transferable skills, no mortgage-specific language.
+              See <strong>project_operation_gsd.md</strong> Contingency Resume section.
+            </div>
+          </div>
+        )}
+        {jobsList.length > 0 && filtered.length === 0 && (
           <div style={{ textAlign:"center", padding:80, color:"#94a3b8", fontSize:16, fontFamily:"'Inter',sans-serif" }}>
             No matches. Try clearing a filter.
           </div>
@@ -1393,6 +1397,11 @@ export default function App() {
     return m;
   }, [pipeline.cards]);
 
+  const prospectCount = useMemo(() =>
+    jobs.filter(j => !pipelineStatusMap.has(j.id) || pipelineStatusMap.get(j.id) === "TARGETED").length,
+    [pipelineStatusMap]
+  );
+
   const handleSelectRole = useCallback((job) => {
     setDrawerJob(job);
     setDrawerCardId(null);
@@ -1424,7 +1433,6 @@ export default function App() {
 
   const pstClock = now.toLocaleString("en-US", {
     timeZone: "America/Los_Angeles",
-    weekday: "short", month: "short", day: "numeric",
     hour: "numeric", minute: "2-digit",
     hour12: true,
   });
@@ -1460,17 +1468,24 @@ export default function App() {
             GSD Portal
           </div>
           <button onClick={() => setTab("board")} style={tabStyle(tab === "board")}>
-            Roles Board
+            Mortgage Prospect Board
             <span style={{ fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
               marginLeft:7, opacity:.7 }}>
-              {jobs.length}
+              {prospectCount}
             </span>
           </button>
           <button onClick={() => setTab("pipeline")} style={tabStyle(tab === "pipeline")}>
-            Pipeline
+            Activity Log
             <span style={{ fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
               marginLeft:7, opacity:.7 }}>
               {pipeline.cards.length}
+            </span>
+          </button>
+          <button onClick={() => setTab("non-mortgage")} style={tabStyle(tab === "non-mortgage")}>
+            Non-Mortgage
+            <span style={{ fontSize:11, fontFamily:"'IBM Plex Mono',monospace",
+              marginLeft:7, opacity:.7 }}>
+              {nonMortgageJobs.length || "—"}
             </span>
           </button>
           {pipeline.cards.filter(c => ["CALLBACK","INTERVIEW","OFFER","COLD_OUTREACH"].includes(c.status)).length > 0 && (
@@ -1513,7 +1528,17 @@ export default function App() {
             deleteCard={pipeline.deleteCard}
             exportData={pipeline.exportData}
             importData={pipeline.importData}
+            lastSavedAt={pipeline.lastSavedAt}
             onOpenDrawer={handleOpenCard}
+          />
+        )}
+        {tab === "non-mortgage" && (
+          <RolesBoard
+            onSelectRole={handleSelectRole}
+            pipelineStatusMap={pipelineStatusMap}
+            boardId="non-mortgage"
+            boardTitle="Non-Mortgage Prospect Board"
+            jobsList={nonMortgageJobs}
           />
         )}
       </div>

@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { SEED_CARDS } from "../data/seed";
 
-const KEY = "gsd_pipeline_v1";
+const KEY       = "gsd_pipeline_v1";
+const SAVED_KEY = "gsd_pipeline_savedAt_v1";
 const CLOUD_URL = "/pipeline.json";
 
 function loadLocal() {
@@ -9,7 +10,13 @@ function loadLocal() {
   return null;
 }
 function saveLocal(cards) {
-  try { localStorage.setItem(KEY, JSON.stringify(cards)); } catch {}
+  try {
+    localStorage.setItem(KEY, JSON.stringify(cards));
+    localStorage.setItem(SAVED_KEY, String(Date.now()));
+  } catch {}
+}
+export function getLastSavedAt() {
+  try { const v = localStorage.getItem(SAVED_KEY); return v ? Number(v) : null; } catch { return null; }
 }
 
 // Cloud adds new cards (by id). Local version of existing cards is preserved
@@ -106,5 +113,7 @@ export function usePipeline() {
     return false;
   }, []);
 
-  return { cards, addCard, updateCard, moveCard, deleteCard, isDuplicate, exportData, importData, cloudSynced };
+  const lastSavedAt = getLastSavedAt();
+
+  return { cards, addCard, updateCard, moveCard, deleteCard, isDuplicate, exportData, importData, cloudSynced, lastSavedAt };
 }

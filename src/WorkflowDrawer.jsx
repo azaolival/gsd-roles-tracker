@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const STEPS = [
   {
@@ -70,16 +70,18 @@ const STATUS_COLOR = {
 };
 
 export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onUpdateCard, onMoveCard }) {
-  const [expandedStep, setExpandedStep] = useState(null);
-  const [editNotes, setEditNotes] = useState(false);
-  const [notesText, setNotesText] = useState("");
-  const [editPoc, setEditPoc] = useState(false);
-  const [pocText, setPocText] = useState("");
-  const [pocTitleText, setPocTitleText] = useState("");
+  const [expandedStep, setExpandedStep]   = useState(null);
+  const [pocText, setPocText]             = useState("");
+  const [pocTitleText, setPocTitleText]   = useState("");
+  const [notesText, setNotesText]         = useState("");
+  const [savedFlash, setSavedFlash]       = useState(false);   // footer save confirmation
+  const [stepSaved, setStepSaved]         = useState(null);    // which step just saved
+  const [addedFlash, setAddedFlash]       = useState(false);   // add-to-pipeline confirmation
+  const saveTimerRef                      = useRef(null);
+  const stepTimerRef                      = useRef(null);
 
-  const isInPipeline = !!card;
+  const isInPipeline  = !!card;
   const isColdOutreach = card?.status === "COLD_OUTREACH";
-  // For cold outreach cards, step 2 (apply) is treated as N/A — auto-counted as complete
   const steps = card?.steps
     ? (isColdOutreach ? { ...card.steps, apply: true } : card.steps)
     : {};
@@ -87,15 +89,52 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
   const allDone = completedCount === STEPS.length;
 
   const display = card || role;
+
+  // Sync local editable fields whenever the open card changes
+  useEffect(() => {
+    if (card) {
+      setPocText(card.pocName || "");
+      setPocTitleText(card.pocTitle || "");
+      setNotesText(card.notes || "");
+    }
+    setExpandedStep(null);
+    setSavedFlash(false);
+    setStepSaved(null);
+  }, [card?.id, open]);
+
   if (!open || !display) return null;
+
+  // Dirty: any field differs from what's on the card
+  const hasChanges = card && (
+    pocText      !== (card.pocName  || "") ||
+    pocTitleText !== (card.pocTitle || "") ||
+    notesText    !== (card.notes    || "")
+  );
+
+  function flashSaved() {
+    setSavedFlash(true);
+    clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => setSavedFlash(false), 2200);
+  }
+
+  function handleSaveChanges() {
+    if (!card) return;
+    onUpdateCard(card.id, {
+      pocName:  pocText.trim(),
+      pocTitle: pocTitleText.trim(),
+      notes:    notesText,
+    });
+    flashSaved();
+  }
 
   function toggleStep(stepKey) {
     if (!card) return;
     const stepIdx = STEPS.findIndex(s => s.key === stepKey);
     const prevStep = stepIdx > 0 ? STEPS[stepIdx - 1] : null;
-    if (!steps[stepKey] && prevStep && !steps[prevStep.key]) return; // enforce sequence
+    if (!steps[stepKey] && prevStep && !steps[prevStep.key]) return;
+
     const newSteps = { ...steps, [stepKey]: !steps[stepKey] };
-    const updates = { steps: newSteps };
+    const updates  = { steps: newSteps };
     if (stepKey === "apply" && !steps[stepKey] && card.status === "TARGETED") {
       updates.status = "IN_PROGRESS";
     }
@@ -103,28 +142,35 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
     if (stepKey === "apply" && !steps[stepKey] && card.status === "TARGETED") {
       onMoveCard(card.id, "IN_PROGRESS");
     }
+
+    // Flash the step row to confirm save
+    setStepSaved(stepKey);
+    clearTimeout(stepTimerRef.current);
+    stepTimerRef.current = setTimeout(() => setStepSaved(null), 1500);
   }
 
   function handleAddToPipeline() {
     if (!role) return;
     onAddToPipeline({
-      roleId: role.id || null,
-      title: role.title,
-      company: role.company,
-      location: role.city || role.location || "",
-      tier: role.tier || "B",
-      salary: role.salary || role.est || "",
-      family: role.family || "",
-      applyUrl: role.url || role.applyUrl || "",
-      status: "TARGETED",
-      dateAdded: new Date().toISOString().slice(0, 10),
+      roleId:      role.id || null,
+      title:       role.title,
+      company:     role.company,
+      location:    role.city || role.location || "",
+      tier:        role.tier || "B",
+      salary:      role.salary || role.est || "",
+      family:      role.family || "",
+      applyUrl:    role.url || role.applyUrl || "",
+      status:      "TARGETED",
+      dateAdded:   new Date().toISOString().slice(0, 10),
       dateApplied: null,
-      pocName: "",
-      pocTitle: "",
-      pdfSent: false,
-      notes: "",
-      steps: { tailor:false, apply:false, peopleSweep:false, outreach:false, logged:false, threeFronts:false },
+      pocName:     "",
+      pocTitle:    "",
+      pdfSent:     false,
+      notes:       "",
+      steps:       { tailor:false, apply:false, peopleSweep:false, outreach:false, logged:false, threeFronts:false },
     });
+    setAddedFlash(true);
+    setTimeout(() => setAddedFlash(false), 2500);
   }
 
   function linkedinUrl(company) {
@@ -134,8 +180,8 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
 
   const applyUrl = card?.applyUrl || role?.url || role?.applyUrl || "";
   const tierColor = { A:"#b45309", B:"#1d4ed8", C:"#4b5563" };
-  const tierBg = { A:"#fef3c7", B:"#dbeafe", C:"#f3f4f6" };
-  const tier = card?.tier || role?.tier;
+  const tierBg    = { A:"#fef3c7", B:"#dbeafe", C:"#f3f4f6" };
+  const tier      = card?.tier || role?.tier;
 
   return (
     <>
@@ -151,7 +197,7 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
         fontFamily:"-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif",
       }}>
 
-        {/* Header */}
+        {/* ── HEADER ───────────────────────────────────────────────── */}
         <div style={{ padding:"20px 24px 16px", borderBottom:"1px solid #e2e8f0", flexShrink:0 }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
             <div style={{ flex:1, minWidth:0 }}>
@@ -214,18 +260,23 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
           )}
 
           {!isInPipeline && (
-            <button onClick={handleAddToPipeline} style={{
-              marginTop:14, width:"100%", padding:"11px", borderRadius:8, border:"none",
-              background:"#0891b2", color:"#ffffff", fontWeight:700, fontSize:14,
-              fontFamily:"'Inter',sans-serif", cursor:"pointer",
-              boxShadow:"0 2px 8px rgba(8,145,178,0.35)",
-            }}>
-              + Add to Pipeline &amp; Start Workflow
+            <button
+              onClick={handleAddToPipeline}
+              disabled={addedFlash}
+              style={{
+                marginTop:14, width:"100%", padding:"11px", borderRadius:8, border:"none",
+                background: addedFlash ? "#059669" : "#0891b2",
+                color:"#ffffff", fontWeight:700, fontSize:14,
+                fontFamily:"'Inter',sans-serif", cursor: addedFlash ? "default" : "pointer",
+                boxShadow: addedFlash ? "0 2px 8px rgba(5,150,105,0.35)" : "0 2px 8px rgba(8,145,178,0.35)",
+                transition:"background .2s",
+              }}>
+              {addedFlash ? "Added to Pipeline — tracked in system of record" : "+ Add to Pipeline & Start Workflow"}
             </button>
           )}
         </div>
 
-        {/* Scrollable body */}
+        {/* ── SCROLLABLE BODY ──────────────────────────────────────── */}
         <div style={{ flex:1, overflowY:"auto", padding:"16px 24px 24px" }}>
 
           {/* Cold outreach banner */}
@@ -246,21 +297,22 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
             </div>
           )}
 
-          {/* Steps */}
+          {/* ── STEPS ────────────────────────────────────────────────── */}
           {STEPS.map((step, idx) => {
-            const isColdSkip = isColdOutreach && step.key === "apply";
-            const done = isColdSkip ? true : !!steps[step.key];
-            const locked = isInPipeline && !done && idx > 0 && !steps[STEPS[idx-1].key] && !isColdSkip;
-            const isExpanded = expandedStep === step.key;
+            const isColdSkip  = isColdOutreach && step.key === "apply";
+            const done        = isColdSkip ? true : !!steps[step.key];
+            const locked      = isInPipeline && !done && idx > 0 && !steps[STEPS[idx-1].key] && !isColdSkip;
+            const isExpanded  = expandedStep === step.key;
             const canInteract = isInPipeline && !locked && !isColdSkip;
+            const justSaved   = stepSaved === step.key;
 
             return (
               <div key={step.key} style={{
                 marginBottom:9, borderRadius:10,
-                border:`1.5px solid ${isColdSkip ? "#fed7aa" : done ? "#bbf7d0" : "#e2e8f0"}`,
-                background: isColdSkip ? "#fff7ed" : done ? "#f0fdf4" : "#ffffff",
+                border:`1.5px solid ${justSaved ? "#22c55e" : isColdSkip ? "#fed7aa" : done ? "#bbf7d0" : "#e2e8f0"}`,
+                background: justSaved ? "#f0fdf4" : isColdSkip ? "#fff7ed" : done ? "#f0fdf4" : "#ffffff",
                 overflow:"hidden", opacity: locked ? 0.5 : 1,
-                transition:"opacity .15s",
+                transition:"border-color .2s, background .2s, opacity .15s",
               }}>
                 <div style={{
                   display:"flex", alignItems:"center", gap:11, padding:"11px 14px",
@@ -268,6 +320,7 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
                 }}
                   onClick={() => canInteract && setExpandedStep(isExpanded ? null : step.key)}
                 >
+                  {/* Checkbox */}
                   <div
                     onClick={e => { e.stopPropagation(); if (canInteract) toggleStep(step.key); }}
                     style={{
@@ -305,7 +358,19 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
                     )}
                   </div>
 
-                  {canInteract && (
+                  {/* Saved flash badge */}
+                  {justSaved && (
+                    <span style={{
+                      fontSize:10, fontWeight:700, color:"#16a34a",
+                      fontFamily:"'IBM Plex Mono',monospace",
+                      background:"#dcfce7", padding:"2px 7px", borderRadius:5,
+                      flexShrink:0, letterSpacing:"0.03em",
+                    }}>
+                      Saved
+                    </span>
+                  )}
+
+                  {canInteract && !justSaved && (
                     <span style={{ fontSize:11, color:"#94a3b8", flexShrink:0 }}>
                       {isExpanded ? "▲" : "▼"}
                     </span>
@@ -342,83 +407,53 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
             );
           })}
 
-          {/* POC */}
+          {/* ── POC ──────────────────────────────────────────────────── */}
           {isInPipeline && (
             <div style={{ marginTop:18 }}>
               <div style={{ fontSize:11, fontWeight:700, letterSpacing:.6, textTransform:"uppercase",
                 color:"#64748b", fontFamily:"'IBM Plex Mono',monospace", marginBottom:7 }}>
                 Point of Contact
               </div>
-              {editPoc ? (
-                <>
-                  <input value={pocText} onChange={e => setPocText(e.target.value)}
-                    placeholder="Name" style={{ width:"100%", padding:"8px 11px", fontSize:13,
-                      fontFamily:"'Inter',sans-serif", border:"1.5px solid #0891b2", borderRadius:7,
-                      marginBottom:6, boxSizing:"border-box", color:"#0f172a" }}/>
-                  <input value={pocTitleText} onChange={e => setPocTitleText(e.target.value)}
-                    placeholder="Title" style={{ width:"100%", padding:"8px 11px", fontSize:13,
-                      fontFamily:"'Inter',sans-serif", border:"1.5px solid #e2e8f0", borderRadius:7,
-                      marginBottom:8, boxSizing:"border-box", color:"#0f172a" }}/>
-                  <div style={{ display:"flex", gap:8 }}>
-                    <button onClick={() => {
-                      onUpdateCard(card.id, { pocName: pocText, pocTitle: pocTitleText });
-                      setEditPoc(false);
-                    }} style={{ padding:"6px 14px", background:"#0891b2", color:"#fff",
-                      border:"none", borderRadius:6, fontSize:13, fontWeight:600, cursor:"pointer" }}>
-                      Save
-                    </button>
-                    <button onClick={() => setEditPoc(false)}
-                      style={{ padding:"6px 14px", background:"#f1f5f9", color:"#475569",
-                        border:"none", borderRadius:6, fontSize:13, cursor:"pointer" }}>
-                      Cancel
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div onClick={() => { setPocText(card.pocName || ""); setPocTitleText(card.pocTitle || ""); setEditPoc(true); }}
-                  style={{ padding:"9px 12px", background:"#f8fafc", borderRadius:8, fontSize:13,
-                    color: card.pocName ? "#0f172a" : "#94a3b8", fontFamily:"'Inter',sans-serif",
-                    cursor:"pointer", border:"1.5px solid #e2e8f0", lineHeight:1.55 }}>
-                  {card.pocName ? `${card.pocName}${card.pocTitle ? ` — ${card.pocTitle}` : ""}` : "Click to add POC…"}
-                </div>
-              )}
+              <input
+                value={pocText}
+                onChange={e => setPocText(e.target.value)}
+                placeholder="Name"
+                style={{ width:"100%", padding:"8px 11px", fontSize:13,
+                  fontFamily:"'Inter',sans-serif",
+                  border:`1.5px solid ${pocText !== (card.pocName||"") ? "#0891b2" : "#e2e8f0"}`,
+                  borderRadius:7, marginBottom:6, boxSizing:"border-box", color:"#0f172a",
+                  background:"#f8fafc", outline:"none", transition:"border-color .15s" }}
+              />
+              <input
+                value={pocTitleText}
+                onChange={e => setPocTitleText(e.target.value)}
+                placeholder="Title"
+                style={{ width:"100%", padding:"8px 11px", fontSize:13,
+                  fontFamily:"'Inter',sans-serif",
+                  border:`1.5px solid ${pocTitleText !== (card.pocTitle||"") ? "#0891b2" : "#e2e8f0"}`,
+                  borderRadius:7, boxSizing:"border-box", color:"#0f172a",
+                  background:"#f8fafc", outline:"none", transition:"border-color .15s" }}
+              />
             </div>
           )}
 
-          {/* Notes */}
+          {/* ── NOTES ────────────────────────────────────────────────── */}
           {isInPipeline && (
             <div style={{ marginTop:14 }}>
               <div style={{ fontSize:11, fontWeight:700, letterSpacing:.6, textTransform:"uppercase",
                 color:"#64748b", fontFamily:"'IBM Plex Mono',monospace", marginBottom:7 }}>
                 Notes
               </div>
-              {editNotes ? (
-                <>
-                  <textarea value={notesText} onChange={e => setNotesText(e.target.value)}
-                    style={{ width:"100%", minHeight:80, padding:"9px 11px", fontSize:13,
-                      fontFamily:"'Inter',sans-serif", border:"1.5px solid #0891b2", borderRadius:8,
-                      resize:"vertical", color:"#0f172a", boxSizing:"border-box", lineHeight:1.6 }}/>
-                  <div style={{ display:"flex", gap:8, marginTop:6 }}>
-                    <button onClick={() => { onUpdateCard(card.id, { notes: notesText }); setEditNotes(false); }}
-                      style={{ padding:"6px 14px", background:"#0891b2", color:"#fff",
-                        border:"none", borderRadius:6, fontSize:13, fontWeight:600, cursor:"pointer" }}>
-                      Save
-                    </button>
-                    <button onClick={() => setEditNotes(false)}
-                      style={{ padding:"6px 14px", background:"#f1f5f9", color:"#475569",
-                        border:"none", borderRadius:6, fontSize:13, cursor:"pointer" }}>
-                      Cancel
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div onClick={() => { setNotesText(card.notes || ""); setEditNotes(true); }}
-                  style={{ padding:"9px 12px", background:"#f8fafc", borderRadius:8, fontSize:13,
-                    color: card.notes ? "#475569" : "#94a3b8", fontFamily:"'Inter',sans-serif",
-                    cursor:"pointer", border:"1.5px solid #e2e8f0", lineHeight:1.6, minHeight:46 }}>
-                  {card.notes || "Click to add notes…"}
-                </div>
-              )}
+              <textarea
+                value={notesText}
+                onChange={e => setNotesText(e.target.value)}
+                placeholder="Add notes…"
+                style={{ width:"100%", minHeight:80, padding:"9px 11px", fontSize:13,
+                  fontFamily:"'Inter',sans-serif",
+                  border:`1.5px solid ${notesText !== (card.notes||"") ? "#0891b2" : "#e2e8f0"}`,
+                  borderRadius:8, resize:"vertical", color:"#0f172a", boxSizing:"border-box",
+                  lineHeight:1.6, background:"#f8fafc", outline:"none", transition:"border-color .15s" }}
+              />
             </div>
           )}
 
@@ -435,6 +470,42 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
             </div>
           )}
         </div>
+
+        {/* ── SAVE FOOTER (pipeline cards only) ───────────────────── */}
+        {isInPipeline && (
+          <div style={{
+            padding:"14px 24px",
+            borderTop:"1px solid #e2e8f0",
+            flexShrink:0,
+            background: savedFlash ? "#f0fdf4" : "#f8fafc",
+            transition:"background .3s",
+            display:"flex", alignItems:"center", gap:12,
+          }}>
+            <button
+              onClick={handleSaveChanges}
+              disabled={!hasChanges && !savedFlash}
+              style={{
+                flex:1, padding:"10px 0", borderRadius:8, border:"none", cursor: hasChanges ? "pointer" : "default",
+                background: savedFlash
+                  ? "#059669"
+                  : hasChanges
+                    ? "#0891b2"
+                    : "#e2e8f0",
+                color: (savedFlash || hasChanges) ? "#ffffff" : "#94a3b8",
+                fontWeight:700, fontSize:14,
+                fontFamily:"'Inter',sans-serif",
+                transition:"background .2s, color .2s",
+                boxShadow: hasChanges ? "0 2px 8px rgba(8,145,178,0.25)" : "none",
+              }}>
+              {savedFlash ? "Saved to system of record" : hasChanges ? "Save Changes" : "No changes"}
+            </button>
+            {hasChanges && (
+              <span style={{ fontSize:11, color:"#94a3b8", fontFamily:"'IBM Plex Mono',monospace", whiteSpace:"nowrap" }}>
+                unsaved
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
