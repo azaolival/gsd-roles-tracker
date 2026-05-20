@@ -72,15 +72,16 @@ const STATUS_COLOR = {
 };
 
 export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onUpdateCard, onMoveCard }) {
-  const [expandedStep, setExpandedStep]   = useState(null);
-  const [pocText, setPocText]             = useState("");
-  const [pocTitleText, setPocTitleText]   = useState("");
-  const [notesText, setNotesText]         = useState("");
-  const [savedFlash, setSavedFlash]       = useState(false);   // footer save confirmation
-  const [stepSaved, setStepSaved]         = useState(null);    // which step just saved
-  const [addedFlash, setAddedFlash]       = useState(false);   // add-to-pipeline confirmation
-  const saveTimerRef                      = useRef(null);
-  const stepTimerRef                      = useRef(null);
+  const [expandedStep, setExpandedStep]       = useState(null);
+  const [pocText, setPocText]                 = useState("");
+  const [pocTitleText, setPocTitleText]       = useState("");
+  const [notesText, setNotesText]             = useState("");
+  const [followUpDateText, setFollowUpDate]   = useState("");
+  const [savedFlash, setSavedFlash]           = useState(false);
+  const [stepSaved, setStepSaved]             = useState(null);
+  const [addedFlash, setAddedFlash]           = useState(false);
+  const saveTimerRef                          = useRef(null);
+  const stepTimerRef                          = useRef(null);
 
   const isInPipeline  = !!card;
   const isColdOutreach = card?.status === "COLD_OUTREACH";
@@ -98,6 +99,7 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
       setPocText(card.pocName || "");
       setPocTitleText(card.pocTitle || "");
       setNotesText(card.notes || "");
+      setFollowUpDate(card.followUpDate || "");
     }
     setExpandedStep(null);
     setSavedFlash(false);
@@ -106,12 +108,28 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
 
   if (!open || !display) return null;
 
-  // Dirty: any field differs from what's on the card
   const hasChanges = card && (
-    pocText      !== (card.pocName  || "") ||
-    pocTitleText !== (card.pocTitle || "") ||
-    notesText    !== (card.notes    || "")
+    pocText          !== (card.pocName      || "") ||
+    pocTitleText     !== (card.pocTitle     || "") ||
+    notesText        !== (card.notes        || "") ||
+    followUpDateText !== (card.followUpDate || "")
   );
+
+  function addDays(n) {
+    const d = new Date();
+    d.setDate(d.getDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
+
+  function followUpStatus(dateStr) {
+    if (!dateStr) return null;
+    const today = new Date().toISOString().slice(0, 10);
+    const diff  = Math.round((new Date(dateStr) - new Date(today)) / 86400000);
+    if (diff < 0)  return { label:`OVERDUE ${Math.abs(diff)}d`, color:"#ef4444", bg:"#fef2f2" };
+    if (diff === 0) return { label:"Due today",                  color:"#d97706", bg:"#fffbeb" };
+    if (diff <= 2)  return { label:`Due in ${diff}d`,            color:"#d97706", bg:"#fffbeb" };
+    return               { label:`${diff} days out`,             color:"#0891b2", bg:"#f0f9ff" };
+  }
 
   function flashSaved() {
     setSavedFlash(true);
@@ -122,9 +140,10 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
   function handleSaveChanges() {
     if (!card) return;
     onUpdateCard(card.id, {
-      pocName:  pocText.trim(),
-      pocTitle: pocTitleText.trim(),
-      notes:    notesText,
+      pocName:      pocText.trim(),
+      pocTitle:     pocTitleText.trim(),
+      notes:        notesText,
+      followUpDate: followUpDateText || null,
     });
     flashSaved();
   }
@@ -456,6 +475,66 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
                   borderRadius:8, resize:"vertical", color:"#0f172a", boxSizing:"border-box",
                   lineHeight:1.6, background:"#f8fafc", outline:"none", transition:"border-color .15s" }}
               />
+            </div>
+          )}
+
+          {/* ── FOLLOW-UP DATE ───────────────────────────────────────── */}
+          {isInPipeline && (
+            <div style={{ marginTop:14 }}>
+              <div style={{ fontSize:11, fontWeight:700, letterSpacing:.6, textTransform:"uppercase",
+                color:"#64748b", fontFamily:"'IBM Plex Mono',monospace", marginBottom:7 }}>
+                Follow-Up Date
+              </div>
+
+              <div style={{ display:"flex", gap:8, alignItems:"center", marginBottom:7 }}>
+                <input
+                  type="date"
+                  value={followUpDateText}
+                  onChange={e => setFollowUpDate(e.target.value)}
+                  style={{ flex:1, padding:"8px 11px", fontSize:13,
+                    fontFamily:"'Inter',sans-serif",
+                    border:`1.5px solid ${followUpDateText !== (card.followUpDate||"") ? "#0891b2" : "#e2e8f0"}`,
+                    borderRadius:7, boxSizing:"border-box", color:"#0f172a",
+                    background:"#f8fafc", outline:"none", transition:"border-color .15s" }}
+                />
+                {followUpDateText && (
+                  <button onClick={() => setFollowUpDate("")}
+                    style={{ padding:"7px 12px", fontSize:12, fontWeight:600,
+                      border:"1px solid #e2e8f0", borderRadius:7, background:"#ffffff",
+                      color:"#94a3b8", cursor:"pointer", fontFamily:"'Inter',sans-serif",
+                      whiteSpace:"nowrap" }}>
+                    Clear
+                  </button>
+                )}
+              </div>
+
+              {/* Quick presets */}
+              <div style={{ display:"flex", gap:5, flexWrap:"wrap", marginBottom:7 }}>
+                {[["Tomorrow", 1],["+3d", 3],["+5d", 5],["+7d", 7],["+14d", 14]].map(([label, days]) => (
+                  <button key={label} onClick={() => setFollowUpDate(addDays(days))}
+                    style={{ fontSize:11, fontWeight:700, padding:"4px 10px", borderRadius:6,
+                      border:"1px solid #e2e8f0", background:"#f8fafc", color:"#64748b",
+                      cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace",
+                      transition:"background .1s, color .1s" }}
+                    onMouseEnter={e => { e.currentTarget.style.background="#0891b2"; e.currentTarget.style.color="#ffffff"; e.currentTarget.style.borderColor="#0891b2"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background="#f8fafc"; e.currentTarget.style.color="#64748b"; e.currentTarget.style.borderColor="#e2e8f0"; }}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Live status */}
+              {followUpDateText && (() => {
+                const fs = followUpStatus(followUpDateText);
+                return (
+                  <div style={{ fontSize:12, fontWeight:700, color:fs.color,
+                    background:fs.bg, fontFamily:"'IBM Plex Mono',monospace",
+                    padding:"5px 10px", borderRadius:6, display:"inline-block",
+                    border:`1px solid ${fs.color}30` }}>
+                    {fs.label}
+                  </div>
+                );
+              })()}
             </div>
           )}
 

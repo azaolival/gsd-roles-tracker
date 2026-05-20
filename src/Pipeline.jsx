@@ -38,6 +38,16 @@ function daysAgo(dateStr) {
   return Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
 }
 
+function followUpBadge(dateStr) {
+  if (!dateStr) return null;
+  const today = new Date().toISOString().slice(0, 10);
+  const diff  = Math.round((new Date(dateStr) - new Date(today)) / 86400000);
+  if (diff < 0)   return { label:`OVERDUE ${Math.abs(diff)}d`, color:"#ef4444", bg:"#fef2f2" };
+  if (diff === 0) return { label:"Follow up TODAY",            color:"#d97706", bg:"#fffbeb" };
+  if (diff <= 2)  return { label:`Follow up in ${diff}d`,      color:"#d97706", bg:"#fffbeb" };
+  return               { label:`Follow up ${diff}d`,           color:"#0891b2", bg:"#eff6ff" };
+}
+
 function Card({ card, onOpen, compact }) {
   const done = stepsCount(card.steps);
   const allDone = done === 6;
@@ -76,9 +86,22 @@ function Card({ card, onOpen, compact }) {
         {card.title}
       </div>
       <div style={{ fontSize: 12, color: "#475569", fontFamily: "'Inter',sans-serif",
-        marginBottom: compact ? 5 : 8 }}>
+        marginBottom: 4 }}>
         {card.company}
       </div>
+
+      {/* Follow-up date badge */}
+      {card.followUpDate && (() => {
+        const fb = followUpBadge(card.followUpDate);
+        return (
+          <div style={{ fontSize:10, fontWeight:700, color:fb.color,
+            background:fb.bg, padding:"2px 7px", borderRadius:4, marginBottom:5,
+            fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+            border:`1px solid ${fb.color}30` }}>
+            {fb.label}
+          </div>
+        );
+      })()}
 
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <div style={{ flex: 1, height: 4, background: "#f1f5f9", borderRadius: 2, overflow: "hidden" }}>
@@ -172,10 +195,21 @@ function QueueCard({ card, onOpen, position }) {
             {card.title}
           </div>
           <div style={{ fontSize: 12, color: "#475569", fontFamily: "'Inter',sans-serif",
-            marginBottom: 8 }}>
+            marginBottom: card.followUpDate ? 4 : 8 }}>
             {card.company}
             {card.location && <span style={{ color: "#94a3b8" }}> · {card.location}</span>}
           </div>
+          {card.followUpDate && (() => {
+            const fb = followUpBadge(card.followUpDate);
+            return (
+              <div style={{ fontSize:10, fontWeight:700, color:fb.color,
+                background:fb.bg, padding:"2px 7px", borderRadius:4, marginBottom:7,
+                fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+                border:`1px solid ${fb.color}30` }}>
+                {fb.label}
+              </div>
+            );
+          })()}
         </div>
         {tier && (
           <span style={{ fontSize: 11, fontWeight: 700, fontFamily: "'IBM Plex Mono',monospace",
@@ -247,9 +281,21 @@ function HotCard({ card, onOpen, colColor, colBg, colBorder }) {
         {card.title}
       </div>
       <div style={{ fontSize: 12, color: "#475569", fontFamily: "'Inter',sans-serif",
-        marginBottom: 8 }}>
+        marginBottom: card.followUpDate ? 4 : 8 }}>
         {card.company}
       </div>
+
+      {card.followUpDate && (() => {
+        const fb = followUpBadge(card.followUpDate);
+        return (
+          <div style={{ fontSize:10, fontWeight:700, color:fb.color,
+            background:fb.bg, padding:"2px 7px", borderRadius:4, marginBottom:7,
+            fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+            border:`1px solid ${fb.color}30` }}>
+            {fb.label}
+          </div>
+        );
+      })()}
 
       {card.notes && (
         <div style={{ fontSize: 11, color: colColor, fontFamily: "'Inter',sans-serif",
