@@ -1124,6 +1124,149 @@ const PIPELINE_STATUS_META = {
   GHOSTED:            { label:"Ghosted",             color:"#94a3b8", bg:"#f8fafc" },
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ADD ROLE FORM — modal form for self-sourcing any role into either board
+// ─────────────────────────────────────────────────────────────────────────────
+function AddRoleForm({ boardId, onSubmit, onCancel }) {
+  const [title, setTitle]           = useState("");
+  const [company, setCompany]       = useState("");
+  const [city, setCity]             = useState("Remote");
+  const [bucket, setBucket]         = useState(B.REM);
+  const [family, setFamily]         = useState("PM/PO/BA");
+  const [salaryTier, setSalaryTier] = useState("");
+  const [salaryEst, setSalaryEst]   = useState("");
+  const [url, setUrl]               = useState("");
+  const [posted, setPosted]         = useState("");
+  const [notes, setNotes]           = useState("");
+  const [tags, setTags]             = useState("");
+
+  const canSubmit = title.trim() && company.trim();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!canSubmit) return;
+    onSubmit({
+      title:      title.trim(),
+      company:    company.trim(),
+      city:       city.trim() || "Remote",
+      bucket,
+      family,
+      salaryTier: salaryTier || null,
+      salaryEst:  salaryEst.trim() || null,
+      url:        url.trim() || "#",
+      posted:     posted.trim() || new Date().toLocaleDateString("en-US", { month:"short", year:"numeric" }),
+      source:     "Self-sourced",
+      notes:      notes.trim() || null,
+      tags:       tags.split(",").map(t => t.trim()).filter(Boolean),
+    });
+  };
+
+  const inp = {
+    width:"100%", boxSizing:"border-box", padding:"9px 12px", borderRadius:7,
+    border:"1px solid #e2e8f0", fontSize:14, fontFamily:"'Inter',sans-serif",
+    color:"#0f172a", background:"#f8fafc", outline:"none",
+  };
+  const lbl = {
+    display:"block", fontSize:12, fontWeight:600, color:"#374151",
+    fontFamily:"'Inter',sans-serif", marginBottom:4,
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div style={{ fontSize:18, fontWeight:700, color:"#0f172a", fontFamily:"'Inter',sans-serif", marginBottom:4 }}>+ Add Role</div>
+      <div style={{ fontSize:13, color:"#64748b", fontFamily:"'Inter',sans-serif", marginBottom:20 }}>
+        Self-sourced roles land on this board and work with all filters, tracking, and the Activity Log.
+      </div>
+
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:20 }}>
+        <div style={{ gridColumn:"1 / -1" }}>
+          <label style={lbl}>Job Title *</label>
+          <input value={title} onChange={e => setTitle(e.target.value)}
+            placeholder="Sr. Product Manager — Mortgage Technology" style={inp} autoFocus />
+        </div>
+        <div style={{ gridColumn:"1 / -1" }}>
+          <label style={lbl}>Company *</label>
+          <input value={company} onChange={e => setCompany(e.target.value)}
+            placeholder="Company name" style={inp} />
+        </div>
+        <div>
+          <label style={lbl}>City / Location</label>
+          <input value={city} onChange={e => setCity(e.target.value)}
+            placeholder="Remote" style={inp} />
+        </div>
+        <div>
+          <label style={lbl}>Geographic Bucket</label>
+          <select value={bucket} onChange={e => setBucket(e.target.value)} style={inp}>
+            <option value={B.REM}>{B.REM}</option>
+            <option value={B.BAY}>{B.BAY}</option>
+            <option value={B.SB}>{B.SB}</option>
+          </select>
+        </div>
+        <div>
+          <label style={lbl}>Role Family</label>
+          <select value={family} onChange={e => setFamily(e.target.value)} style={inp}>
+            {Object.entries(FAMILY_LABELS).map(([k, v]) => (
+              <option key={k} value={k}>{k} — {v}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label style={lbl}>Salary Tier</label>
+          <select value={salaryTier} onChange={e => setSalaryTier(e.target.value)} style={inp}>
+            <option value="">— Unknown</option>
+            {Object.entries(TIER_META).map(([t, m]) => (
+              <option key={t} value={t}>{t} — {m.desc}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label style={lbl}>Salary Est.</label>
+          <input value={salaryEst} onChange={e => setSalaryEst(e.target.value)}
+            placeholder="~$140K–$175K" style={inp} />
+        </div>
+        <div>
+          <label style={lbl}>Date Found / Posted</label>
+          <input value={posted} onChange={e => setPosted(e.target.value)}
+            placeholder="May 2026" style={inp} />
+        </div>
+        <div style={{ gridColumn:"1 / -1" }}>
+          <label style={lbl}>Apply URL</label>
+          <input value={url} onChange={e => setUrl(e.target.value)}
+            placeholder="https://company.com/careers/job-id" style={inp} />
+        </div>
+        <div style={{ gridColumn:"1 / -1" }}>
+          <label style={lbl}>Tags (comma-separated)</label>
+          <input value={tags} onChange={e => setTags(e.target.value)}
+            placeholder="product manager, mortgage, LOS, remote" style={inp} />
+        </div>
+        <div style={{ gridColumn:"1 / -1" }}>
+          <label style={lbl}>Notes</label>
+          <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={3}
+            placeholder="Key details, why this is a fit, recruiter name, where you found it…"
+            style={{ ...inp, resize:"vertical" }} />
+        </div>
+      </div>
+
+      <div style={{ display:"flex", gap:10, justifyContent:"flex-end" }}>
+        <button type="button" onClick={onCancel}
+          style={{ padding:"9px 20px", borderRadius:7, border:"1px solid #e2e8f0",
+            background:"#fff", color:"#6b7280", fontSize:14, fontFamily:"'Inter',sans-serif",
+            cursor:"pointer", fontWeight:600 }}>
+          Cancel
+        </button>
+        <button type="submit" disabled={!canSubmit}
+          style={{ padding:"9px 24px", borderRadius:7, border:"none",
+            background: canSubmit ? "#0891b2" : "#e2e8f0",
+            color: canSubmit ? "#fff" : "#94a3b8",
+            fontSize:14, fontFamily:"'Inter',sans-serif",
+            cursor: canSubmit ? "pointer" : "default", fontWeight:700 }}>
+          Add to Board
+        </button>
+      </div>
+    </form>
+  );
+}
+
 export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs, pipelineCards = [] }) {
   const dismissedKey = boardId === "mortgage" ? "gsd-dismissed" : `gsd-dismissed-${boardId}`;
   const pipelineRoleIds = useMemo(() => new Set(pipelineStatusMap.keys()), [pipelineStatusMap]);
@@ -1134,7 +1277,9 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
   const [orgFilter, setOrgFilter] = useState("All");
   const [showNotes, setNotes]     = useState(true);
   const [collapsed, setCollapsed] = useState({});
-  const [dismissed, setDismissed] = useState(() => new Set(JSON.parse(localStorage.getItem(dismissedKey) || "[]")));
+  const [dismissed, setDismissed]   = useState(() => new Set(JSON.parse(localStorage.getItem(dismissedKey) || "[]")));
+  const [customRoles, setCustomRoles] = useState(() => JSON.parse(localStorage.getItem(`gsd-custom-${boardId}`) || "[]"));
+  const [showAddModal, setShowAddModal] = useState(false);
 
   // Companies that company passed on Aza — flag on prospect board for awareness
   const flaggedCompanies = useMemo(() => {
@@ -1158,11 +1303,34 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     setDismissed(new Set());
   };
 
+  const getSalary = useCallback((job) =>
+    SALARY_EST[job.id] || (job.salaryTier ? { tier: job.salaryTier, est: job.salaryEst || "" } : null),
+  []);
+
+  const addCustomRole = useCallback((data) => {
+    const role = { ...data, id: `CUSTOM_${boardId.toUpperCase()}_${Date.now()}`, _custom: true };
+    setCustomRoles(prev => {
+      const next = [...prev, role];
+      localStorage.setItem(`gsd-custom-${boardId}`, JSON.stringify(next));
+      return next;
+    });
+  }, [boardId]);
+
+  const deleteCustomRole = useCallback((id) => {
+    setCustomRoles(prev => {
+      const next = prev.filter(r => r.id !== id);
+      localStorage.setItem(`gsd-custom-${boardId}`, JSON.stringify(next));
+      return next;
+    });
+  }, [boardId]);
+
+  const allJobs = useMemo(() => [...jobsList, ...customRoles], [jobsList, customRoles]);
+
   const ORG_TIER_ORDER = { G: 0, Y: 1, R: 2 };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return jobsList
+    return allJobs
       .filter(j => {
         if (dismissed.has(j.id)) return false;
         if (pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED") return false;
@@ -1170,20 +1338,19 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
           .join(" ").toLowerCase().includes(q);
         const mb = bucketFilter === "All" || j.bucket === bucketFilter;
         const mf = familyFilter === "All" || j.family === familyFilter;
-        const mt = tierFilter === "All" || (SALARY_EST[j.id]?.tier === tierFilter);
+        const mt = tierFilter === "All" || (getSalary(j)?.tier === tierFilter);
         const mo = orgFilter === "All" || orgQuality(j.id, j.company) === orgFilter;
         return ms && mb && mf && mt && mo;
       })
       .sort((a, b) => {
-        // Sort: org quality first (G→Y→R), then salary tier
         const oa = ORG_TIER_ORDER[orgQuality(a.id, a.company)] ?? 9;
         const ob = ORG_TIER_ORDER[orgQuality(b.id, b.company)] ?? 9;
         if (oa !== ob) return oa - ob;
-        const ta = TIER_ORDER[SALARY_EST[a.id]?.tier] ?? 9;
-        const tb = TIER_ORDER[SALARY_EST[b.id]?.tier] ?? 9;
+        const ta = TIER_ORDER[getSalary(a)?.tier] ?? 9;
+        const tb = TIER_ORDER[getSalary(b)?.tier] ?? 9;
         return ta - tb;
       });
-  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, dismissed, jobsList]);
+  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, dismissed, allJobs, getSalary]);
 
   const byBucket = useMemo(() => {
     const g = {};
@@ -1194,9 +1361,9 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
 
   const tierCounts = useMemo(() => {
     const counts = { A: 0, B: 0, C: 0 };
-    jobsList.forEach(j => { const t = SALARY_EST[j.id]?.tier; if (t) counts[t]++; });
+    allJobs.forEach(j => { const sd = getSalary(j); if (sd?.tier) counts[sd.tier]++; });
     return counts;
-  }, [jobsList]);
+  }, [allJobs, getSalary]);
 
   const toggle = b => setCollapsed(s => ({ ...s, [b]: !s[b] }));
 
@@ -1248,6 +1415,21 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                   </button>
                 </div>
               )}
+              <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
+                <button onClick={() => setShowAddModal(true)}
+                  style={{ display:"flex", alignItems:"center", gap:6, padding:"9px 18px",
+                    borderRadius:8, border:"1.5px solid #0891b2", background:"#e0f9ff",
+                    color:"#0891b2", fontSize:14, fontWeight:700, cursor:"pointer",
+                    fontFamily:"'Inter',sans-serif", whiteSpace:"nowrap" }}>
+                  + Add Role
+                </button>
+                {customRoles.length > 0 && (
+                  <div style={{ fontSize:11, color:"#94a3b8", marginTop:4, textAlign:"center",
+                    fontFamily:"'IBM Plex Mono',monospace" }}>
+                    {customRoles.length} custom
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -1284,7 +1466,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
             {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
               <span style={{ fontSize:12, color:"#64748b", fontFamily:"'IBM Plex Mono',monospace",
                 whiteSpace:"nowrap", marginLeft:4 }}>
-                Showing {filtered.length} of {jobsList.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length}
+                Showing {filtered.length} of {allJobs.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length}
               </span>
             )}
           </div>
@@ -1298,7 +1480,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                 background: tierFilter === "All" ? "#0f172a" : "#ffffff",
                 color: tierFilter === "All" ? "#ffffff" : "#6b7280",
                 cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
-              All ({jobsList.length})
+              All ({allJobs.length})
             </button>
             {Object.entries(TIER_META).map(([tier, m]) => (
               <button key={tier} onClick={() => setTier(tierFilter === tier ? "All" : tier)}
@@ -1403,7 +1585,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                 <div style={{ border:`1px solid ${m.c}35`, borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden", boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
                   {items.map((job, idx) => {
                     const fc = FAMILY_COLORS[job.family] || "#64748b";
-                    const sd = SALARY_EST[job.id];
+                    const sd = getSalary(job);
                     const tm = sd ? TIER_META[sd.tier] : null;
                     return (
                       <div key={job.id}
@@ -1526,9 +1708,17 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                                 boxShadow: pipelineRoleIds.has(job.id) ? "0 2px 6px rgba(99,102,241,0.35)" : "0 2px 6px rgba(8,145,178,0.35)" }}>
                               {pipelineStatusMap.get(job.id) === "TARGETED" ? "Queued →" : pipelineRoleIds.has(job.id) ? "In Log ✓" : "Track + Apply →"}
                             </button>
+                            {job._custom && (
+                              <span style={{ fontSize:10, fontWeight:700, color:"#7c3aed",
+                                background:"#ede9fe", border:"1px solid #c4b5fd",
+                                padding:"2px 8px", borderRadius:4,
+                                fontFamily:"'IBM Plex Mono',monospace" }}>
+                                CUSTOM
+                              </span>
+                            )}
                             <button
                               onClick={() => dismissRole(job.id)}
-                              title="Not a fit — remove from board"
+                              title="Not a fit — hide from board"
                               style={{ fontSize:11, fontWeight:500, color:"#cbd5e1", background:"none",
                                 border:"1px solid #e2e8f0", borderRadius:6, padding:"4px 10px",
                                 cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace",
@@ -1537,6 +1727,19 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                               onMouseLeave={e => { e.currentTarget.style.color="#cbd5e1"; e.currentTarget.style.borderColor="#e2e8f0"; }}>
                               ✕ no thanks
                             </button>
+                            {job._custom && (
+                              <button
+                                onClick={() => deleteCustomRole(job.id)}
+                                title="Delete this custom role permanently"
+                                style={{ fontSize:11, fontWeight:500, color:"#cbd5e1", background:"none",
+                                  border:"1px solid #e2e8f0", borderRadius:6, padding:"4px 10px",
+                                  cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace",
+                                  transition:"color .15s, border-color .15s" }}
+                                onMouseEnter={e => { e.currentTarget.style.color="#be185d"; e.currentTarget.style.borderColor="#fbcfe8"; }}
+                                onMouseLeave={e => { e.currentTarget.style.color="#cbd5e1"; e.currentTarget.style.borderColor="#e2e8f0"; }}>
+                                × delete
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1548,22 +1751,28 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
           );
         })}
 
-        {jobsList.length === 0 && (
+        {allJobs.length === 0 && (
           <div style={{ textAlign:"center", padding:"80px 28px" }}>
             <div style={{ fontSize:48, marginBottom:16 }}>📋</div>
             <div style={{ fontSize:20, fontWeight:700, color:"#0f172a", fontFamily:"'Inter',sans-serif", marginBottom:8 }}>
               {boardTitle} is Ready
             </div>
-            <div style={{ fontSize:14, color:"#64748b", lineHeight:1.7, maxWidth:480, margin:"0 auto", fontFamily:"'Inter',sans-serif" }}>
-              This board tracks non-mortgage opportunities using your industry-agnostic resume.
-              Run /u_job_scan with expanded search criteria to populate this board when the net needs to be cast wider.
-              <br/><br/>
-              Source: Contingency resume — same transferable skills, no mortgage-specific language.
-              See <strong>project_operation_gsd.md</strong> Contingency Resume section.
+            <div style={{ fontSize:14, color:"#64748b", lineHeight:1.7, maxWidth:480, margin:"0 auto", fontFamily:"'Inter',sans-serif", marginBottom:24 }}>
+              {boardId === "non-mortgage"
+                ? "Add any role you find yourself — platform PM, TPM, delivery, strategy, or anything else outside mortgage. Same transferable skills, no mortgage-specific language required."
+                : "Run /u_job_scan with expanded search criteria to populate this board. Or add a self-sourced role you found on your own."
+              }
             </div>
+            <button onClick={() => setShowAddModal(true)}
+              style={{ padding:"12px 28px", borderRadius:9, border:"none",
+                background:"#0891b2", color:"#fff", fontSize:15, fontWeight:700,
+                cursor:"pointer", fontFamily:"'Inter',sans-serif",
+                boxShadow:"0 2px 10px rgba(8,145,178,0.35)" }}>
+              + Add Your First Role
+            </button>
           </div>
         )}
-        {jobsList.length > 0 && filtered.length === 0 && (
+        {allJobs.length > 0 && filtered.length === 0 && (
           <div style={{ textAlign:"center", padding:80, color:"#94a3b8", fontSize:16, fontFamily:"'Inter',sans-serif" }}>
             No matches. Try clearing a filter.
           </div>
@@ -1578,6 +1787,24 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
       </div>
 
       </div>{/* end scrollable area */}
+
+      {/* ── ADD ROLE MODAL ─────────────────────────────────────── */}
+      {showAddModal && (
+        <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", zIndex:200,
+          display:"flex", alignItems:"center", justifyContent:"center", padding:24 }}
+          onClick={e => { if (e.target === e.currentTarget) setShowAddModal(false); }}>
+          <div style={{ background:"#ffffff", borderRadius:12, padding:28, width:"100%",
+            maxWidth:560, maxHeight:"90vh", overflowY:"auto",
+            boxShadow:"0 20px 60px rgba(0,0,0,0.3)" }}
+            onClick={e => e.stopPropagation()}>
+            <AddRoleForm
+              boardId={boardId}
+              onSubmit={(data) => { addCustomRole(data); setShowAddModal(false); }}
+              onCancel={() => setShowAddModal(false)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
