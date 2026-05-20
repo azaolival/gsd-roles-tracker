@@ -74,6 +74,65 @@ const TIER_META = {
   C: { label:"C  $115K–$129K", color:"#4b5563", bg:"#f3f4f6", desc:"Floor only" },
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ORG QUALITY — traffic-light tier for every company in the board
+//   G = Top Tier    market leader · strong growth · best ROI on effort
+//   Y = Mid Tier    solid company · secondary priority
+//   R = Contingency generic / small / low-value without green alternatives
+//
+// Logic: name-match against known leaders; manual overrides for "Various" entries
+// ─────────────────────────────────────────────────────────────────────────────
+const ORG_QUALITY_OVERRIDES = {
+  B12:"R",  // "Various CA Lenders" — generic aggregator
+  R04:"Y",  // GoodLeap — solar/green lending, not core mortgage
+  R10:"R",  // Nityo — staffing agency
+  R33:"Y",  // Various Software Delivery roles
+  R34:"Y",  // Various TPM Mortgage/Fintech
+  R35:"Y",  // Various Sr. Program Manager Fintech
+  R36:"R",  // Benchmark Mortgage — small regional IMB
+  R37:"Y",  // Various Scrum Master contract
+  R38:"R",  // Various Agile Delivery Manager contract
+  R42:"Y",  // Dovenmuehle / Various Servicers
+  R47:"Y",  // Various Consulting (Deloitte, Accenture, Capco)
+  R49:"G",  // Various (ICE, MeridianLink, Snapdocs, nCino, Maxwell) — greens in mix
+  R52:"G",  // Various (Blend, Snapdocs, Polly, Better, Rocket) — greens in mix
+  R53:"G",  // Various (Airwallex, SoFi, loanDepot) — greens in mix
+  R54:"Y",  // Various IMBs/Servicers
+  R55:"Y",  // Various (ICE, Treliant, Rocket, Freedom)
+  R56:"G",  // Various (Rocket, ICE, CrossCountry, loanDepot) — top-tier anchors
+  R59:"Y",  // Various Servicers/IMBs
+  R60:"Y",  // Various (Pennymac, Freedom, Rocket, Blend)
+};
+
+const GREEN_ORG_KEYWORDS = [
+  "blend","figure","snapdocs","sofi","redfin","upstart","opendoor","airwallex",
+  "block, inc","block inc","sagent","ncino","meridianlink","polly","situsamc",
+  "situs amc","ocrolus","docusign","ice mortgage","ice mortgage technology",
+  "rocket","uwm","united wholesale","pennymac","loandepot","loan depot",
+  "freddie mac","fannie mae","paypal","robinhood","salesforce","experian",
+  "lendingtree","lending tree","zillow","better.com","better mortgage",
+  "realtor.com","optimal blue","mr. cooper","guaranteed rate","guild mortgage",
+  "corelogic","loanpro","movement mortgage",
+];
+
+function orgQuality(jobId, company) {
+  if (ORG_QUALITY_OVERRIDES[jobId]) return ORG_QUALITY_OVERRIDES[jobId];
+  if (!company) return "Y";
+  const c = company.toLowerCase();
+  if (c.startsWith("various") || c.includes("multiple companies")) return "Y";
+  if (GREEN_ORG_KEYWORDS.some(k => c.includes(k))) return "G";
+  return "Y";
+}
+
+const ORG_QUALITY_META = {
+  G: { label:"Top Tier",    short:"Green",  color:"#15803d", bg:"#f0fdf4", dot:"#22c55e",
+       desc:"Market leader · strong growth · attack first" },
+  Y: { label:"Mid Tier",    short:"Yellow", color:"#b45309", bg:"#fffbeb", dot:"#f59e0b",
+       desc:"Solid company · work after Green exhausted" },
+  R: { label:"Contingency", short:"Red",    color:"#b91c1c", bg:"#fef2f2", dot:"#ef4444",
+       desc:"Backup only — low priority without alternatives" },
+};
+
 const SALARY_EST = {
   // ── BAY AREA ────────────────────────────────────────────────────────────────
   B01:{ tier:"B", est:"~$145K–$175K" },   // Blend PO Digital Close
@@ -169,6 +228,15 @@ const SALARY_EST = {
   R60:{ tier:"C", est:"~$100K–$130K" },   // Product Data Analyst
   R61:{ tier:"B", est:"~$125K–$155K" },   // Zillow Mortgage Compliance Manager
   R62:{ tier:"C", est:"~$85K–$110K"  },   // Orion Lending UAT Specialist
+  // ── EXPANDED REMOTE — NEW ORGS ───────────────────────────────────────────
+  R63:{ tier:"A", est:"~$155K–$195K" },   // Mr. Cooper Sr. PM Servicing Technology
+  R64:{ tier:"A", est:"~$145K–$180K" },   // Guaranteed Rate Sr. PM Digital Mortgage
+  R65:{ tier:"B", est:"~$130K–$165K" },   // Guild Mortgage PM Technology Platform
+  R66:{ tier:"B", est:"~$140K–$175K" },   // LoanPro Sr. PM Lending SaaS
+  R67:{ tier:"B", est:"~$135K–$165K" },   // Movement Mortgage Sr. BSA/PM
+  R68:{ tier:"B", est:"~$125K–$155K" },   // Planet Home Lending Sr. PM Servicing
+  R69:{ tier:"A", est:"~$155K–$190K" },   // CoreLogic Sr. PM Mortgage Data & Analytics
+  R70:{ tier:"B", est:"~$130K–$160K" },   // LendingTree PM Home Loan Marketplace
 };
 
 const jobs = [
@@ -948,6 +1016,72 @@ const jobs = [
     url:"https://www.indeed.com/q-the-mortgage-leaders-l-remote-jobs.html", source:"Indeed",
     tags:["UAT","compliance","LOS","disclosure","TRID","mortgage","Non-QM","wholesale"],
     notes:"Combines UAT and compliance — tests mortgage LOS for regulatory compliance. 2+ yrs LOS exp required. Wholesale / Non-QM background a plus." },
+
+  // ── REMOTE · EXPANDED TARGETS — NEW ORGS ────────────────────────────────
+
+  { id:"R63", bucket:B.REM, family:"PM/PO/BA",
+    title:"Sr. Product Manager — Mortgage Servicing Technology",
+    company:"Mr. Cooper Group", city:"Remote (Dallas TX HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://www.mrcooper.com/careers", source:"Mr. Cooper Careers / LinkedIn",
+    tags:["servicing","LOS","MSP","product manager","mortgage","AI","digital","Mr. Cooper"],
+    notes:"Largest non-bank mortgage servicer in the US (4M+ customers). Heavy tech transformation investment. ServiceMac platform. Remote-friendly for PM/product roles. Tier A target." },
+
+  { id:"R64", bucket:B.REM, family:"PM/PO/BA",
+    title:"Sr. Product Manager — Digital Mortgage Platform",
+    company:"Guaranteed Rate", city:"Remote (Chicago IL HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://www.rate.com/careers", source:"Guaranteed Rate Careers / Indeed",
+    tags:["digital mortgage","LOS","product manager","fintech","AI","origination","Guaranteed Rate"],
+    notes:"Top 5 U.S. retail mortgage lender. Heavy tech investment in digital origination. Known for tech-forward culture. Rate.com rebrand. Remote PM roles active." },
+
+  { id:"R65", bucket:B.REM, family:"PM/PO/BA",
+    title:"Product Manager — Mortgage Technology Platform",
+    company:"Guild Mortgage", city:"Remote (San Diego CA HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://www.guildmortgage.com/careers/", source:"Guild Mortgage Careers",
+    tags:["mortgage","product manager","LOS","origination","POS","technology","Guild"],
+    notes:"Top 20 retail mortgage lender. IPO 2020 (GMFS). Growing tech team. Strong culture ratings. SD HQ — remote for many product roles. Encompass-based LOS." },
+
+  { id:"R66", bucket:B.REM, family:"PM/PO/BA",
+    title:"Sr. Product Manager — Modern Lending SaaS Platform",
+    company:"LoanPro", city:"Remote (Draper UT HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://loanpro.io/careers/", source:"LoanPro Careers / Built In",
+    tags:["LMS","SaaS","lending","product manager","API","fintech","servicing","LoanPro"],
+    notes:"Modern loan management system (LMS) — rapidly displacing legacy servicing platforms. API-first, cloud-native. Clients: mortgage, auto, BNPL, consumer. Remote-first culture. High growth." },
+
+  { id:"R67", bucket:B.REM, family:"PM/PO/BA",
+    title:"Sr. Business Analyst / Product Owner — Mortgage Technology",
+    company:"Movement Mortgage", city:"Remote (Indian Land SC HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://movement.com/careers/", source:"Movement Mortgage Careers / Indeed",
+    tags:["BSA","product owner","mortgage","LOS","origination","Encompass","agile","Movement"],
+    notes:"Fast-growing retail IMB with strong culture (Best Places to Work). Encompass-based LOS. Heavy investment in process optimization and digital tools. Remote BSA/PO roles active." },
+
+  { id:"R68", bucket:B.REM, family:"PM/PO/BA",
+    title:"Sr. Product Manager — Mortgage Servicing Technology",
+    company:"Planet Home Lending", city:"Remote (Meriden CT HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://www.planethomelending.com/careers/", source:"Planet Home Lending Careers",
+    tags:["servicing","MSP","LoanServ","product manager","mortgage","digital","Planet Home"],
+    notes:"Growing servicer / originator. Significant MSP and servicing platform investment. Remote-friendly for product and technology roles. Tier B target with room to grow." },
+
+  { id:"R69", bucket:B.REM, family:"DATA",
+    title:"Sr. Product Manager — Mortgage Data & Analytics Platform",
+    company:"CoreLogic", city:"Remote (Irvine CA HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://www.corelogic.com/careers/", source:"CoreLogic Careers / LinkedIn",
+    tags:["data","analytics","mortgage","product manager","property","AVM","risk","CoreLogic"],
+    notes:"Leading provider of property data, analytics, and workflow solutions for mortgage, title, and insurance. Deep LOS data integrations. Remote PM roles active. Tier A — strong brand, stable market position." },
+
+  { id:"R70", bucket:B.REM, family:"CSM",
+    title:"Product Manager — Home Loan Marketplace Platform",
+    company:"LendingTree", city:"Remote (Charlotte NC HQ)",
+    salary:null, posted:"Active May 2026",
+    url:"https://www.lendingtree.com/careers/", source:"LendingTree Careers",
+    tags:["marketplace","home loans","product manager","fintech","lead generation","mortgage","LendingTree"],
+    notes:"Largest online loan marketplace. 30M+ users. PM roles spanning consumer home loan experience, partner integrations, and ML-driven matching. Remote-friendly. NASDAQ: TREE." },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -990,16 +1124,27 @@ const PIPELINE_STATUS_META = {
   GHOSTED:            { label:"Ghosted",             color:"#94a3b8", bg:"#f8fafc" },
 };
 
-export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs }) {
+export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs, pipelineCards = [] }) {
   const dismissedKey = boardId === "mortgage" ? "gsd-dismissed" : `gsd-dismissed-${boardId}`;
   const pipelineRoleIds = useMemo(() => new Set(pipelineStatusMap.keys()), [pipelineStatusMap]);
   const [search, setSearch]       = useState("");
   const [bucketFilter, setBucket] = useState("All");
   const [familyFilter, setFamily] = useState("All");
   const [tierFilter, setTier]     = useState("All");
+  const [orgFilter, setOrgFilter] = useState("All");
   const [showNotes, setNotes]     = useState(true);
   const [collapsed, setCollapsed] = useState({});
   const [dismissed, setDismissed] = useState(() => new Set(JSON.parse(localStorage.getItem(dismissedKey) || "[]")));
+
+  // Companies that company passed on Aza — flag on prospect board for awareness
+  const flaggedCompanies = useMemo(() => {
+    const s = new Set();
+    pipelineCards.forEach(c => {
+      if ((c.status === "NOT_MOVING_FORWARD" || c.status === "NO_THANKS") && c.company)
+        s.add(c.company.toLowerCase().trim());
+    });
+    return s;
+  }, [pipelineCards]);
 
   const dismissRole = (id) => setDismissed(prev => {
     const next = new Set(prev);
@@ -1013,6 +1158,8 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     setDismissed(new Set());
   };
 
+  const ORG_TIER_ORDER = { G: 0, Y: 1, R: 2 };
+
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
     return jobsList
@@ -1024,14 +1171,19 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
         const mb = bucketFilter === "All" || j.bucket === bucketFilter;
         const mf = familyFilter === "All" || j.family === familyFilter;
         const mt = tierFilter === "All" || (SALARY_EST[j.id]?.tier === tierFilter);
-        return ms && mb && mf && mt;
+        const mo = orgFilter === "All" || orgQuality(j.id, j.company) === orgFilter;
+        return ms && mb && mf && mt && mo;
       })
       .sort((a, b) => {
+        // Sort: org quality first (G→Y→R), then salary tier
+        const oa = ORG_TIER_ORDER[orgQuality(a.id, a.company)] ?? 9;
+        const ob = ORG_TIER_ORDER[orgQuality(b.id, b.company)] ?? 9;
+        if (oa !== ob) return oa - ob;
         const ta = TIER_ORDER[SALARY_EST[a.id]?.tier] ?? 9;
         const tb = TIER_ORDER[SALARY_EST[b.id]?.tier] ?? 9;
         return ta - tb;
       });
-  }, [search, bucketFilter, familyFilter, tierFilter, pipelineRoleIds, pipelineStatusMap, dismissed, jobsList]);
+  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, dismissed, jobsList]);
 
   const byBucket = useMemo(() => {
     const g = {};
@@ -1121,15 +1273,15 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                 fontSize:14, fontFamily:"'Inter',sans-serif", cursor:"pointer", fontWeight:600, whiteSpace:"nowrap" }}>
               {showNotes ? "Hide Notes" : "Show Notes"}
             </button>
-            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All") && (
-              <button onClick={() => { setSearch(""); setBucket("All"); setFamily("All"); setTier("All"); }}
+            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
+              <button onClick={() => { setSearch(""); setBucket("All"); setFamily("All"); setTier("All"); setOrgFilter("All"); }}
                 style={{ padding:"10px 18px", borderRadius:8, border:"1px solid #e2e8f0",
                   background:"#ffffff", color:"#6b7280", fontSize:14,
                   fontFamily:"'Inter',sans-serif", cursor:"pointer" }}>
                 Clear filters
               </button>
             )}
-            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All") && (
+            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
               <span style={{ fontSize:12, color:"#64748b", fontFamily:"'IBM Plex Mono',monospace",
                 whiteSpace:"nowrap", marginLeft:4 }}>
                 Showing {filtered.length} of {jobsList.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length}
@@ -1137,8 +1289,8 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
             )}
           </div>
 
-          {/* Tier filter row */}
-          <div style={{ display:"flex", gap:6, marginBottom:8, alignItems:"center", flexWrap:"wrap" }}>
+          {/* Salary tier filter row */}
+          <div style={{ display:"flex", gap:6, marginBottom:6, alignItems:"center", flexWrap:"wrap" }}>
             <span style={{ fontSize:11, color:"#94a3b8", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", marginRight:4, letterSpacing:"0.08em" }}>SALARY:</span>
             <button onClick={() => setTier("All")}
               style={{ fontSize:13, fontWeight:600, padding:"5px 14px", borderRadius:6,
@@ -1158,6 +1310,37 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                 {tier === "A" ? "★ " : ""}{m.label} ({tierCounts[tier]})
               </button>
             ))}
+          </div>
+
+          {/* Org quality (stoplight) filter row */}
+          <div style={{ display:"flex", gap:6, marginBottom:8, alignItems:"center", flexWrap:"wrap" }}>
+            <span style={{ fontSize:11, color:"#94a3b8", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", marginRight:4, letterSpacing:"0.08em" }}>ORG TIER:</span>
+            <button onClick={() => setOrgFilter("All")}
+              style={{ fontSize:13, fontWeight:600, padding:"5px 14px", borderRadius:6,
+                border:"1.5px solid #e2e8f0",
+                background: orgFilter === "All" ? "#0f172a" : "#ffffff",
+                color: orgFilter === "All" ? "#ffffff" : "#6b7280",
+                cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
+              All
+            </button>
+            {Object.entries(ORG_QUALITY_META).map(([key, m]) => (
+              <button key={key} onClick={() => setOrgFilter(orgFilter === key ? "All" : key)}
+                style={{ fontSize:13, fontWeight:700, padding:"5px 16px", borderRadius:6,
+                  border:`1.5px solid ${m.color}`,
+                  background: orgFilter === key ? m.color : "#ffffff",
+                  color: orgFilter === key ? "#ffffff" : m.color,
+                  cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif",
+                  display:"flex", alignItems:"center", gap:6 }}>
+                <span style={{ width:8, height:8, borderRadius:"50%",
+                  background: orgFilter === key ? "#ffffff" : m.dot,
+                  display:"inline-block", flexShrink:0 }} />
+                {m.label}
+              </button>
+            ))}
+            <span style={{ fontSize:11, color:"#94a3b8", fontFamily:"'IBM Plex Mono',monospace",
+              marginLeft:4, lineHeight:1.4 }}>
+              {orgFilter !== "All" ? ORG_QUALITY_META[orgFilter]?.desc : "Green = attack first · Yellow = after green exhausted · Red = backup only"}
+            </span>
           </div>
 
           {/* Role family filter row */}
@@ -1238,6 +1421,28 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                             {/* Badge + title row */}
                             <div style={{ display:"flex", alignItems:"center", gap:7, marginBottom:6, flexWrap:"wrap" }}>
                               <span style={{ fontSize:12, color:"#cbd5e1", fontFamily:"'IBM Plex Mono',monospace", minWidth:28 }}>#{idx+1}</span>
+                              {/* Stoplight org quality dot */}
+                              {(() => {
+                                const oq = orgQuality(job.id, job.company);
+                                const om = ORG_QUALITY_META[oq];
+                                return (
+                                  <span title={`${om.label}: ${om.desc}`}
+                                    style={{ width:9, height:9, borderRadius:"50%",
+                                      background: om.dot, flexShrink:0,
+                                      boxShadow:`0 0 0 2px ${om.dot}40`,
+                                      cursor:"help" }} />
+                                );
+                              })()}
+                              {/* Prior history warning */}
+                              {flaggedCompanies.has(job.company?.toLowerCase().trim()) && (
+                                <span title="Prior engagement with this company — marked No Thanks or Not Moving Forward in Activity Log"
+                                  style={{ fontSize:10, fontWeight:700, color:"#be185d",
+                                    background:"#fdf2f8", border:"1px solid #fbcfe8",
+                                    padding:"1px 7px", borderRadius:4,
+                                    fontFamily:"'IBM Plex Mono',monospace", cursor:"help" }}>
+                                  ⚠ prior history
+                                </span>
+                              )}
                               {tm && (
                                 <span style={{ fontSize:11, fontWeight:700, fontFamily:"'IBM Plex Mono',monospace",
                                   color: sd.tier === "A" ? "#92400e" : tm.color,
@@ -1529,7 +1734,7 @@ export default function App() {
 
       <div style={{ flex:1, overflow:"hidden", display:"flex", flexDirection:"column" }}>
         {tab === "board" && (
-          <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} />
+          <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} pipelineCards={pipeline.cards} />
         )}
         {tab === "pipeline" && (
           <Pipeline
@@ -1546,6 +1751,7 @@ export default function App() {
           <RolesBoard
             onSelectRole={handleSelectRole}
             pipelineStatusMap={pipelineStatusMap}
+            pipelineCards={pipeline.cards}
             boardId="non-mortgage"
             boardTitle="Non-Mortgage Prospect Board"
             jobsList={nonMortgageJobs}

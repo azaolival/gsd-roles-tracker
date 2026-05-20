@@ -33,10 +33,21 @@ function today() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function daysAgo(dateStr) {
+  if (!dateStr) return null;
+  return Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
+}
+
 function Card({ card, onOpen, compact }) {
   const done = stepsCount(card.steps);
   const allDone = done === 6;
   const tier = card.tier;
+
+  const ageDays = daysAgo(card.dateApplied || card.dateAdded);
+  const staleColor = ageDays >= 30 ? "#ef4444"
+    : ageDays >= 15 ? "#f97316"
+    : ageDays >= 8  ? "#f59e0b"
+    : null;
 
   return (
     <div
@@ -86,6 +97,14 @@ function Card({ card, onOpen, compact }) {
             {tier}
           </span>
         )}
+        {staleColor && (
+          <span title={`${ageDays} days since added/applied`}
+            style={{ fontSize: 10, fontWeight: 700, fontFamily: "'IBM Plex Mono',monospace",
+              color: staleColor, background: `${staleColor}18`,
+              padding: "1px 6px", borderRadius: 4, whiteSpace: "nowrap" }}>
+            {ageDays}d
+          </span>
+        )}
       </div>
 
       {!compact && card.notes && (
@@ -111,6 +130,8 @@ function QueueCard({ card, onOpen, position }) {
   const done = stepsCount(card.steps);
   const tier = card.tier;
   const isNext = position === 0;
+  const ageDays = daysAgo(card.dateAdded);
+  const staleColor = ageDays >= 14 ? "#f97316" : ageDays >= 7 ? "#f59e0b" : null;
 
   return (
     <div
@@ -174,6 +195,14 @@ function QueueCard({ card, onOpen, position }) {
           color: "#94a3b8", whiteSpace: "nowrap" }}>
           {done}/6 steps
         </span>
+        {staleColor && (
+          <span title={`${ageDays} days in queue`}
+            style={{ fontSize: 10, fontWeight: 700, color: staleColor,
+              background: `${staleColor}18`, padding: "1px 6px",
+              borderRadius: 4, fontFamily: "'IBM Plex Mono',monospace", whiteSpace: "nowrap" }}>
+            {ageDays}d
+          </span>
+        )}
       </div>
 
       {card.notes && (
