@@ -207,14 +207,6 @@ export const SEED_CARDS = [
     pdfSent:true, notes:"5 DMs sent 5/18. Kelli Simpkins + Harsha Tandon connection requests PINNED — send manually in LinkedIn browser.",
     steps:{ tailor:true, apply:true, peopleSweep:true, outreach:true, logged:true, threeFronts:false } },
 
-  { id:"s_ob_01", roleId:"R15", title:"PPE Implementation Consultant", company:"Optimal Blue",
-    location:"Remote", tier:"B", salary:"~$120K–$145K", family:"IMPL",
-    applyUrl:"https://www.optimalblue.com/careers/",
-    status:"APPLIED", dateAdded:"2026-05-18", dateApplied:"2026-05-18",
-    pocName:"", pocTitle:"",
-    pdfSent:false, notes:"PINNED — LinkedIn limit hit 5/18. Find product leadership or impl team lead today.",
-    steps:{ tailor:true, apply:true, peopleSweep:false, outreach:false, logged:true, threeFronts:false } },
-
   { id:"s_lc_01", roleId:null, title:"Sr. Financial Product Strategy Mgr – HELOC & Mortgage", company:"LendingClub",
     location:"SF, CA (Hybrid)", tier:"A", salary:"~$165K–$200K", family:"PM/PO/BA",
     applyUrl:"https://www.lendingclub.com/about/careers",
@@ -309,23 +301,5 @@ export const SEED_CARDS = [
     dateAdded:"2026-05-18", dateApplied:"2026-05-18",
     pocName:"", pocTitle:"", pdfSent:false, notes:"New 5/18 — Sr TPM, Zillow mortgage products.",
     steps:{ tailor:true, apply:true, peopleSweep:false, outreach:false, logged:true, threeFronts:false } },
-
-  // ── TARGETED — Pinned for next session ────────────────────────────────────
-
-  { id:"s_savvy_01", roleId:"B23", title:"Sr. Technical Product Manager", company:"SavvyMoney",
-    location:"Dublin CA / Remote", tier:"B", salary:"$145K–$170K", family:"PM/PO/BA",
-    applyUrl:"https://careers.spectrumequity.com/companies/savvymoney-inc/",
-    status:"TARGETED", dateAdded:"2026-05-19", dateApplied:null,
-    pocName:"", pocTitle:"", pdfSent:false,
-    notes:"HIGH PRIORITY surfaced 5/19 job scan. Bay Area hybrid or remote. $145K–$170K listed.",
-    steps:{ tailor:false, apply:false, peopleSweep:false, outreach:false, logged:false, threeFronts:false } },
-
-  { id:"s_loancrate_01", roleId:"S04", title:"TPM – AI Mortgage Workflow Automation", company:"Loancrate",
-    location:"Menlo Park CA", tier:"A", salary:"~$155K–$200K", family:"IMPL",
-    applyUrl:"https://jobs.ashbyhq.com/loancrate/f58e74ca-b2b3-40d0-a1d7-ae0aaf7b0449",
-    status:"TARGETED", dateAdded:"2026-05-19", dateApplied:null,
-    pocName:"", pocTitle:"", pdfSent:false,
-    notes:"AI-native mortgage LOS startup. Menlo Park CA. TPM + AI workflow automation role confirmed active May 2026.",
-    steps:{ tailor:false, apply:false, peopleSweep:false, outreach:false, logged:false, threeFronts:false } },
 
 ];
