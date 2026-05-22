@@ -1581,12 +1581,12 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                     const tm = sd ? TIER_META[sd.tier] : null;
                     return (
                       <div key={job.id}
-                        style={{ background: sd?.tier === "A" ? "#fffef5" : "#ffffff",
+                        style={{ background: sd?.tier === "A" ? "#fffef5" : idx % 2 === 0 ? "#ffffff" : "#f9fafb",
                           borderLeft:`3px solid ${tm ? tm.color : m.c}`,
-                          borderTop: idx === 0 ? "none" : "2px solid #e2e8f0",
+                          borderTop: idx === 0 ? "none" : "1px solid #e9eef4",
                           transition:"background 0.1s" }}
-                        onMouseEnter={e => e.currentTarget.style.background="#f8fafc"}
-                        onMouseLeave={e => e.currentTarget.style.background = sd?.tier === "A" ? "#fffef5" : "#ffffff"}>
+                        onMouseEnter={e => e.currentTarget.style.background="#eef3f8"}
+                        onMouseLeave={e => e.currentTarget.style.background = sd?.tier === "A" ? "#fffef5" : idx % 2 === 0 ? "#ffffff" : "#f9fafb"}>
 
                         {/* 2-line tile — clean, uniform, no column dividers */}
                         {(() => {
