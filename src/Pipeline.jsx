@@ -90,6 +90,16 @@ function Card({ card, onOpen, compact }) {
         {card.company}
       </div>
 
+      {/* Action needed badge */}
+      {card.actionNeeded && (
+        <div style={{ fontSize:10, fontWeight:700, color:"#dc2626",
+          background:"#fef2f2", padding:"2px 7px", borderRadius:4, marginBottom:5,
+          fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+          border:"1px solid #fecaca" }}>
+          ⚠ ACTION NEEDED
+        </div>
+      )}
+
       {/* Follow-up date badge */}
       {card.followUpDate && (() => {
         const fb = followUpBadge(card.followUpDate);
@@ -186,6 +196,15 @@ function QueueCard({ card, onOpen, position }) {
           background: "#fde047", padding: "1px 9px", borderRadius: 10,
           fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.05em" }}>
           ▶ NEXT UP
+        </div>
+      )}
+      {card.actionNeeded && (
+        <div style={{ position: "absolute", top: -10, right: 12,
+          fontSize: 10, fontWeight: 700, color: "#dc2626",
+          background: "#fef2f2", padding: "1px 9px", borderRadius: 10,
+          fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.04em",
+          border: "1px solid #fecaca" }}>
+          ⚠ ACTION
         </div>
       )}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
@@ -297,6 +316,15 @@ function HotCard({ card, onOpen, colColor, colBg, colBorder }) {
         );
       })()}
 
+      {card.actionNeeded && (
+        <div style={{ fontSize:10, fontWeight:700, color:"#dc2626",
+          background:"#fef2f2", padding:"2px 7px", borderRadius:4, marginBottom:7,
+          fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+          border:"1px solid #fecaca" }}>
+          ⚠ ACTION NEEDED
+        </div>
+      )}
+
       {card.notes && (
         <div style={{ fontSize: 11, color: colColor, fontFamily: "'Inter',sans-serif",
           lineHeight: 1.4, marginBottom: 8,
@@ -341,15 +369,21 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
   byStatus["TARGETED"].sort((a, b) => {
     const ta = tierOrder[a.tier] ?? 9, tb = tierOrder[b.tier] ?? 9;
     if (ta !== tb) return ta - tb;
+    // Remote before non-remote within same tier — don't let high-value remote reqs get buried
+    const ra = (a.location || "").toLowerCase().includes("remote") ? 0 : 1;
+    const rb = (b.location || "").toLowerCase().includes("remote") ? 0 : 1;
+    if (ra !== rb) return ra - rb;
+    // Oldest first — stale reqs expire, don't let them sit at the bottom
     return (a.dateAdded || "").localeCompare(b.dateAdded || "");
   });
 
-  const totalCards   = (cards || []).length;
-  const appliedToday = (cards || []).filter(c => c.dateApplied === today()).length;
-  const hotCount     = HOT_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
-  const queueCount   = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
-  const submittedCount = byStatus["APPLIED"].length + hotCount;
-  const deadCount    = DEAD_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
+  const totalCards      = (cards || []).length;
+  const appliedToday    = (cards || []).filter(c => c.dateApplied === today()).length;
+  const hotCount        = HOT_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
+  const queueCount      = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
+  const submittedCount  = byStatus["APPLIED"].length + hotCount;
+  const deadCount       = DEAD_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
+  const actionNeedCount = (cards || []).filter(c => c.actionNeeded).length;
 
   const q = logSearch.trim().toLowerCase();
   const filterCards = (list) => {
@@ -402,10 +436,11 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
       <div style={{ background:"#0f172a", padding:"10px 20px",
         display:"flex", alignItems:"center", flexShrink:0, gap:0, overflowX:"auto" }}>
         {[
-          { label:"Queue",          value:queueCount,     color:queueCount>0?"#fde047":"#475569",  sub:queueCount>0?"ready to work":"all clear" },
-          { label:"Applied Today",  value:appliedToday,   color:"#38bdf8",                         sub:"this session" },
-          { label:"Submitted",      value:submittedCount, color:"#94a3b8",                         sub:"applied + callbacks" },
-          { label:"Active Signals", value:hotCount,       color:hotCount>0?"#4ade80":"#475569",    sub:hotCount>0?"callback · interview · offer":"monitoring" },
+          { label:"Queue",          value:queueCount,       color:queueCount>0?"#fde047":"#475569",        sub:queueCount>0?"ready to work":"all clear" },
+          { label:"Action Needed",  value:actionNeedCount, color:actionNeedCount>0?"#ef4444":"#475569", sub:actionNeedCount>0?"your decision required":"all clear" },
+          { label:"Applied Today",  value:appliedToday,    color:"#38bdf8",                               sub:"this session" },
+          { label:"Submitted",      value:submittedCount,  color:"#94a3b8",                               sub:"applied + callbacks" },
+          { label:"Active Signals", value:hotCount,        color:hotCount>0?"#4ade80":"#475569",          sub:hotCount>0?"callback · interview · offer":"monitoring" },
         ].map((s,i,arr) => (
           <div key={s.label} style={{ textAlign:"center", padding:"0 20px",
             borderRight: i<arr.length-1 ? "1px solid #1e293b":"none", flexShrink:0 }}>

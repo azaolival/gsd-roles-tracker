@@ -80,6 +80,7 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
   const [savedFlash, setSavedFlash]           = useState(false);
   const [stepSaved, setStepSaved]             = useState(null);
   const [addedFlash, setAddedFlash]           = useState(false);
+  const [actionNoteText, setActionNoteText]   = useState("");
   const saveTimerRef                          = useRef(null);
   const stepTimerRef                          = useRef(null);
 
@@ -100,6 +101,7 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
       setPocTitleText(card.pocTitle || "");
       setNotesText(card.notes || "");
       setFollowUpDate(card.followUpDate || "");
+      setActionNoteText(card.actionNote || "");
     }
     setExpandedStep(null);
     setSavedFlash(false);
@@ -112,7 +114,8 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
     pocText          !== (card.pocName      || "") ||
     pocTitleText     !== (card.pocTitle     || "") ||
     notesText        !== (card.notes        || "") ||
-    followUpDateText !== (card.followUpDate || "")
+    followUpDateText !== (card.followUpDate || "") ||
+    actionNoteText   !== (card.actionNote   || "")
   );
 
   function addDays(n) {
@@ -144,6 +147,8 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
       pocTitle:     pocTitleText.trim(),
       notes:        notesText,
       followUpDate: followUpDateText || null,
+      actionNote:   actionNoteText.trim() || null,
+      actionNeeded: actionNoteText.trim().length > 0,
     });
     flashSaved();
   }
@@ -299,6 +304,33 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
 
         {/* ── SCROLLABLE BODY ──────────────────────────────────────── */}
         <div style={{ flex:1, overflowY:"auto", padding:"16px 24px 24px" }}>
+
+          {/* Action Needed banner */}
+          {card?.actionNeeded && (
+            <div style={{ marginBottom:14, padding:"10px 14px", borderRadius:9,
+              background:"#fef2f2", border:"2px solid #fecaca",
+              display:"flex", alignItems:"flex-start", gap:9 }}>
+              <span style={{ fontSize:16, flexShrink:0 }}>⚠️</span>
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontSize:13, fontWeight:700, color:"#dc2626",
+                  fontFamily:"'Inter',sans-serif", marginBottom:3 }}>
+                  Action Required — Your Decision
+                </div>
+                <div style={{ fontSize:12, color:"#9f1239", fontFamily:"'Inter',sans-serif",
+                  lineHeight:1.5 }}>
+                  {card.actionNote || "Review this card and take action."}
+                </div>
+                <button onClick={() => {
+                  setActionNoteText("");
+                  onUpdateCard(card.id, { actionNeeded: false, actionNote: null });
+                }} style={{ marginTop:8, fontSize:11, fontWeight:700, color:"#dc2626",
+                  background:"transparent", border:"1px solid #fecaca", borderRadius:5,
+                  padding:"3px 10px", cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace" }}>
+                  Clear Flag
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Cold outreach banner */}
           {isColdOutreach && (
@@ -535,6 +567,32 @@ export function WorkflowDrawer({ open, onClose, role, card, onAddToPipeline, onU
                   </div>
                 );
               })()}
+            </div>
+          )}
+
+          {/* ── ACTION NEEDED FLAG ──────────────────────────────────── */}
+          {isInPipeline && (
+            <div style={{ marginTop:14 }}>
+              <div style={{ fontSize:11, fontWeight:700, letterSpacing:.6, textTransform:"uppercase",
+                color: actionNoteText.trim() ? "#dc2626" : "#64748b",
+                fontFamily:"'IBM Plex Mono',monospace", marginBottom:7,
+                display:"flex", alignItems:"center", gap:6 }}>
+                {actionNoteText.trim() ? "⚠ Action Needed" : "⚠ Flag for Action"}
+              </div>
+              <textarea
+                value={actionNoteText}
+                onChange={e => setActionNoteText(e.target.value)}
+                placeholder="Describe what needs your attention — leave blank to clear the flag…"
+                style={{ width:"100%", minHeight:60, padding:"9px 11px", fontSize:13,
+                  fontFamily:"'Inter',sans-serif",
+                  border:`1.5px solid ${actionNoteText.trim() ? "#ef4444" : actionNoteText !== (card.actionNote||"") ? "#0891b2" : "#e2e8f0"}`,
+                  borderRadius:8, resize:"vertical", color:"#dc2626", boxSizing:"border-box",
+                  lineHeight:1.6, background: actionNoteText.trim() ? "#fef2f2" : "#f8fafc",
+                  outline:"none", transition:"border-color .15s, background .15s" }}
+              />
+              <div style={{ fontSize:11, color:"#94a3b8", fontFamily:"'Inter',sans-serif", marginTop:4 }}>
+                Type to set flag. Clear text to remove it. Saves with the card.
+              </div>
             </div>
           )}
 
