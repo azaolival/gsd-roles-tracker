@@ -3258,6 +3258,31 @@
     "id": "card_1779212299762"
   },
   {
+    "id": "s_sagent_pba",
+    "title": "Product Business Analyst",
+    "company": "Sagent Lending Technologies",
+    "location": "Remote (US)",
+    "tier": "B",
+    "salary": "not disclosed",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://job-boards.greenhouse.io/sagent/jobs/5779769004",
+    "status": "TARGETED",
+    "dateAdded": "2026-05-21",
+    "dateApplied": null,
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Confirmed open 5/21 on sagent.com/careers. Mortgage servicing platform (Fiserv + Warburg Pincus JV). Greenhouse ATS. APPLY when Playwright is restored.",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    }
+  },
+  {
     "roleId": "R33",
     "title": "Software Delivery Manager — Mortgage",
     "company": "Sagent Lending Technologies",
