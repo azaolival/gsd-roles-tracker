@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snapdocs Interview Prep | PM Notary Connect | 6/1/2026</title>
+<style>
+  /* ===== THEME TOKENS ===== */
+  [data-theme="light"] {
+    --bg: #f0f4f8;
+    --bg-alt: #e8eef5;
+    --card: #ffffff;
+    --card-alt: #f7fafd;
+    --navy-mid: #eef2f8;
+    --border: #ccd8e8;
+    --text: #1a2a3a;
+    --text-muted: #5a7a9a;
+    --white: #0d1c2e;
+    --accent: #007d5e;
+    --accent-light: #009970;
+    --gold: #b8720a;
+    --red: #c03030;
+    --tag-bg: #e2ecf8;
+    --tag-text: #2a4a6a;
+    --header-bg: linear-gradient(135deg, #1a3a6a 0%, #1e4a7a 50%, #152f5a 100%);
+    --header-text: #ffffff;
+    --header-sub: #a8c4e0;
+    --alert-bg: #fdf6e8;
+    --alert-border: #d4890a;
+    --alert-text: #7a4a00;
+    --story-seg: #f0f4f8;
+    --process-active-bg: linear-gradient(135deg, #e8f8f2, #f0f9f5);
+    --connect-box-bg: #f0f6ff;
+    --connect-box-border: #a0bcd8;
+    --manual-flag-bg: #fdf6e8;
+    --manual-flag-border: #d4890a;
+    --manual-flag-text: #7a4a00;
+    --close-play-bg: linear-gradient(135deg, #eafaf3, #f4fbf8);
+    --close-play-border: #007d5e;
+    --table-header: #eef2f8;
+    --qa-q-bg: #f0f4f8;
+    --qa-a-bg: #ffffff;
+    --qa-note-bg: #f7fafd;
+    --footer-bg: #eef2f8;
+    --toggle-bg: #1e3a5f;
+    --toggle-text: #ffffff;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  [data-theme="dark"] {
+    --bg: #0a1628;
+    --bg-alt: #0d1e35;
+    --card: #162238;
+    --card-alt: #122040;
+    --navy-mid: #122040;
+    --border: #1e3a5f;
+    --text: #e8edf4;
+    --text-muted: #8fa8c8;
+    --white: #ffffff;
+    --accent: #00b388;
+    --accent-light: #00d4a0;
+    --gold: #f4a535;
+    --red: #e05252;
+    --tag-bg: #1e3a5f;
+    --tag-text: #a0c4e0;
+    --header-bg: linear-gradient(135deg, #0a1628 0%, #162238 50%, #0d2040 100%);
+    --header-text: #ffffff;
+    --header-sub: #6a90b8;
+    --alert-bg: #1a1000;
+    --alert-border: #f4a535;
+    --alert-text: #f4a535;
+    --story-seg: #0a1628;
+    --process-active-bg: linear-gradient(135deg, #0f2a1f, #162238);
+    --connect-box-bg: #0f1f35;
+    --connect-box-border: #2a4a6a;
+    --manual-flag-bg: #2a1e00;
+    --manual-flag-border: #f4a535;
+    --manual-flag-text: #f4a535;
+    --close-play-bg: linear-gradient(135deg, #0f2a1a, #0a1628);
+    --close-play-border: #00b388;
+    --table-header: #0a1628;
+    --qa-q-bg: #122040;
+    --qa-a-bg: #162238;
+    --qa-note-bg: #122040;
+    --footer-bg: #0a1628;
+    --toggle-bg: #00b388;
+    --toggle-text: #002718;
+    --shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+
+  /* ===== RESET & BASE ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  /* ===== TOGGLE BUTTON ===== */
+  .theme-toggle {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 999;
+    background: var(--toggle-bg);
+    color: var(--toggle-text);
+    border: none;
+    border-radius: 24px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+
+  /* ===== HEADER ===== */
+  .master-header {
+    background: var(--header-bg);
+    border-bottom: 2px solid var(--accent);
+    padding: 36px 48px;
+    padding-right: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .header-left .role-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .header-left h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--header-text);
+    line-height: 1.2;
+  }
+
+  .header-left h1 span { color: var(--accent); }
+
+  .header-left .sub {
+    font-size: 14px;
+    color: var(--header-sub);
+    margin-top: 8px;
+  }
+
+  .header-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 220px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-align: center;
+  }
+
+  .badge-date   { background: #f4a535; color: #1a1000; }
+  .badge-role   { background: var(--accent); color: #002718; }
+  .badge-remote { background: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
+  .badge-comp   { background: rgba(0,180,120,0.18); color: #6dffca; border: 1px solid rgba(0,180,120,0.3); }
+
+  /* ===== PRIORITY ALERT ===== */
+  .priority-alert {
+    background: var(--alert-bg);
+    border-left: 4px solid var(--alert-border);
+    padding: 14px 48px;
+    font-size: 13px;
+    color: var(--alert-text);
+  }
+
+  .priority-alert strong { font-weight: 800; }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .section-header {
+    padding: 16px 26px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-alt);
+  }
+
+  .section-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+  }
+
+  .section-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .section-header .section-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  .section-body { padding: 22px 26px; }
+
+  /* ===== GRIDS ===== */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* ===== CARDS ===== */
+  .info-card {
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    transition: background 0.25s;
+  }
+
+  .info-card .card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .info-card .card-value {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .info-card .card-value strong { color: var(--white); font-weight: 700; }
+
+  /* ===== STAT PILLS ===== */
+  .stat-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+  .stat-pill {
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .stat-pill .stat-num { color: var(--accent); font-weight: 800; font-size: 13px; }
+
+  /* ===== TAGS ===== */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 2px 3px 2px 0;
+  }
+
+  .tag-green { background: #d4f5eb; color: #005a40; }
+  [data-theme="dark"] .tag-green { background: #0f2a1f; color: #00b388; }
+  .tag-gold  { background: #fdf0da; color: #7a4a00; }
+  [data-theme="dark"] .tag-gold  { background: #2a1e00; color: #f4a535; }
+
+  /* ===== LISTS ===== */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .check-list li {
+    display: flex;
+    gap: 9px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .check-list li::before { content: "✓"; color: var(--accent); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+  .bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 8px;
+  }
+
+  .bullet-list li {
+    display: flex;
+    gap: 9px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .bullet-list li::before { content: "→"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+  /* ===== ALIGNMENT TABLE ===== */
+  .align-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+
+  .align-table th {
+    text-align: left;
+    padding: 9px 13px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--table-header);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .align-table td {
+    padding: 11px 13px;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .align-table tr:last-child td { border-bottom: none; }
+
+  [data-theme="light"] .align-table tr:hover td { background: #f7fafd; }
+  [data-theme="dark"]  .align-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .match-strong { color: var(--accent); font-weight: 700; }
+  .match-gap    { color: var(--gold); font-weight: 700; }
+
+  /* ===== Q&A ===== */
+  .qa-block {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .qa-block:last-child { margin-bottom: 0; }
+
+  .qa-question {
+    background: var(--qa-q-bg);
+    padding: 12px 16px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--white);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .qa-question .q-num {
+    background: var(--accent);
+    color: #002718;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .qa-answer {
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.65;
+    background: var(--qa-a-bg);
+  }
+
+  .qa-answer .answer-hook {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 7px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .qa-answer .answer-note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--qa-note-bg);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ===== STORIES ===== */
+  .story-block {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .story-block:last-child { margin-bottom: 0; }
+
+  .story-header {
+    background: var(--qa-q-bg);
+    padding: 11px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .story-title { font-size: 13.5px; font-weight: 700; color: var(--white); }
+
+  .story-tags { display: flex; gap: 6px; }
+
+  .story-body {
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    background: var(--qa-a-bg);
+  }
+
+  .story-segment {
+    background: var(--story-seg);
+    border-radius: 6px;
+    padding: 11px;
+    border: 1px solid var(--border);
+  }
+
+  .story-segment .seg-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 5px;
+  }
+
+  .story-segment .seg-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+  /* ===== PROCESS STEPS ===== */
+  .process-steps {
+    display: flex;
+    gap: 0;
+    margin-top: 12px;
+  }
+
+  .process-step {
+    flex: 1;
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-right: none;
+    padding: 13px 15px;
+  }
+
+  .process-step:first-child { border-radius: 8px 0 0 8px; }
+  .process-step:last-child  { border-right: 1px solid var(--border); border-radius: 0 8px 8px 0; }
+
+  .process-step .step-num  { font-size: 10px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+  .process-step .step-name { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .process-step .step-note { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  .step-active { background: var(--process-active-bg); border-color: var(--accent); }
+  .step-active .step-name { color: var(--accent); }
+
+  /* ===== CONNECT BOX ===== */
+  .connect-box {
+    background: var(--connect-box-bg);
+    border: 1px solid var(--connect-box-border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+
+  .connect-box h3 { font-size: 13.5px; font-weight: 700; color: var(--white); margin-bottom: 9px; }
+  .connect-box p  { font-size: 13px; color: var(--text); line-height: 1.6; margin-bottom: 7px; }
+  .connect-box p:last-of-type { margin-bottom: 0; }
+
+  .connect-box .manual-flag {
+    background: var(--manual-flag-bg);
+    border: 1px solid var(--manual-flag-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--manual-flag-text);
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  /* ===== ASK QUESTIONS ===== */
+  .ask-question {
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    margin-bottom: 9px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .ask-question:last-child { margin-bottom: 0; }
+
+  .ask-question .ask-icon { color: var(--accent); font-size: 16px; flex-shrink: 0; margin-top: 1px; font-weight: 800; }
+  .ask-question .ask-text { font-size: 13.5px; color: var(--text); line-height: 1.5; }
+  .ask-question .ask-why  { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+
+  /* ===== CLOSE PLAYS ===== */
+  .close-play {
+    background: var(--close-play-bg);
+    border: 1px solid var(--close-play-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+  }
+
+  .close-play:last-child { margin-bottom: 0; }
+
+  .close-play .play-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 5px;
+  }
+
+  .close-play .play-text { font-size: 13.5px; color: var(--text); line-height: 1.6; }
+  .close-play .play-text em { color: var(--white); font-style: normal; font-weight: 600; }
+
+  /* ===== UTILITY ===== */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+  .highlight      { color: var(--accent); font-weight: 700; }
+  .highlight-gold { color: var(--gold); font-weight: 700; }
+  .text-muted     { color: var(--text-muted); font-size: 13px; }
+
+  p { margin-bottom: 7px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 20px 48px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--footer-bg);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .master-header { flex-direction: column; gap: 20px; padding: 24px; padding-right: 24px; }
+    .header-right  { text-align: left; }
+    .container     { padding: 16px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .story-body    { grid-template-columns: 1fr 1fr; }
+    .process-steps { flex-direction: column; }
+    .process-step  { border-right: 1px solid var(--border); border-bottom: none; border-radius: 0; }
+    .process-step:first-child { border-radius: 8px 8px 0 0; }
+    .process-step:last-child  { border-bottom: 1px solid var(--border); border-radius: 0 0 8px 8px; }
+    .theme-toggle  { top: 12px; right: 12px; font-size: 12px; padding: 7px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== THEME TOGGLE ===== -->
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+
+<!-- ===== HEADER ===== -->
+<div class="master-header">
+  <div class="header-left">
+    <div class="role-label">Interview Prep — Confidential</div>
+    <h1>Snapdocs <span>/ PM, Notary Connect</span></h1>
+    <div class="sub">Screening Call with Cameron MacNeill, Senior Manager, Talent Acquisition</div>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-date">June 1, 2026</span>
+    <span class="badge badge-role">Product Manager — Notary Connect</span>
+    <span class="badge badge-remote">Remote — USA</span>
+    <span class="badge badge-comp">~$145K – $175K</span>
+  </div>
+</div>
+
+<!-- ===== PRIORITY ALERT ===== -->
+<div class="priority-alert">
+  <strong>Action Required Before 6/1:</strong> Manually review Cameron MacNeill's LinkedIn activity at linkedin.com/in/cameron-macneill-m90/ — scroll his last 12 months of posts. His content is not publicly indexed. Look for: what roles he's excited about, how he describes Snapdocs culture, any signal on what "good" looks like to him. Drop those hooks into your open.
+</div>
+
+<!-- ===== CONTAINER ===== -->
+<div class="container">
+
+  <!-- SECTION 1: CAMERON -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">👤</div>
+      <h2>Your Audience: Cameron MacNeill</h2>
+      <span class="section-sub">Know who's on the other end of the call</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div>
+          <div class="info-card" style="margin-bottom:12px;">
+            <div class="card-label">Who He Is</div>
+            <div class="card-value"><strong>Senior Manager, Talent Acquisition at Snapdocs</strong> — Bay Area. Joined ~May 2025. Not a box-checker screener. He is a full-cycle lead talent partner who owns hiring across R&D, GTM, Ops, and G&A. Has placed 20+ people at Snapdocs from Head of Sales to Software Engineer. He understands what a strong PM looks like technically because he has placed them.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-label">Before Snapdocs</div>
+            <div class="card-value"><strong>Lead Talent Partner, Side</strong> (real estate tech) — recruited company-wide and built two internal upskilling programs: Side_Line and Manager Essentials — communication, ownership, efficient meetings. Before that: <strong>Lead GTM Recruiter, VEYER</strong> (logistics). Operator mindset, not credentials mindset.</div>
+          </div>
+        </div>
+        <div>
+          <div class="info-card" style="margin-bottom:12px;">
+            <div class="card-label">What This Call Actually Is</div>
+            <div class="card-value">
+              A <strong>recruiter screen</strong>. Cameron is figuring out:
+              <ul class="check-list" style="margin-top:8px;">
+                <li>Does your background match the role's requirements?</li>
+                <li>Are you genuinely excited about Snapdocs specifically?</li>
+                <li>Do you have low ego and openness to learn?</li>
+                <li>Salary, availability, where are you in other searches?</li>
+                <li>Would engineering and PM leadership enjoy working with you?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="card-label">What Snapdocs Weights in Hiring</div>
+            <div class="card-value">Trust-first philosophy. Explicitly values: impressive relevant experience, strong skills, <strong>open mindset and hunger to learn, low ego</strong>, and <strong>genuine excitement</strong> for this specific opportunity. The last two are not throwaway lines — they are weighted. You have to mean it.</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="connect-box">
+        <h3>How to Connect With Cameron on His Level</h3>
+        <p>He came up through real estate tech (Side) before Snapdocs. He knows the friction in the closing stack isn't new. He's built programs about communication, ownership, and meeting efficiency — not a box-checker. He wants to know if you're a real operator.</p>
+        <p>His workshops centered on <strong>"building relationships, asking thoughtful questions, and sourcing techniques."</strong> He values curiosity and directness. Match that energy: ask thoughtful questions back. Don't just field pitches — probe.</p>
+        <p>He recruits across engineering and product — he knows what a strong PM looks like. Don't talk around the technical side. Lean into it.</p>
+        <div class="manual-flag">
+          <strong>Manual Action Required:</strong> Visit his LinkedIn activity tab and read his last 12 months of posts. Recruiters who post actively signal what they value and what separates the candidates they advance from the ones they pass. Reference something specific — that moves you from "another applicant" to "someone paying attention."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: SNAPDOCS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏢</div>
+      <h2>Snapdocs Company Intelligence</h2>
+      <span class="section-sub">Know the org before you walk in</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-3" style="margin-bottom:14px;">
+        <div class="info-card">
+          <div class="card-label">Mission</div>
+          <div class="card-value">"Automate the home mortgage experience by connecting the people, processes, and technologies that power the industry." Founded 2013. Started with notary scheduling, grew to full digital closing platform.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">Market Position</div>
+          <div class="card-value"><strong>1 in 4 US mortgage transactions</strong> powered by Snapdocs. 125+ lenders. 100,000+ settlement teams. 3M+ closings managed. HousingWire TECH100 2024 & 2025 winner. #1 eClose Integration for Encompass.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">Funding & Scale</div>
+          <div class="card-value">Total raised: <strong>$260M+</strong>. Series D ($150M, 2021) led by Tiger Global with Sequoia, Y Combinator, F-Prime, Maverick. Valued at <strong>$1.5B+</strong>. Well-capitalized. Runway to invest in product.</div>
+        </div>
+      </div>
+
+      <div class="info-card" style="margin-bottom:14px;">
+        <div class="card-label">4 Product Pillars — Know All of Them</div>
+        <div class="card-value">
+          <div class="grid-2" style="margin-top:10px;">
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--accent); font-size:17px; font-weight:800;">①</span>
+              <div><strong style="color:var(--white);">eClosing</strong> — Automated digital closings. 99%+ classification accuracy across 5,000+ document types. 95% reduction in closing errors. 25% faster closings. 3.5x higher eClosing adoption vs. industry avg.</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--accent); font-size:17px; font-weight:800;">②</span>
+              <div><strong style="color:var(--white);">Notary Connect</strong> — Your domain. Mobile notary scheduling and coordination. 140K+ notaries, all 50 states. 1M signings/year. Two models: PRO (fully outsourced) and FLEX (self-service).</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--accent); font-size:17px; font-weight:800;">③</span>
+              <div><strong style="color:var(--white);">Quality Control</strong> — AI-powered file review. Funding QC generates reports in under 2 minutes at 99%+ accuracy. Post-close QC detects errors 60% faster. Eliminates "stare and compare."</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--accent); font-size:17px; font-weight:800;">④</span>
+              <div><strong style="color:var(--white);">eVault</strong> — Secure eNote storage and transfer for secondary market delivery. Connects lenders to secondary market participants. Speeds funding and delivery.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-label">Snapdocs AI Strategy — Know This Cold</div>
+        <div class="card-value">Snapdocs is not AI-curious. They are <strong>AI-native in production.</strong> Patented AI for document classification, generative AI for QC reporting, rules-based + pattern recognition for funding review, LOS sync automation. Claimed: up to <strong>$500 savings per loan</strong>. CD Balancing eliminates 60+ minutes of manual reconciliation per loan. Post-close QC scans entire files — prior 85-90% error rate eliminated. This is shipping product, not slide decks. You need to speak this language.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: NOTARY CONNECT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <h2>Notary Connect: Product Deep Dive</h2>
+      <span class="section-sub">Your domain — know it inside out</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2" style="margin-bottom:14px;">
+        <div class="info-card">
+          <div class="card-label">What It Is</div>
+          <div class="card-value">Mobile notary scheduling and network management platform. Connects lenders, title companies, signing services, and 140K+ credentialed notaries. Handles the logistics of getting a notary to the borrower at the right time, with the right docs, confirmed correctly.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">Who It Serves</div>
+          <div class="card-value"><strong>Customers:</strong> Title companies, escrow companies, signing services, lenders, secondary market participants. <strong>Notable:</strong> First American, Accurate Group, Vylla, Priority.<br><br><strong>Network side:</strong> 140K+ credentialed notaries in all 50 states, 74 languages, 4.9★ avg rating.</div>
+        </div>
+      </div>
+
+      <div class="info-card" style="margin-bottom:14px;">
+        <div class="card-label">Two Service Models — Critical to Know</div>
+        <div class="card-value">
+          <div class="grid-2" style="margin-top:10px;">
+            <div style="background:var(--story-seg); border-radius:6px; padding:13px; border:1px solid var(--border);">
+              <div style="color:var(--accent); font-weight:800; font-size:12.5px; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.5px;">Notary Connect PRO</div>
+              <div style="font-size:13px;">Fully outsourced. Snapdocs' team manages ALL scheduling, assignment, communication, coordination, issue resolution, and payments. Client hands off completely. Highest-touch model.</div>
+            </div>
+            <div style="background:var(--story-seg); border-radius:6px; padding:13px; border:1px solid var(--border);">
+              <div style="color:var(--gold); font-weight:800; font-size:12.5px; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.5px;">Notary Connect FLEX</div>
+              <div style="font-size:13px;">Self-service platform. Title companies' ops teams control scheduling. Snapdocs handles credential verification and payment processing. More control for power users with their own ops workflows.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-pill"><span class="stat-num">1M+</span> signings/year</div>
+        <div class="stat-pill"><span class="stat-num">140K+</span> credentialed notaries</div>
+        <div class="stat-pill"><span class="stat-num">50</span> states</div>
+        <div class="stat-pill"><span class="stat-num">74</span> languages</div>
+        <div class="stat-pill"><span class="stat-num">4.9★</span> avg notary rating</div>
+        <div class="stat-pill"><span class="stat-num">3 min</span> to schedule</div>
+        <div class="stat-pill"><span class="stat-num">87%</span> auto-assigned orders (1 client)</div>
+        <div class="stat-pill"><span class="stat-num">62 hrs</span> saved/month (1 client)</div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="info-card">
+        <div class="card-label">Integrations & Ecosystem Fit</div>
+        <div class="card-value"><strong>Title Production Systems:</strong> Resware, RamQuest, SoftPro. <strong>LOS:</strong> Encompass #1 eClose integration — Notary Connect sits inside this ecosystem. <strong>Compliance:</strong> Audit trails, doc storage, comm logs, 2FA, data encryption, PII management. <strong>Payments:</strong> Automatic 1099 issuance + notary payment processing.<br><br>Know this: Notary Connect is a network orchestration layer inside a broader platform. Your PM work touches integrations, API contracts, LOS data flows, and third-party credential verification — all in the same backlog. That's your domain.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: THE ROLE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <h2>The Role: PM, Notary Connect — What They Need</h2>
+      <span class="section-sub">JD decoded</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2" style="margin-bottom:14px;">
+        <div class="info-card">
+          <div class="card-label">Core Mandate</div>
+          <div class="card-value">
+            <ul class="check-list">
+              <li>Own roadmap, discovery, and delivery for a meaningful portion of Notary Connect</li>
+              <li>End-to-end accountability for outcomes — not just delivery</li>
+              <li>Drive automation strategy to reduce manual coordination in scheduling and order management</li>
+              <li>Lead product expansion into new verticals</li>
+              <li>Partner with engineering and customers to expand to other signing and notarization needs beyond in-person mobile notarizations</li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">What the JD Doesn't Say But Means</div>
+          <div class="card-value">
+            <ul class="bullet-list">
+              <li>Must understand closing ecosystem — title, notary, lender, secondary market touchpoints</li>
+              <li>Must be comfortable in API/integration-heavy product environments</li>
+              <li>Must run discovery with notaries AND enterprise title clients — very different stakeholders</li>
+              <li>Automation strategy = AI/ML product instincts, not just feature shipping</li>
+              <li>New verticals = 0-to-1 expansion thinking, not just backlog management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="card-label">What "Successful PM" Looks Like in Year One</div>
+        <div class="card-value">You increase automation rates — orders still being manually coordinated, you change that. You lead discovery with both sides of the two-sided market (notary network + ordering customers). You identify what's blocking expansion into adjacent use cases — RON, hybrid closings, other signing types. You ship. You measure outcomes, not output.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: ALIGNMENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔗</div>
+      <h2>Resume to Role Alignment Map</h2>
+      <span class="section-sub">Your evidence for every JD requirement</span>
+    </div>
+    <div class="section-body">
+      <table class="align-table">
+        <thead>
+          <tr>
+            <th style="width:28%;">What They Need</th>
+            <th style="width:12%;">Match</th>
+            <th>Your Evidence — Say This</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Roadmap ownership, discovery, delivery end-to-end</td>
+            <td><span class="match-strong">DIRECT</span></td>
+            <td>CMG PM role: full product lifecycle — roadmap, backlog, intake, requirements, UAT, release delivery for enterprise document integration across origination through servicing.</td>
+          </tr>
+          <tr>
+            <td>Automation strategy for scheduling/order management</td>
+            <td><span class="match-strong">DIRECT</span></td>
+            <td>Led AI-powered OCR and document intelligence at CMG — classification, extraction, reduced manual review burden. Built and deployed production workflows using GitHub, Claude Code, and agentic AI. Know what it takes to go from manual to automated at scale in a regulated environment.</td>
+          </tr>
+          <tr>
+            <td>Closing / title / notary ecosystem knowledge</td>
+            <td><span class="match-strong">DIRECT</span></td>
+            <td>End-to-end loan lifecycle: origination, fulfillment, servicing, post-close. Docutech (electronic disclosure packages) at Tavant. IDS, LOS integrations at CMG. National MI closing-related risk and compliance. 20+ years in the stack.</td>
+          </tr>
+          <tr>
+            <td>API/integration-heavy product environment</td>
+            <td><span class="match-strong">DIRECT</span></td>
+            <td>MISMO v3.4 DU-spec at CMG — cross-platform data exchange. API field mappings, JSON/XML, storage-layer design at Tavant. MISMO Boot Camp certified. Oracle API Technical Writing. Daily tools, not resume lines.</td>
+          </tr>
+          <tr>
+            <td>Stakeholder management across business + engineering</td>
+            <td><span class="match-strong">DIRECT</span></td>
+            <td>"One of the few in the room who can speak fluently to both the business stakeholder and the engineering team without losing the thread in either direction." Demonstrated across CMG, Tavant, National MI.</td>
+          </tr>
+          <tr>
+            <td>New vertical / 0-to-1 product expansion thinking</td>
+            <td><span class="match-strong">STRONG</span></td>
+            <td>URLA 2021 / Form 1003 zero-to-one implementation across Retail, Wholesale, Correspondent at CMG. BytePro POS buildout. Risk transformation at MGIC (Tavant) — new decision-engine architecture from scratch.</td>
+          </tr>
+          <tr>
+            <td>Two-sided market intuition</td>
+            <td><span class="match-strong">STRONG</span></td>
+            <td>National MI: managed capital/risk side and lender-facing reporting side simultaneously for a $5.5B portfolio. CMG: served LOs (users) and corporate/compliance (buyers) in parallel. MGIC: underwriters + lender-partners at the same time.</td>
+          </tr>
+          <tr>
+            <td>AI/ML product instincts for automation</td>
+            <td><span class="match-strong">DIRECT</span></td>
+            <td>Production-deployed agentic AI at CMG. Daily use across requirements, analysis, QA. Hands-on code development with Claude Code. Not theoretical — running it in prod.</td>
+          </tr>
+          <tr>
+            <td>Low ego, open mindset, hunger to learn</td>
+            <td><span class="match-strong">AUTHENTIC</span></td>
+            <td>Army NCO E-5. "Discerning when to lead and when to be led" — that's in your own summary. 20+ years in mortgage and still went to MISMO Boot Camp. That's not gap-filling, that's character.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 6: PROCESS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🗺️</div>
+      <h2>Full Interview Process</h2>
+      <span class="section-sub">Know the road ahead — avg 17 days end to end at Snapdocs</span>
+    </div>
+    <div class="section-body">
+      <div class="process-steps">
+        <div class="process-step step-active">
+          <div class="step-num">Stage 1 — You Are Here</div>
+          <div class="step-name">Recruiter Screen</div>
+          <div class="step-note">Cameron. Background, fit, logistics, excitement, salary. ~30 min.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Stage 2</div>
+          <div class="step-name">Hiring Manager</div>
+          <div class="step-note">Role fit, product thinking, domain depth, team chemistry.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Stage 3</div>
+          <div class="step-name">Case Study</div>
+          <div class="step-note">You receive a problem, build a solution, present to HM + product marketing. This is where you win or lose.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Stage 4</div>
+          <div class="step-name">Final Loop</div>
+          <div class="step-note">Multiple sessions: eng, design, cross-functional. Culture, collaboration, depth.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Stage 5</div>
+          <div class="step-name">Offer</div>
+          <div class="step-note">Target $145K–$175K. Come with your number ready.</div>
+        </div>
+      </div>
+      <div style="margin-top:12px; padding:11px 14px; background:var(--card-alt); border-radius:8px; border:1px solid var(--border); font-size:13px; color:var(--text-muted);">
+        The <strong style="color:var(--white);">case study</strong> is Snapdocs' real filter. They assess: breaking down ambiguous problems, asking clarifying questions, collaborative problem-solving, time management, organizing information for a non-context audience. Treat it like a product review, not a pitch.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: STORIES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📖</div>
+      <h2>Stories to Tell — STAR Format</h2>
+      <span class="section-sub">Pre-loaded and ready to deploy</span>
+    </div>
+    <div class="section-body">
+
+      <div class="story-block">
+        <div class="story-header">
+          <div class="story-title">Story 1 — AI-Powered Automation Replacing Manual Process</div>
+          <div class="story-tags"><span class="tag tag-green">Automation Strategy</span><span class="tag tag-green">AI Product</span></div>
+        </div>
+        <div class="story-body">
+          <div class="story-segment"><div class="seg-label">Situation</div><div class="seg-text">CMG Financial: loan document review was heavily manual. Staff spending hours classifying and extracting data from incoming mortgage documents — error-prone, slow, operationally expensive.</div></div>
+          <div class="story-segment"><div class="seg-label">Task</div><div class="seg-text">As PM, owned the roadmap to automate document classification and data extraction. Had to define the problem, scope the approach, get stakeholder alignment, and drive delivery.</div></div>
+          <div class="story-segment"><div class="seg-label">Action</div><div class="seg-text">Led AI-powered OCR and document intelligence initiative. Defined classification logic, set accuracy thresholds, mapped extraction to LOS fields, built QA workflow for edge cases. Hands-on in GitHub and Claude Code alongside the team.</div></div>
+          <div class="story-segment"><div class="seg-label">Result</div><div class="seg-text">Measurably reduced manual review burden. Improved classification accuracy and extraction speed. Built a replicable pattern for AI-assisted document workflows expandable across other pipeline stages.</div></div>
+        </div>
+      </div>
+
+      <div class="story-block">
+        <div class="story-header">
+          <div class="story-title">Story 2 — 0-to-1 Platform Build Across Multiple Channels</div>
+          <div class="story-tags"><span class="tag tag-gold">0-to-1</span><span class="tag tag-gold">Cross-Channel</span></div>
+        </div>
+        <div class="story-body">
+          <div class="story-segment"><div class="seg-label">Situation</div><div class="seg-text">CMG needed URLA 2021 / Form 1003 and MISMO v3.4 DU-spec integration across a proprietary POS and BytePro Enterprise LOS — spanning Retail, Wholesale, and Correspondent channels simultaneously.</div></div>
+          <div class="story-segment"><div class="seg-label">Task</div><div class="seg-text">PM and SME for the entire implementation. Three different business channels, one POS, one LOS, multiple downstream data consumers. No existing template to follow.</div></div>
+          <div class="story-segment"><div class="seg-label">Action</div><div class="seg-text">Produced business rules, technical specs, data mapping artifacts, storage-layer requirements, API field mappings, user stories, and acceptance criteria. Aligned LO user journey, compliance, vendor dependencies, and test strategy across all channels at once.</div></div>
+          <div class="story-segment"><div class="seg-label">Result</div><div class="seg-text">Clean implementation across all three channels on time. No compliance defects in post-release audit. Set the standard for how CMG approached multi-channel spec implementations going forward.</div></div>
+        </div>
+      </div>
+
+      <div class="story-block">
+        <div class="story-header">
+          <div class="story-title">Story 3 — Outcome-Driven Product Work With Real Dollar Impact</div>
+          <div class="story-tags"><span class="tag tag-green">Quantified Outcomes</span></div>
+        </div>
+        <div class="story-body">
+          <div class="story-segment"><div class="seg-label">Situation</div><div class="seg-text">National MI: managing a $5.5B Fannie Mae shared-risk mortgage insurance portfolio. Capital reserve calculations based on reporting processes that were inefficient and overcalibrated.</div></div>
+          <div class="story-segment"><div class="seg-label">Task</div><div class="seg-text">As end-business owner for the AXIS UI platform, owned the product capabilities driving reporting, reconciliation, and reserving. Business performance tied directly to platform output quality.</div></div>
+          <div class="story-segment"><div class="seg-label">Action</div><div class="seg-text">Improved reporting accuracy, reconciliation processes, and process efficiency across the product. Not siloed analysis — product delivery that changed what the output looked like.</div></div>
+          <div class="story-segment"><div class="seg-label">Result</div><div class="seg-text"><strong>Reduced capital reserve holdings by $6.75M+</strong> over two years while supporting $2.7M annual revenue stream. Not a reporting win — a product outcome with a balance sheet signature on it.</div></div>
+        </div>
+      </div>
+
+      <div class="story-block">
+        <div class="story-header">
+          <div class="story-title">Story 4 — Two-Sided Stakeholder Ecosystem Work</div>
+          <div class="story-tags"><span class="tag">Two-Sided Market</span><span class="tag">Enterprise</span></div>
+        </div>
+        <div class="story-body">
+          <div class="story-segment"><div class="seg-label">Situation</div><div class="seg-text">Tavant / MGIC: risk assessment transformation touching underwriters, data management teams, decision engine developers, AND the lender-partners MGIC serves. Every stakeholder on both sides of the table at the same time.</div></div>
+          <div class="story-segment"><div class="seg-label">Task</div><div class="seg-text">BA operating as de facto PM. Had to hold requirements, workflow, data architecture, and vendor relationships in a single coherent model across completely different stakeholder personas simultaneously.</div></div>
+          <div class="story-segment"><div class="seg-label">Action</div><div class="seg-text">Mapped decision-engine rules, risk modeling logic, loan data vault storage, and underwriting workflow dependencies. Maintained alignment between MGIC's technical teams and lender-partner requirements — two entirely different audiences with competing priorities.</div></div>
+          <div class="story-segment"><div class="seg-label">Result</div><div class="seg-text">Delivered a coherent risk transformation architecture that held on both sides. This is the exact muscle Notary Connect needs — you're serving title companies AND notaries, and their needs are not the same thing.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 8: Q&A -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <h2>Anticipated Questions + Your Answers</h2>
+      <span class="section-sub">Recruiter screen version — direct, calibrated, no fluff</span>
+    </div>
+    <div class="section-body">
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q1</span>Tell me about yourself and your background.</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Open with identity, thread to their world:</span>
+          "I'm a Technical Product Manager with 20+ years in mortgage. What makes me different from most PMs you'll screen is that I work at both ends of the table — I can hold a technical spec conversation with an engineer and a business case conversation with a VP in the same afternoon without losing the thread on either side. My most recent role at CMG Financial was owning a document integration platform — full lifecycle: roadmap, backlog, requirements through release. I shipped AI-powered OCR in production. I do hands-on development work using Claude Code and GitHub alongside the teams I work with. I came up through mortgage operations — National MI, Tavant, Bank of America — so the closing ecosystem, the notary workflow, the LOS side is not background research for me, that's just Tuesday. When I looked at the Notary Connect PM role, I wasn't stretching. This is exactly where I want to play."
+          <div class="answer-note">Under 90 seconds. End on why Snapdocs specifically, not why PM in general.</div>
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q2</span>Why Snapdocs? Why this role specifically?</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Genuine + specific = credible. Generic = passed on.</span>
+          "Snapdocs is the only company in this space that has actually connected the full closing stack — eClosing, notary scheduling, QC, eVault — under one platform. Most fintechs in mortgage pick one piece and optimize it. Snapdocs is trying to own the entire workflow. Notary Connect specifically is at an interesting inflection: you have a two-sided market, strong network scale, and an automation problem that's still not fully solved — orders are still being manually coordinated in a lot of cases. That's the kind of problem I want to work on. It's technical, it's operational, and it has a direct borrower outcome at the end. I've been in mortgage long enough to know which companies are building something real versus which ones are building slide decks."
+          <div class="answer-note">Reference the TECH100 recognition, the 1-in-4 stat, and platform breadth. Show you did the reading.</div>
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q3</span>What's your compensation expectation?</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Anchor at the top of band with rationale:</span>
+          "Based on my research on this role and comparable PM positions in the Bay Area remote market, I'm targeting the $165K–$175K range in base. I bring 20+ years of domain depth that is directly applicable, production AI delivery experience, and technical fluency that typically commands a premium in product roles. I'm also flexible on total comp structure — if base is limited, I'm open to discussing how equity or bonus can make up the difference. What does the band look like for this role?"
+          <div class="answer-note">Published range is $145K–$175K. Don't anchor low. Show confidence.</div>
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q4</span>Where are you in your search? Other offers or active processes?</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Honest, confident, no desperation:</span>
+          "I'm actively interviewing. I have a few processes underway — I just completed an interview with another mortgage tech company this week and have a couple others in early stages. I'm being deliberate about where I land. I'm not racing to take the first offer, I'm looking for the right fit in mortgage tech where I can actually drive product outcomes. Snapdocs is at the top of my list specifically because of how the platform is positioned."
+          <div class="answer-note">Reference the Lakeview interview naturally if it comes up — it's real, recent, and signals you're a legitimate candidate in the market.</div>
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q5</span>What are you looking for in your next role?</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Align directly to what this role is:</span>
+          "I want to own product outcomes in a domain where I have real depth — not be a translator, but be someone who can accelerate a team because I know the terrain. I want to work on automation problems where the answer isn't just 'ship a feature' but 'redesign how this workflow operates.' And I want to do that inside a company that's building something consequential. Snapdocs is 1 in 4 mortgage transactions. That's not a startup project — that's infrastructure. That's what I want to work on."
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q6</span>Tell me about a time you drove automation in a product workflow.</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Deploy Story 1, then connect explicitly:</span>
+          After the story: "The parallel to Notary Connect is direct. The problem there is still too much manual coordination in scheduling and order management — same pattern: a human-in-the-loop process that can be redesigned around rules and intelligence. I've shipped that in a regulated mortgage environment. I know the QA problem that comes with it, I know where edge cases live. That's the work I want to do here."
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-question"><span class="q-num">Q7</span>What's your availability / start date?</div>
+        <div class="qa-answer">
+          <span class="answer-hook">Clean and confident:</span>
+          "I can move quickly. Available now — I can start within two weeks of an offer, potentially sooner if the timing works. Not carrying a notice period that would slow things down."
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 9: QUESTIONS TO ASK -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <h2>Questions to Ask Cameron</h2>
+      <span class="section-sub">Thoughtful questions signal depth — Snapdocs explicitly looks for this</span>
+    </div>
+    <div class="section-body">
+
+      <div class="ask-question">
+        <div class="ask-icon">?</div>
+        <div>
+          <div class="ask-text">What does success look like for this PM in the first 90 days — is there a specific metric or capability they're expected to move?</div>
+          <div class="ask-why">Shows outcome orientation. Forces him to describe what "good" looks like, which also tells you if this is a shipping role or a strategy role in practice.</div>
+        </div>
+      </div>
+
+      <div class="ask-question">
+        <div class="ask-icon">?</div>
+        <div>
+          <div class="ask-text">Where is Notary Connect on the automation journey — how much of the scheduling and order management workflow is still manually coordinated today, and what's the blocker?</div>
+          <div class="ask-why">Shows you read the JD carefully and understand the actual work. A vague answer tells you the role is less defined than the JD implies.</div>
+        </div>
+      </div>
+
+      <div class="ask-question">
+        <div class="ask-icon">?</div>
+        <div>
+          <div class="ask-text">The JD mentions expansion into new verticals and signing types beyond in-person mobile notarizations — where is the team in thinking about RON, hybrid? Near-term roadmap or further out?</div>
+          <div class="ask-why">Demonstrates you understand the product landscape and the RON/eNotarization evolution. Tells you how much 0-to-1 vs. iteration work this role actually is.</div>
+        </div>
+      </div>
+
+      <div class="ask-question">
+        <div class="ask-icon">?</div>
+        <div>
+          <div class="ask-text">What's the team structure for this PM — dedicated engineering, or a cross-functional pod shared across other PM surfaces?</div>
+          <div class="ask-why">Practical and important. Shows you've been in environments where PM bandwidth and eng resourcing are real constraints.</div>
+        </div>
+      </div>
+
+      <div class="ask-question">
+        <div class="ask-icon">?</div>
+        <div>
+          <div class="ask-text">You've built out the team substantially over the last year — what's a quality or instinct you've seen in the PMs who've thrived here that might not be obvious from the job description?</div>
+          <div class="ask-why">This is the question that connects with him on his level as a TA professional. He's been watching who succeeds and who struggles. He wants to be asked this. The answer tells you everything you need to calibrate the rest of the process.</div>
+        </div>
+      </div>
+
+      <div class="ask-question">
+        <div class="ask-icon">?</div>
+        <div>
+          <div class="ask-text">What does the process look like from here — who do I meet next and what are they focused on?</div>
+          <div class="ask-why">Always close the recruiter call with this. Signals you're planning to succeed, not just pass the screen.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 10: LINKEDIN -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔗</div>
+      <h2>Cameron's LinkedIn — What to Look For Before 6/1</h2>
+      <span class="section-sub">Do this manually — his posts are not publicly indexed by search engines</span>
+    </div>
+    <div class="section-body">
+      <div class="connect-box" style="margin-bottom:14px;">
+        <h3>Why His Posts Matter for This Call</h3>
+        <p>Recruiters who post actively signal what they value, what they're proud of, and what separates the candidates they advance from the ones they pass. If you can reference something he posted recently — even casually — you move from "another applicant" to "someone paying attention."</p>
+        <div class="manual-flag">
+          <strong>Go here:</strong> linkedin.com/in/cameron-macneill-m90/ — Activity tab, Posts filter. Scroll back 12 months. Look for:<br><br>
+          ① Posts about <strong>Notary Connect or product roles he's hired for</strong><br>
+          ② Posts about <strong>what he looks for in great candidates</strong> or red flags he sees<br>
+          ③ Posts about <strong>Snapdocs culture, team milestones, or company wins</strong> — things he's proud of<br>
+          ④ Posts about <strong>the mortgage/fintech space</strong> — what shifts he's seeing<br>
+          ⑤ Posts about <strong>his own programs, workshops, team-building work</strong> — close to his identity<br><br>
+          Take 2-3 themes, find a natural place to reference them. Don't force it. If he posted about a Snapdocs team win, open with "I saw your post about X — that's actually what drew my attention to the company." That's not flattery, that's proof you do your homework.
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-card">
+          <div class="card-label">What He Likely Posts About (Based on Known Profile)</div>
+          <div class="card-value">
+            <ul class="bullet-list">
+              <li>Roles he's actively hiring for at Snapdocs</li>
+              <li>Company culture moments and team announcements</li>
+              <li>Recruiting craft — candidate experience, what good looks like</li>
+              <li>Lessons from Side_Line / Manager Essentials programs</li>
+              <li>Snapdocs product milestones and industry recognition</li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">Connection Angles That Will Land</div>
+          <div class="card-value">
+            <ul class="bullet-list">
+              <li>Real estate tech background (Side) → both know closing stack friction isn't new</li>
+              <li>"Ownership" training theme → you led, not executed. Make it clear.</li>
+              <li>Low ego framing → don't sell yourself, demonstrate yourself. Let the work carry.</li>
+              <li>Communication craft → be crisp. Recruiter's time is finite. Honor it.</li>
+              <li>Genuine excitement → be specific about WHY Snapdocs, not just PM at a mortgage tech co.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 11: CLOSE PLAYS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏁</div>
+      <h2>Closing the Call Strong</h2>
+      <span class="section-sub">How you end determines if you advance</span>
+    </div>
+    <div class="section-body">
+
+      <div class="close-play">
+        <div class="play-label">Play 1 — The Summary Close</div>
+        <div class="play-text">Before he wraps: <em>"I want to make sure I've left you with the right picture — I've spent 20+ years in mortgage, I've shipped AI in production, and I understand the Notary Connect problem space from both the operational and the technical side. I'm not stretching to fit this role. This is squarely in my lane. I'm genuinely excited about what Snapdocs is building and I'd love to keep moving in the process."</em></div>
+      </div>
+
+      <div class="close-play">
+        <div class="play-label">Play 2 — The Redirect Close</div>
+        <div class="play-text">If the call goes well: <em>"Based on this conversation, is there anything in my background you'd want to see more of — or anything that might be a concern for the hiring manager that I should address proactively?"</em> — Surfaces objections early, shows self-awareness, gives you a chance to handle it now instead of after the next round.</div>
+      </div>
+
+      <div class="close-play">
+        <div class="play-label">Play 3 — The Follow-Through Note</div>
+        <div class="play-text">After the call: brief, direct follow-up. No more than 4 sentences. Thank him, reference one specific thing from the conversation, restate your fit in one line, confirm next step. No attachments. No cover letter. A clean, confident note that shows you were listening is worth more than anything else you could send.</div>
+      </div>
+
+      <div style="margin-top:14px; padding:13px 16px; background:var(--card-alt); border-radius:8px; border-left:4px solid var(--gold); font-size:13px; color:var(--text);">
+        <strong style="color:var(--gold);">Final Calibration:</strong> Cameron's job is to decide whether to advance you. The hiring manager decides whether to hire you. Don't try to do the hiring manager's job in the recruiter screen. Be clear, direct, genuinely interested. Show your depth without overwhelming. Make advancing you feel like the obvious call. He's seen a hundred PMs talk about their background — show him you know what Notary Connect actually needs to become, and you're already thinking about it.
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Aza Olival — Snapdocs PM Notary Connect | Interview Prep | Confidential | June 1, 2026
+</div>
+
+<script>
+  // Load saved preference or default to light
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateBtn(saved);
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateBtn(next);
+  }
+
+  function updateBtn(theme) {
+    const btn = document.getElementById('themeBtn');
+    btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+</script>
+
+</body>
+</html>
