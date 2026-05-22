@@ -1,5 +1,113 @@
 [
   {
+    "id": "manual_fanniemae_sfrisk_20260522",
+    "title": "SF Risk - Product Management - Senior Associate",
+    "company": "Fannie Mae",
+    "location": "Reston, VA (Flex)",
+    "tier": "B",
+    "salary": "$109,000 - $142,000",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://fanniemae.wd1.myworkdayjobs.com/en-US/FannieMaeCareers/job/Reston-VA/SF-Risk---Product-Management---Senior-Associate_JR2503",
+    "status": "APPLIED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": "2026-05-22",
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Applied directly via Workday 2026-05-22. Req ID: JR2503. Salary: $109K-$142K. Remote type: Flex (Reston VA). SF Risk team — data product management, AWS, data governance, backlog ownership. Outreach planned next week.",
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": false,
+      "threeFronts": false
+    },
+    "source": "manual"
+  },
+  {
+    "id": "jh_bankoftennes_20260522_0",
+    "title": "Mortgage Loan Processor ",
+    "company": "Bank of Tennessee",
+    "location": "Tennessee, North Carolina, Virginia or Kentucky  = Hybrid and possible remote  (Remote)",
+    "tier": "B",
+    "salary": "",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://jobs.chrismancommentary.com/job/2335312-mortgage-loan-processor",
+    "status": "TARGETED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": null,
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Auto-injected by job_hunter 2026-05-22. Score: 44pts. Posted: 2026-05-11. Matches: role_titles(1), mortgage_domain(6), delivery_tools(1), data_analytics(1), compliance_risk(1).",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": false,
+      "threeFronts": false
+    },
+    "source": "job_hunter_auto"
+  },
+  {
+    "id": "jh_simplenexusn_20260522_1",
+    "title": "Principal Product Manager",
+    "company": "SimpleNexus / nCino",
+    "location": "ZA - Remote - South Africa",
+    "tier": "A",
+    "salary": "",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://ncino.wd5.myworkdayjobs.com/job/ZA---Remote---South-Africa/Product-Manager_R6209",
+    "status": "TARGETED",
+    "actionNeeded": true,
+    "actionNote": "GEO FAIL: Location is South Africa remote (ZA). Not a US role. Skip.",
+    "dateAdded": "2026-05-22",
+    "dateApplied": null,
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Auto-injected by job_hunter 2026-05-22. Score: 56pts. Posted: 2026-05-20. Matches: role_titles(2), mortgage_domain(4), los_pos_platforms(2).",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": false,
+      "threeFronts": false
+    },
+    "source": "job_hunter_auto"
+  },
+  {
+    "id": "jh_newrezshellp_20260522_0",
+    "title": "Senior Product Manager-Digital Experience",
+    "company": "NewRez / Shellpoint",
+    "location": "NY or TX Coppell — No Remote",
+    "tier": "B",
+    "salary": "",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://newrez.wd1.myworkdayjobs.com/en-US/NRZ/job/NY---New-York---817-Broadway/Senior-Product-Manager-Digital-Experience_R9787",
+    "status": "TARGETED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": null,
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Auto-injected by job_hunter 2026-05-22. Score: 44pts. Posted: 2026-05-14. Matches: role_titles(2), mortgage_domain(4).",
+    "actionNeeded": true,
+    "actionNote": "GEO + FIT: Locations only NY-817 Broadway and TX-Coppell, no remote. Also a web/CMS/digital marketing PM role (Newrez.com, SEO, lead gen funnel) — not mortgage tech/LOS/API. Weak fit for Aza profile. Confirm skip.",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": false,
+      "threeFronts": false
+    },
+    "source": "job_hunter_auto"
+  },
+  {
     "id": "jh_ncino_pm_principal_20260522",
     "title": "Principal Product Manager",
     "company": "nCino (SimpleNexus)",
@@ -1623,6 +1731,8 @@
     "pocTitle": "SVP Head of Product",
     "pdfSent": false,
     "notes": "From LinkedIn saved. New role — different from CoS/PM/MSR roles already in pipeline. Dee Mencia is warm contact (INTERVIEW 5/21 on s_lakeview_cos). Flag: apply or leverage interview to ask about this role.",
+    "actionNeeded": true,
+    "actionNote": "ROLE GONE: Strategy Analyst not on careers.bayview.com/lls/jobs as of 2026-05-22. Active Lakeview jobs: Residential PM (Louisville) and Vendor Manager only. PRIORITY: Lakeview interview follow-up due 5/28 — send to Dee Mencia or hiring contact. Use follow-up to express continued interest across any open roles.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -1688,16 +1798,45 @@
     "company": "Plaid",
     "location": "San Francisco Bay Area (Hybrid)",
     "tier": "A",
-    "salary": "~$175K–$210K",
+    "salary": "$176.4K–$226.8K",
     "family": "PM/PO/BA",
-    "applyUrl": "https://plaid.com/careers",
+    "applyUrl": "https://jobs.ashbyhq.com/plaid/64642463-8ee8-4453-b166-449711f61cd0",
     "status": "TARGETED",
     "dateAdded": "2026-05-21",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "From LinkedIn saved. SF Bay Area hybrid — geo OK. Previously passed on s_plaid_01 (banking infra, wrong niche). PM role is different — higher level. Posted 6d ago.",
+    "notes": "From LinkedIn saved. SF Bay Area hybrid — geo OK. Previously passed on s_plaid_01 (banking infra, wrong niche).",
+    "actionNeeded": true,
+    "actionNote": "FIT CONCERN: Role targets 2-4 years experience — explicitly early-career. Aza is overqualified at 15+ years. Also see plaid_lead_acctverif_20260522 (Product Lead AV, $207K-$306K) which is better comp but wrong domain (bank acct verification/payments vs mortgage). Aza decision needed on both.",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    }
+  },
+  {
+    "id": "plaid_lead_acctverif_20260522",
+    "title": "Product Lead - Account Verification",
+    "company": "Plaid",
+    "location": "San Francisco HQ or NYC (Hybrid)",
+    "tier": "A",
+    "salary": "$207.6K–$306.6K",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://jobs.ashbyhq.com/plaid/0fa4649a-dae2-4c13-ae70-8e93ce221152",
+    "status": "TARGETED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": null,
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Discovered during Plaid sweep 2026-05-22. $207K-$306K + equity. Geo OK (SF HQ hybrid).",
+    "actionNeeded": true,
+    "actionNote": "FIT CONCERN: Role is bank account verification / open banking / payments domain (Auth, Balance, Identity Match, ACH) — not Aza's mortgage tech core. Strong comp and geo. Aza decision needed: apply on fintech/API strength or skip in favor of mortgage-domain roles.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -1715,7 +1854,7 @@
     "tier": "B",
     "salary": "~$140K–$170K",
     "family": "PM/PO/BA",
-    "applyUrl": "https://www.bankrate.com/careers",
+    "applyUrl": "https://www.redventures.com/careers/positions/open",
     "status": "TARGETED",
     "dateAdded": "2026-05-21",
     "dateApplied": null,
@@ -1723,6 +1862,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "From LinkedIn saved. Different from s_bankrate_01 (Lead PM already applied). Financial media/fintech — outside core mortgage ecosystem but PM role is strong match. Remote. Reposted 2h ago.",
+    "actionNeeded": true,
+    "actionNote": "ACTION NEEDED: Bankrate job board (Red Ventures) not rendering roles via automation as of 2026-05-22. Need direct ATS link — search redventures.com/careers/positions/open or LinkedIn for 'Bankrate Senior Project Manager Remote'. Also confirm: is this Project Manager (delivery) or Product Manager (strategy) — title matters for fit. Verify manually.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -1734,20 +1875,20 @@
   },
   {
     "id": "s_salesforce_01",
-    "title": "Product Manager",
+    "title": "Product Manager — Salesforce Data 360 (AI Agents & Enterprise Search)",
     "company": "Salesforce",
-    "location": "Palo Alto, CA (Hybrid)",
+    "location": "San Francisco / Palo Alto (Office Tech-Flexible, geo OK within 50mi San Jose)",
     "tier": "A",
-    "salary": "~$175K–$220K",
+    "salary": "$178.9K–$246K (SF metro base) + equity + bonus",
     "family": "PM/PO/BA",
-    "applyUrl": "https://salesforce.com/careers",
+    "applyUrl": "https://salesforce.wd12.myworkdayjobs.com/en-US/External_Career_Site/job/California---San-Francisco/Product-Manager_JR336692",
     "status": "TARGETED",
     "dateAdded": "2026-05-21",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "From LinkedIn saved. Palo Alto hybrid — geo OK (Bay Area). Outside core mortgage ecosystem. Top-tier comp. Reposted 1w ago.",
+    "notes": "JR336692. Salesforce Data 360 — AI agents + enterprise search PM. Agentic prototyping, cross-team Agentforce initiative. SF/Palo Alto hybrid. Posted 30+ days — still live. Strong Aza fit: AI agentic platform, cross-team product ownership, technical PM. Outside mortgage but AI/agentic work transfers directly.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -1755,7 +1896,9 @@
       "outreach": false,
       "logged": true,
       "threeFronts": false
-    }
+    },
+    "actionNeeded": true,
+    "actionNote": "ACTION NEEDED: Salesforce Workday requires account creation (email + password) before applying to JR336692. Direct URL: https://salesforce.wd12.myworkdayjobs.com/en-US/External_Career_Site/job/California---San-Francisco/Product-Manager_JR336692/apply — create account, then 'Use My Last Application' for fastest path. Strong Tier A — $178.9K-$246K SF metro. Do not skip."
   },
   {
     "id": "s_ob_ppetech",
@@ -1773,6 +1916,8 @@
     "pocTitle": "Chief Product Officer",
     "pdfSent": false,
     "notes": "From LinkedIn saved. Tech support role — outside core PM/BA families. Comp likely below $115K floor. OB already in pipeline (s_ob_01 CALLBACK, s_ob_bdm GHOSTED). Erin Wester warm contact. Posted 1w ago.",
+    "actionNeeded": true,
+    "actionNote": "SKIP RECOMMENDED: Tech support spec role at $90K-$120K likely below $115K floor. Applying undermines active OB CALLBACK (s_ob_01) by signaling willingness to step down. Protect the CALLBACK. If OB CALLBACK stalls, revisit.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -1809,26 +1954,26 @@
   },
   {
     "roleId": "R22",
-    "title": "Product Owner — Consumer Lending AI / LOS",
-    "company": "Rocket Mortgage",
-    "location": "Remote",
-    "tier": "B",
+    "title": "Principal Technical Program Manager (R-083210)",
+    "company": "Rocket Companies",
+    "location": "Remote (Michigan listed)",
+    "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
-    "applyUrl": "https://www.rocketcompanies.com/careers/",
-    "status": "TARGETED",
+    "applyUrl": "https://careers.rocket.com/us/en/job/R-083210/Principal-Technical-Program-Manager",
+    "status": "APPLIED",
     "dateAdded": "2026-05-19",
-    "dateApplied": null,
+    "dateApplied": "2026-05-22",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Applied 2026-05-22 via Workday — applythankyou?status=success confirmed. Principal TPM (Data Infrastructure) R-083210. Remote/Michigan. Multi-step Workday form: personal info, 5-role work history, 3 education entries (MBA GGU, BS UoP, AS KSU), job-specific Qs, EEO/voluntary. Resume auto-filled work history. Salary not entered (Workday didn't ask). Candidate ID: C-0898996.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
     "id": "card_1779210733571"
@@ -1842,19 +1987,19 @@
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://jobs.ashbyhq.com/loancrate/f58e74ca-b2b3-40d0-a1d7-ae0aaf7b0449",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-19",
-    "dateApplied": null,
+    "dateApplied": "2026-05-22",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Applied 2026-05-22 via Ashby — success confirmation received. Senior TPM role, $170K-$250K, remote US. AI-native mortgage automation. Strong Aza match: MISMO + AI + origination domain.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
     "id": "card_1779210636723"
@@ -1863,21 +2008,21 @@
     "roleId": "R05",
     "title": "Lead Product Manager, Consumer Finance & Mortgage Experience",
     "company": "Realtor.com (Move, Inc.)",
-    "location": "Remote (Santa Clara HQ)",
+    "location": "Austin TX (Hybrid — flagged geo concern)",
     "tier": "B",
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://job-boards.greenhouse.io/rdccareers/jobs/7621921003",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-19",
-    "dateApplied": null,
+    "dateApplied": "2026-05-22",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Applied 2026-05-22 via Playwright. Hybrid 3 days/week in Austin TX — geo concern flagged. Role is consumer finance + mortgage PM, CRO, lead funnel. Strong domain match. Needs POC sweep + outreach.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
       "logged": false,
@@ -2889,7 +3034,7 @@
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "HIGH PRIORITY surfaced 5/19 job scan. Bay Area hybrid or remote. $145K–$170K listed.",
+    "notes": "HIGH PRIORITY surfaced 5/19 job scan. Bay Area hybrid or remote. $145K–$170K listed. NOTE: As of 2026-05-22 this specific title not found in live listings. Other SavvyMoney roles already applied 5/19 (PO II, Sr Impl Mgr, Sr BSA). May have been filled or retitled.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -2897,7 +3042,9 @@
       "outreach": false,
       "logged": false,
       "threeFronts": false
-    }
+    },
+    "actionNeeded": true,
+    "actionNote": "Sr. TPM title not found in SavvyMoney live listings as of 2026-05-22. Other 3 SavvyMoney roles already applied. Role may be closed. Verify or remove from TARGETED queue."
   },
   {
     "id": "s_loancrate_01",
@@ -2906,22 +3053,52 @@
     "company": "Loancrate",
     "location": "Menlo Park CA",
     "tier": "A",
-    "salary": "~$155K–$200K",
+    "salary": "$170K–$250K",
     "family": "IMPL",
     "applyUrl": "https://jobs.ashbyhq.com/loancrate/f58e74ca-b2b3-40d0-a1d7-ae0aaf7b0449",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-19",
-    "dateApplied": null,
-    "pocName": "",
-    "pocTitle": "",
+    "dateApplied": "2026-05-22",
+    "pocName": "Robert Dempster",
+    "pocTitle": "Product at Loancrate",
     "pdfSent": false,
-    "notes": "AI-native mortgage LOS startup. Menlo Park CA. TPM + AI workflow automation role confirmed active May 2026.",
+    "notes": "Applied 2026-05-22 via Ashby — success confirmation received. Same role as card_1779210636723 (Sr. TPM). $170K-$250K, remote US. AI-native mortgage origination automation.",
+    "peopleSweep": [
+      {
+        "name": "jeff braddock",
+        "title": "Head of Business Development",
+        "url": "https://www.linkedin.com/in/justbraddock",
+        "degree": "1st",
+        "status": "QUEUE TUESDAY — Template A DM"
+      },
+      {
+        "name": "Robert Dempster",
+        "title": "Product at Loancrate",
+        "url": "https://www.linkedin.com/in/robert-dempster-475b2051",
+        "degree": "2nd",
+        "status": "QUEUE TUESDAY — Template F"
+      },
+      {
+        "name": "Andrew Linfoot",
+        "title": "Co-Founder",
+        "url": "https://www.linkedin.com/in/alinfoot",
+        "degree": "2nd",
+        "status": "QUEUE TUESDAY — Template F"
+      },
+      {
+        "name": "Hayden Colbert",
+        "title": "Co-Founder & CEO",
+        "url": "https://www.linkedin.com/in/haydencolbert",
+        "degree": "2nd",
+        "status": "Pending — connection request already sent"
+      }
+    ],
     "steps": {
       "tailor": false,
-      "apply": false,
-      "peopleSweep": false,
+      "apply": true,
+      "peopleSweep": true,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     }
   },
@@ -2941,6 +3118,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "",
+    "actionNeeded": true,
+    "actionNote": "ACTION NEEDED: Original role 'Sr. PO - NAF Digital Mortgage' not found in iCIMS portal as of 2026-05-22. Applied to Director of Product Management ($195K-$215K, Remote OK, iCIMS ID 2026-7750) instead — see naf_dir_pm_20260522.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -2952,6 +3131,51 @@
     "id": "card_1779212299749"
   },
   {
+    "id": "naf_dir_pm_20260522",
+    "title": "Director of Product Management",
+    "company": "NAF (New American Funding)",
+    "location": "Remote (US)",
+    "tier": "A",
+    "salary": "$195K-$215K",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://careers-nafinc.icims.com/jobs/7750/director-of-product-management/job",
+    "status": "APPLIED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": "2026-05-22",
+    "pocName": "Angel McGowan Duke",
+    "pocTitle": "EVP, Product Development",
+    "pdfSent": false,
+    "notes": "iCIMS ID 2026-7750. Mortgage industry mandatory — Aza clears. Encompass required — Aza clears. People leader role coaching PMs & POs. Reports to VP of Product Management. Applied via existing iCIMS account.",
+    "peopleSweep": [
+      {
+        "name": "Angel McGowan Duke",
+        "title": "EVP, Product Development",
+        "url": "https://www.linkedin.com/in/angel-mcgowan-duke-855a8421",
+        "status": "PENDING MANUAL"
+      },
+      {
+        "name": "Amit Misar",
+        "title": "SVP, Product Leadership | Digital Transformation",
+        "url": "https://www.linkedin.com/in/amitmisar",
+        "status": "PENDING MANUAL"
+      },
+      {
+        "name": "Kathleen Gubbels",
+        "title": "AVP, Product Development",
+        "url": "https://www.linkedin.com/in/kathleen-gubbels",
+        "status": "PENDING MANUAL"
+      }
+    ],
+    "steps": {
+      "tailor": true,
+      "apply": true,
+      "peopleSweep": true,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    }
+  },
+  {
     "roleId": "R09",
     "title": "Product Manager — Better Mortgage AI/Digital",
     "company": "Better.com",
@@ -2959,14 +3183,14 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
-    "applyUrl": "https://better.com/careers/",
+    "applyUrl": "https://jobs.lever.co/better",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Checked 2026-05-22: Lever board shows 'No job postings currently open.' Hiring frozen. Monitor — check back in 2 weeks.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -2975,6 +3199,8 @@
       "logged": false,
       "threeFronts": false
     },
+    "actionNeeded": true,
+    "actionNote": "Hiring frozen as of 2026-05-22 — no open reqs on Lever. Cold outreach to product leadership still viable. Check back ~6/5.",
     "id": "card_1779212299750"
   },
   {
@@ -2985,14 +3211,14 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
-    "applyUrl": "https://www.plazahomemortgage.com/careers/",
+    "applyUrl": "https://recruiting2.ultipro.com/PLA1019PLHM/JobBoard/504c1e51-42af-457b-93a0-ff2f6e47a506/",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Checked 2026-05-22: 11 open roles on UltiPro — all underwriting/ops/sales. Zero PM/product/tech roles. Monitor.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -3001,6 +3227,8 @@
       "logged": false,
       "threeFronts": false
     },
+    "actionNeeded": true,
+    "actionNote": "No PM roles open as of 2026-05-22 on UltiPro. Cold outreach to product leadership viable. Check back ~6/5.",
     "id": "card_1779212299751"
   },
   {
@@ -3027,33 +3255,108 @@
       "logged": false,
       "threeFronts": false
     },
-    "id": "card_1779212299752"
+    "id": "card_1779212299752",
+    "actionNeeded": true,
+    "actionNote": "No open PM/BA/delivery roles at Sagent as of 2026-05-22. Only 1 open req (DevOps Engineer). Monitor for new openings."
   },
   {
     "roleId": "R16",
-    "title": "Product Owner — LOS Platform",
+    "title": "Product Manager, Point of Sale (Customer Experience Lead)",
     "company": "Maxwell",
     "location": "Remote",
     "tier": "A",
-    "salary": "",
+    "salary": "$90K–$130K",
     "family": "PM/PO/BA",
-    "applyUrl": "https://job-boards.greenhouse.io/maxwell",
-    "status": "TARGETED",
+    "applyUrl": "https://job-boards.greenhouse.io/maxwell/jobs/4688358005",
+    "status": "APPLIED",
     "dateAdded": "2026-05-19",
-    "dateApplied": null,
-    "pocName": "",
-    "pocTitle": "",
+    "dateApplied": "2026-05-22",
+    "pocName": "Brian McCarthy",
+    "pocTitle": "Director of Product Management",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Applied 2026-05-22 via Playwright. Implementation/CX lead role despite PM title. Strong Tavant + Encompass/MeridianLink match. Salary $90K-$130K — below floor but strong fit and foot in the door at Maxwell. Needs POC sweep + outreach.",
     "steps": {
-      "tailor": false,
-      "apply": false,
-      "peopleSweep": false,
+      "tailor": true,
+      "apply": true,
+      "peopleSweep": true,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
-    "id": "card_1779212299753"
+    "id": "card_1779212299753",
+    "peopleSweep": [
+      {
+        "name": "Brian McCarthy",
+        "title": "Director of Product Management",
+        "url": "https://www.linkedin.com/in/brianmccarthyzag",
+        "degree": "3rd",
+        "status": "QUEUE TUESDAY — Template F"
+      },
+      {
+        "name": "Rutul Davé",
+        "title": "Co-Founder & CTO",
+        "url": "https://www.linkedin.com/in/rutul-dave",
+        "degree": "2nd",
+        "status": "QUEUE TUESDAY — Template F"
+      },
+      {
+        "name": "Todd Beebe",
+        "title": "Solutions Lead / PM & SaaS Mortgage Tech",
+        "url": "https://www.linkedin.com/in/toddbeebe1",
+        "degree": "2nd",
+        "status": "QUEUE TUESDAY — Template F"
+      }
+    ]
+  },
+  {
+    "id": "maxwell_sr_pm_ai_data_20260522",
+    "title": "Senior Product Manager, AI & Data",
+    "company": "Maxwell",
+    "location": "Remote - United States",
+    "tier": "A",
+    "salary": "Not listed",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://job-boards.greenhouse.io/maxwell/jobs/4689322005",
+    "status": "APPLIED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": "2026-05-22",
+    "pocName": "Brian McCarthy",
+    "pocTitle": "Director of Product Management",
+    "pdfSent": false,
+    "notes": "Applied 2026-05-22 via Playwright. Player-coach AI PM role. Own AI product strategy: doc intelligence, workflow automation, data-driven decisioning. Manage AI + data engineers. POS flagship integration surface. Very strong Aza match — CMG agentic AI delivery + mortgage domain + MISMO/BytePro.",
+    "peopleSweep": [
+      {
+        "name": "Brian McCarthy",
+        "title": "Director of Product Management",
+        "url": "https://www.linkedin.com/in/brianmccarthyzag",
+        "degree": "3rd",
+        "status": "QUEUE TUESDAY — Template F"
+      },
+      {
+        "name": "Rutul Davé",
+        "title": "Co-Founder & CTO",
+        "url": "https://www.linkedin.com/in/rutul-dave",
+        "degree": "2nd",
+        "status": "QUEUE TUESDAY — Template F"
+      },
+      {
+        "name": "Todd Beebe",
+        "title": "Solutions Lead / PM & SaaS Mortgage Tech",
+        "url": "https://www.linkedin.com/in/toddbeebe1",
+        "degree": "2nd",
+        "status": "QUEUE TUESDAY — Template F"
+      }
+    ],
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": true,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
+    "source": "manual",
+    "actionNeeded": false
   },
   {
     "roleId": "R17",
@@ -3063,14 +3366,14 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
-    "applyUrl": "https://ncino.com/company/careers/",
+    "applyUrl": "https://ncino.wd5.myworkdayjobs.com/nCinoCareers?q=product+manager",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Checked 2026-05-22: 41 PM jobs on Workday but all visible are Wilmington NC on-site or international (AU, UK, South Africa). No remote US PM roles found. South Africa Principal PM already in pipeline separately with ACTION NEEDED. Monitor for remote US openings.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -3079,6 +3382,8 @@
       "logged": false,
       "threeFronts": false
     },
+    "actionNeeded": true,
+    "actionNote": "nCino PM roles checked 2026-05-22 — all on-site Wilmington NC or intl. No remote US match. Cold outreach to product leadership viable. Check back ~6/5.",
     "id": "card_1779212299754"
   },
   {
@@ -3089,7 +3394,7 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
-    "applyUrl": "https://www.lendingtree.com/about/careers/",
+    "applyUrl": "https://job-boards.greenhouse.io/lendingtree/jobs/7460163",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
@@ -3097,6 +3402,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "",
+    "actionNeeded": true,
+    "actionNote": "GEO CONCERN: LendingTree PM (Greenhouse 7460163) requires hybrid Tue-Thu in Charlotte/Seattle/Denver + East Coast hours (9am-5pm EST). Not within 50mi of San Jose. Sr. PM (7951251) same hybrid requirement. Both confirmed 2026-05-22. Flag for Aza decision — East Coast hours doable but office attendance is not.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -3115,6 +3422,8 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
+    "actionNeeded": true,
+    "actionNote": "No PM roles open at Reggora as of 2026-05-22 — only field ops contractor roles. Check back ~6/12.",
     "applyUrl": "https://www.reggora.com/careers",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
@@ -3141,6 +3450,8 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
+    "actionNeeded": true,
+    "actionNote": "Plat.ai careers URL 404 as of 2026-05-22 (plat.ai/careers/ dead). Try plat.ai or search LinkedIn. May be early-stage startup with no formal ATS.",
     "applyUrl": "https://plat.ai/careers/",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
@@ -3168,6 +3479,8 @@
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://jobs.ashbyhq.com/tomo",
+    "actionNeeded": true,
+    "actionNote": "No open PM/PO roles at Tomo as of 2026-05-22. Only ops, sales, Principal Product Designer (Seattle). Check back ~6/12.",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
@@ -3193,6 +3506,8 @@
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
+    "actionNeeded": true,
+    "actionNote": "Brace.ai redirects to Stavvy.com (acquired/merged). No PM roles open at Stavvy as of 2026-05-22. Stavvy = eClosing/eNotarization platform. Check stavvy.com/careers directly or LinkedIn.",
     "applyUrl": "https://brace.ai/about/careers",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
@@ -3213,13 +3528,13 @@
   },
   {
     "roleId": "R25",
-    "title": "Sr. PM — Single Family Market Engagement",
+    "title": "Sr. PM — Single Family Market Engagement (JR2035)",
     "company": "Fannie Mae",
-    "location": "Remote",
+    "location": "Flex Remote (Reston VA / DC listed)",
     "tier": "A",
-    "salary": "",
+    "salary": "$123K–$161K",
     "family": "PM/PO/BA",
-    "applyUrl": "https://fanniemae.wd1.myworkdayjobs.com/en-US/FannieMaeCareers/",
+    "applyUrl": "https://fanniemae.wd1.myworkdayjobs.com/en-US/FannieMaeCareers/job/Reston-VA/Single-Family-Market-Engagement---Product-Management---Lead-Associate_JR2035/apply",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
@@ -3227,6 +3542,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "",
+    "actionNeeded": true,
+    "actionNote": "ACTION NEEDED: Workday requires account creation before applying. Create account at fanniemae.wd1.myworkdayjobs.com then apply to JR2035 (SF Market Engagement PM Lead Associate, $123K-$161K, Flex Remote). Also check JR2415 (Senior Associate) and JR2503 (SF Risk PM). 3 open PM roles.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -3241,7 +3558,7 @@
     "roleId": "R26",
     "title": "Product Owner — Technology Solutions",
     "company": "Freddie Mac",
-    "location": "Remote",
+    "location": "Remote (GEO CONCERN — policy now 5-day in-office McLean VA)",
     "tier": "A",
     "salary": "",
     "family": "PM/PO/BA",
@@ -3252,7 +3569,9 @@
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Card originally listed as remote. As of 2026-05-22, Freddie Mac career site banner states all roles are 5-days/week in-office in McLean, VA. No remote options visible. Specific PO Technology Solutions role JR not confirmed.",
+    "actionNeeded": true,
+    "actionNote": "GEO CONCERN: Freddie Mac policy = 5-day in-office McLean VA. Card was listed Remote — likely stale. Confirm if any remote exception exists before applying. May need to move to NOT_MOVING_FORWARD.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -3271,7 +3590,7 @@
     "tier": "B",
     "salary": "",
     "family": "PM/PO/BA",
-    "applyUrl": "https://www.figure.com/careers/",
+    "applyUrl": "https://job-boards.greenhouse.io/figure",
     "status": "TARGETED",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
@@ -3279,6 +3598,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "",
+    "actionNeeded": true,
+    "actionNote": "No PM roles open at Figure Technologies as of 2026-05-22. Live roles: Product Designer, Product Counsel (crypto), Product Ops AM — no PM/PO match. Check back ~6/5.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -3312,7 +3633,9 @@
       "outreach": false,
       "logged": true,
       "threeFronts": false
-    }
+    },
+    "actionNeeded": true,
+    "actionNote": "No open PM/BA/delivery roles at Sagent as of 2026-05-22. Only 1 open req (DevOps Engineer). Monitor for new openings."
   },
   {
     "roleId": "R33",
@@ -3338,7 +3661,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "id": "card_1779212299763"
+    "id": "card_1779212299763",
+    "actionNeeded": true,
+    "actionNote": "No open PM/BA/delivery roles at Sagent as of 2026-05-22. Only 1 open req (DevOps Engineer). Monitor for new openings."
   },
   {
     "roleId": "R34",
@@ -3416,7 +3741,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "id": "card_1779212299766"
+    "id": "card_1779212299766",
+    "actionNeeded": true,
+    "actionNote": "No open PM/BA/delivery roles at Sagent as of 2026-05-22. Only 1 open req (DevOps Engineer). Monitor for new openings."
   },
   {
     "roleId": "R47",
@@ -3442,7 +3769,37 @@
       "logged": false,
       "threeFronts": false
     },
-    "id": "card_1779212299767"
+    "id": "card_1779212299767",
+    "actionNeeded": true,
+    "actionNote": "Engagement Manager role not live at nCino as of 2026-05-22. Found alternative: Senior Functional Consultant R6221 (Remote USA, $81.6K-$138.7K, IMPL family) — see card ncino_sr_fc_r6221_20260522. Workday account creation required — flag for manual apply like Salesforce + Fannie Mae."
+  },
+  {
+    "id": "ncino_sr_fc_r6221_20260522",
+    "title": "Senior Functional Consultant",
+    "company": "nCino",
+    "location": "Remote, USA",
+    "tier": "C",
+    "salary": "$81,600 - $138,700",
+    "family": "IMPL",
+    "applyUrl": "https://ncino.wd5.myworkdayjobs.com/en-US/nCinoCareers/job/Remote-USA/Senior-Project-Manager_R6221",
+    "status": "TARGETED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": null,
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Found 2026-05-22 as alternative to dead Engagement Manager R47. Workday portal requires new account creation (ncino.wd5 tenant). Salary clears $115K floor at top of range. Posted 9 days ago. Banking domain (not mortgage-native) — Tavant/CMG impl background strong fit. See parent card card_1779212299767.",
+    "actionNeeded": true,
+    "actionNote": "ACTION NEEDED: Workday account creation required at ncino.wd5.myworkdayjobs.com before applying — same workflow as Salesforce (wd12) and Fannie Mae (wd1). Manual apply. 7-step form flow confirmed.",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": false,
+      "threeFronts": false
+    },
+    "source": "manual_blitz_20260522"
   },
   {
     "roleId": "R48",
@@ -3515,6 +3872,58 @@
       "tailor": true,
       "apply": true,
       "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    }
+  },
+  {
+    "id": "lendingtree_sr_data_pm_20260522",
+    "title": "Sr. Data Product Manager",
+    "company": "LendingTree",
+    "location": "Charlotte NC (Hybrid — GEO CONCERN flagged, applied per never-stop doctrine)",
+    "tier": "A",
+    "salary": "$175K target",
+    "family": "DATA",
+    "applyUrl": "https://job-boards.greenhouse.io/lendingtree/jobs/7778675",
+    "status": "APPLIED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": "2026-05-22",
+    "pocName": "",
+    "pocTitle": "",
+    "pdfSent": false,
+    "notes": "Applied 2026-05-22 via Greenhouse — confirmation page received. GEO CONCERN: JD requires Charlotte NC in-office 3 days/week. Applied per never-stop doctrine — flag for Aza to decide on geo fit before recruiter call. Base salary entered: $175,000. Salary expectation: $175K. Work auth: Yes, no sponsorship. Veteran: Yes — not protected. Gender: Male. EEO: prefer not to answer race, LGBTQIA+.",
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
+    "actionNeeded": true,
+    "actionNote": "GEO CONCERN — Charlotte NC hybrid (3 days/week in office). Aza is San Jose CA. Confirm willingness to relocate or clarify remote-OK before recruiter call."
+  },
+  {
+    "id": "plaid_staff_pm_ai_foundations_20260522",
+    "title": "Staff Product Manager - AI Foundations",
+    "company": "Plaid",
+    "location": "San Francisco HQ (Hybrid — 2x/week, geo OK ~50mi from San Jose)",
+    "tier": "A",
+    "salary": "$207.6K–$339.6K + equity",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://jobs.ashbyhq.com/plaid/8b81429d-f0e8-4b84-9f71-d25405e63d71",
+    "status": "APPLIED",
+    "dateAdded": "2026-05-22",
+    "dateApplied": "2026-05-22",
+    "pocName": "Sudarshan (Suddu) S.",
+    "pocTitle": "Head of Data & AI at Plaid",
+    "pdfSent": false,
+    "notes": "Applied 2026-05-22 via Ashby — success confirmation received. Salary Zone 1: $207.6K–$339.6K + equity. SF HQ hybrid 2x/week — confirmed yes. No sponsorship needed. Not prior Plaid employee. External candidate. AI foundations role in Data dept. Separate from s_plaid_pm (generic PM role still TARGETED). POCs: (1) Sudarshan Suddu S. — Head of Data & AI (3rd, /in/ss01) — connection note drafted. (2) Sydney Busch Weber — Head of Technical Recruiting (2nd, /in/sydneybusch, mutual: Jeffery Broussard + Corey Twitty) — connection note drafted. (3) Paul Duran — Sr. Tech Recruiter (2nd, /in/duranpaul) — connection note drafted. All PENDING MANUAL.",
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": true,
       "outreach": false,
       "logged": true,
       "threeFronts": false
