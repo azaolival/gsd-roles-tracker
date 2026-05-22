@@ -92,10 +92,11 @@ function Card({ card, onOpen, compact }) {
 
       {/* Action needed badge */}
       {card.actionNeeded && (
-        <div style={{ fontSize:10, fontWeight:700, color:"#dc2626",
-          background:"#fef2f2", padding:"2px 7px", borderRadius:4, marginBottom:5,
-          fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
-          border:"1px solid #fecaca" }}>
+        <div title={card.actionNote || "Action required — open card for details"}
+          style={{ fontSize:10, fontWeight:700, color:"#dc2626",
+            background:"#fef2f2", padding:"2px 7px", borderRadius:4, marginBottom:5,
+            fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+            border:"1px solid #fecaca", cursor:"help" }}>
           ⚠ ACTION NEEDED
         </div>
       )}
@@ -199,11 +200,12 @@ function QueueCard({ card, onOpen, position }) {
         </div>
       )}
       {card.actionNeeded && (
-        <div style={{ position: "absolute", top: -10, right: 12,
-          fontSize: 10, fontWeight: 700, color: "#dc2626",
-          background: "#fef2f2", padding: "1px 9px", borderRadius: 10,
-          fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.04em",
-          border: "1px solid #fecaca" }}>
+        <div title={card.actionNote || "Action required — open card for details"}
+          style={{ position: "absolute", top: -10, right: 12,
+            fontSize: 10, fontWeight: 700, color: "#dc2626",
+            background: "#fef2f2", padding: "1px 9px", borderRadius: 10,
+            fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.04em",
+            border: "1px solid #fecaca", cursor: "help" }}>
           ⚠ ACTION
         </div>
       )}
@@ -317,10 +319,11 @@ function HotCard({ card, onOpen, colColor, colBg, colBorder }) {
       })()}
 
       {card.actionNeeded && (
-        <div style={{ fontSize:10, fontWeight:700, color:"#dc2626",
-          background:"#fef2f2", padding:"2px 7px", borderRadius:4, marginBottom:7,
-          fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
-          border:"1px solid #fecaca" }}>
+        <div title={card.actionNote || "Action required — open card for details"}
+          style={{ fontSize:10, fontWeight:700, color:"#dc2626",
+            background:"#fef2f2", padding:"2px 7px", borderRadius:4, marginBottom:7,
+            fontFamily:"'IBM Plex Mono',monospace", display:"inline-block",
+            border:"1px solid #fecaca", cursor:"help" }}>
           ⚠ ACTION NEEDED
         </div>
       )}
@@ -354,9 +357,10 @@ function HotCard({ card, onOpen, colColor, colBg, colBorder }) {
 }
 
 export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, lastSavedAt, onOpenDrawer }) {
-  const [logSearch, setLogSearch]       = React.useState("");
+  const [logSearch, setLogSearch]         = React.useState("");
   const [showTypeahead, setShowTypeahead] = React.useState(false);
-  const [deadOpen, setDeadOpen]         = React.useState(false);
+  const [deadOpen, setDeadOpen]           = React.useState(false);
+  const [actionCenterOpen, setActionCenterOpen] = React.useState(true);
 
   const byStatus = {};
   ALL_COLS.forEach(s => { byStatus[s.key] = []; });
@@ -383,7 +387,8 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
   const queueCount      = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
   const submittedCount  = byStatus["APPLIED"].length + hotCount;
   const deadCount       = DEAD_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
-  const actionNeedCount = (cards || []).filter(c => c.actionNeeded).length;
+  const actionNeedCount  = (cards || []).filter(c => c.actionNeeded).length;
+  const actionNeededCards = (cards || []).filter(c => c.actionNeeded);
 
   const q = logSearch.trim().toLowerCase();
   const filterCards = (list) => {
@@ -487,6 +492,50 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
           </label>
         </div>
       </div>
+
+      {/* ── ACTION CENTER STRIP ──────────────────────────────────────── */}
+      {actionNeedCount > 0 && (
+        <div style={{ background:"#fef2f2", borderBottom:"1.5px solid #fecaca", flexShrink:0 }}>
+          <div
+            onClick={() => setActionCenterOpen(s => !s)}
+            style={{ display:"flex", alignItems:"center", gap:10, padding:"7px 16px",
+              cursor:"pointer", userSelect:"none" }}>
+            <span style={{ fontSize:14 }}>⚠️</span>
+            <span style={{ fontSize:12, fontWeight:700, color:"#dc2626",
+              fontFamily:"'IBM Plex Mono',monospace" }}>
+              {actionNeedCount} Action{actionNeedCount > 1 ? "s" : ""} Required — Your Decision
+            </span>
+            <span style={{ fontSize:10, color:"#ef4444", marginLeft:"auto",
+              fontFamily:"'IBM Plex Mono',monospace" }}>
+              {actionCenterOpen ? "▲ Hide" : "▼ Show"}
+            </span>
+          </div>
+          {actionCenterOpen && actionNeededCards.map(c => (
+            <div key={c.id} style={{ display:"flex", alignItems:"flex-start", gap:12,
+              padding:"8px 16px 10px 36px", borderTop:"1px solid #fecaca",
+              background:"#fff5f5" }}>
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontSize:12, fontWeight:700, color:"#0f172a",
+                  fontFamily:"'Inter',sans-serif", marginBottom:3 }}>
+                  {c.company}
+                  <span style={{ fontWeight:400, color:"#475569" }}> — {c.title}</span>
+                </div>
+                <div style={{ fontSize:12, color:"#9f1239", fontFamily:"'Inter',sans-serif",
+                  lineHeight:1.5 }}>
+                  {c.actionNote || "Review this card and take action."}
+                </div>
+              </div>
+              <button onClick={() => onOpenDrawer(c)}
+                style={{ flexShrink:0, padding:"6px 14px", background:"#dc2626",
+                  color:"#ffffff", border:"none", borderRadius:6, fontSize:11, fontWeight:700,
+                  fontFamily:"'IBM Plex Mono',monospace", cursor:"pointer",
+                  whiteSpace:"nowrap", boxShadow:"0 1px 4px rgba(220,38,38,0.25)" }}>
+                Open Card →
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* ── SEARCH + ARCHIVE TOGGLE ──────────────────────────────────── */}
       <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0",
