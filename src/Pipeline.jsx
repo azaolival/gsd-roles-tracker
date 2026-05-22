@@ -387,8 +387,9 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
   const queueCount      = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
   const submittedCount  = byStatus["APPLIED"].length + hotCount;
   const deadCount       = DEAD_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
-  const actionNeedCount  = (cards || []).filter(c => c.actionNeeded).length;
-  const actionNeededCards = (cards || []).filter(c => c.actionNeeded);
+  const deadStatuses = new Set(DEAD_COLS.map(c => c.key));
+  const actionNeedCount  = (cards || []).filter(c => c.actionNeeded && !deadStatuses.has(c.status)).length;
+  const actionNeededCards = (cards || []).filter(c => c.actionNeeded && !deadStatuses.has(c.status));
 
   const q = logSearch.trim().toLowerCase();
   const filterCards = (list) => {
