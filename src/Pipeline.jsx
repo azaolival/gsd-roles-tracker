@@ -458,7 +458,7 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
         padding:"9px 16px", display:"flex", alignItems:"center", gap:12,
         flexShrink:0, position:"relative", zIndex:20 }}>
 
-        <div style={{ position:"relative", flex:1, maxWidth:440 }}>
+        <div style={{ position:"relative", flex:1 }}>
           <span style={{ position:"absolute", left:10, top:"50%", transform:"translateY(-50%)",
             fontSize:14, color:"#94a3b8", pointerEvents:"none" }}>🔍</span>
           <input

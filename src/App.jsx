@@ -36,9 +36,9 @@ import { usePipeline } from "./hooks/usePipeline";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const B = {
+  REM: "🌐 Remote — National",
   BAY: "🌉 Bay Area Hybrid",
   SB:  "🏢 South Bay / Silicon Valley Onsite",
-  REM: "🌐 Remote — National",
 };
 
 const META = {
@@ -63,13 +63,13 @@ const FAMILY_COLORS = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SALARY TIERS — San Jose CA cost-of-living calibrated
-//   A = $175K–$235K  Attack now. Funds SJ life with room.
+//   A = $175K+  Attack now. No ceiling.
 //   B = $130K–$174K  Solid ground. Livable but tight in SJ.
 //   C = $115K–$129K  Survival floor only. Last resort.
 // est = estimated base salary range (when not listed in posting)
 // ─────────────────────────────────────────────────────────────────────────────
 const TIER_META = {
-  A: { label:"A  $175K–$235K", color:"#b45309", bg:"#fef3c7", desc:"Attack now" },
+  A: { label:"A  $175K+", color:"#b45309", bg:"#fef3c7", desc:"Attack now" },
   B: { label:"B  $130K–$174K", color:"#1d4ed8", bg:"#dbeafe", desc:"Solid ground" },
   C: { label:"C  $115K–$129K", color:"#4b5563", bg:"#f3f4f6", desc:"Floor only" },
 };
@@ -1343,12 +1343,12 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
         return ms && mb && mf && mt && mo;
       })
       .sort((a, b) => {
-        const oa = ORG_TIER_ORDER[orgQuality(a.id, a.company)] ?? 9;
-        const ob = ORG_TIER_ORDER[orgQuality(b.id, b.company)] ?? 9;
-        if (oa !== ob) return oa - ob;
         const ta = TIER_ORDER[getSalary(a)?.tier] ?? 9;
         const tb = TIER_ORDER[getSalary(b)?.tier] ?? 9;
-        return ta - tb;
+        if (ta !== tb) return ta - tb;
+        const oa = ORG_TIER_ORDER[orgQuality(a.id, a.company)] ?? 9;
+        const ob = ORG_TIER_ORDER[orgQuality(b.id, b.company)] ?? 9;
+        return oa - ob;
       });
   }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, dismissed, allJobs, getSalary]);
 
@@ -1373,18 +1373,18 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
       <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0", zIndex:20, boxShadow:"0 1px 4px rgba(0,0,0,0.06)", flexShrink:0 }}>
-        <div style={{ maxWidth:1120, margin:"0 auto", padding:"18px 28px 14px" }}>
+        <div style={{ padding:"10px 24px 8px" }}>
 
           {/* Title + stats row */}
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:16, flexWrap:"wrap", marginBottom:14 }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:16, flexWrap:"wrap", marginBottom:8 }}>
             <div>
-              <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:11, fontWeight:600, color:"#0891b2", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:5 }}>
+              <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:10, fontWeight:600, color:"#0891b2", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:2 }}>
                 {boardId === "mortgage" ? "Mortgage Product Role Ecosystem · Verified Active · May 2026" : "Industry-Agnostic Prospects · Activate When Net Cast Wider"}
               </div>
-              <h1 style={{ fontFamily:"'Inter',sans-serif", fontSize:24, fontWeight:700, margin:0, color:"#0f172a", lineHeight:1.2, letterSpacing:"-0.01em" }}>
+              <h1 style={{ fontFamily:"'Inter',sans-serif", fontSize:18, fontWeight:700, margin:0, color:"#0f172a", lineHeight:1.2, letterSpacing:"-0.01em" }}>
                 {boardTitle}
               </h1>
-              <div style={{ fontSize:13, color:"#64748b", marginTop:4, lineHeight:1.5 }}>
+              <div style={{ fontSize:12, color:"#64748b", marginTop:2, lineHeight:1.4 }}>
                 {boardId === "mortgage"
                   ? "PM · PO · BA · Delivery · Scrum · Implementation · Solutions · CSM · Ops · QA · Compliance"
                   : "Platform · Delivery · Product · Program · Strategy · Implementation · Consulting"}
@@ -1392,39 +1392,39 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
             </div>
 
             {/* Bucket counts + total */}
-            <div style={{ display:"flex", gap:20, alignItems:"center", flexShrink:0 }}>
+            <div style={{ display:"flex", gap:14, alignItems:"center", flexShrink:0 }}>
               {Object.values(B).map(b => {
                 const m = META[b]; const ct = byBucket[b]?.length ?? 0;
                 return (
                   <div key={b} style={{ textAlign:"center" }}>
-                    <div style={{ fontSize:26, fontWeight:700, color:m.c, lineHeight:1 }}>{ct}</div>
-                    <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>{b.split(" ")[0]}</div>
+                    <div style={{ fontSize:18, fontWeight:700, color:m.c, lineHeight:1 }}>{ct}</div>
+                    <div style={{ fontSize:10, color:"#94a3b8", marginTop:2, fontFamily:"'IBM Plex Mono',monospace" }}>{b.split(" ")[0]}</div>
                   </div>
                 );
               })}
-              <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
-                <div style={{ fontSize:32, fontWeight:700, color:"#0891b2", lineHeight:1 }}>{filtered.length}</div>
-                <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>prospects</div>
+              <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:14 }}>
+                <div style={{ fontSize:22, fontWeight:700, color:"#0891b2", lineHeight:1 }}>{filtered.length}</div>
+                <div style={{ fontSize:10, color:"#94a3b8", marginTop:2, fontFamily:"'IBM Plex Mono',monospace" }}>prospects</div>
               </div>
               {dismissed.size > 0 && (
-                <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20, textAlign:"center" }}>
-                  <div style={{ fontSize:32, fontWeight:700, color:"#94a3b8", lineHeight:1 }}>{dismissed.size}</div>
-                  <div style={{ fontSize:11, color:"#94a3b8", marginTop:3, fontFamily:"'IBM Plex Mono',monospace" }}>hidden</div>
+                <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:14, textAlign:"center" }}>
+                  <div style={{ fontSize:22, fontWeight:700, color:"#94a3b8", lineHeight:1 }}>{dismissed.size}</div>
+                  <div style={{ fontSize:10, color:"#94a3b8", marginTop:2, fontFamily:"'IBM Plex Mono',monospace" }}>hidden</div>
                   <button onClick={restoreAll} style={{ fontSize:10, color:"#0891b2", background:"none", border:"none", cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", padding:0, marginTop:2 }}>
                     restore all
                   </button>
                 </div>
               )}
-              <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:20 }}>
+              <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:14 }}>
                 <button onClick={() => setShowAddModal(true)}
-                  style={{ display:"flex", alignItems:"center", gap:6, padding:"9px 18px",
-                    borderRadius:8, border:"1.5px solid #0891b2", background:"#e0f9ff",
-                    color:"#0891b2", fontSize:14, fontWeight:700, cursor:"pointer",
+                  style={{ display:"flex", alignItems:"center", gap:6, padding:"7px 14px",
+                    borderRadius:7, border:"1.5px solid #0891b2", background:"#e0f9ff",
+                    color:"#0891b2", fontSize:13, fontWeight:700, cursor:"pointer",
                     fontFamily:"'Inter',sans-serif", whiteSpace:"nowrap" }}>
                   + Add Role
                 </button>
                 {customRoles.length > 0 && (
-                  <div style={{ fontSize:11, color:"#94a3b8", marginTop:4, textAlign:"center",
+                  <div style={{ fontSize:10, color:"#94a3b8", marginTop:3, textAlign:"center",
                     fontFamily:"'IBM Plex Mono',monospace" }}>
                     {customRoles.length} custom
                   </div>
@@ -1433,103 +1433,90 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
             </div>
           </div>
 
-          {/* Search row */}
-          <div style={{ display:"flex", gap:8, marginBottom:6, flexWrap:"wrap", alignItems:"center" }}>
+          {/* Filter bar row 1: search + salary + org — full width */}
+          <div style={{ display:"flex", gap:6, marginBottom:4, alignItems:"center" }}>
             <input value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="Search title · company · skill · city · keyword…"
-              style={{ flex:1, minWidth:240, padding:"10px 16px", borderRadius:8,
+              placeholder="Search title · company · skill · city…"
+              style={{ flex:1, padding:"6px 12px", borderRadius:6,
                 border:"1px solid #e2e8f0", background:"#f8fafc", color:"#0f172a",
-                fontSize:14, fontFamily:"'Inter',sans-serif", outline:"none",
-                boxShadow:"inset 0 1px 2px rgba(0,0,0,0.04)" }} />
+                fontSize:12, fontFamily:"'Inter',sans-serif", outline:"none" }} />
             <select value={bucketFilter} onChange={e => setBucket(e.target.value)}
-              style={{ padding:"10px 14px", borderRadius:8, border:"1px solid #e2e8f0",
-                background:"#f8fafc", color:"#374151", fontSize:14,
+              style={{ padding:"6px 10px", borderRadius:6, border:"1px solid #e2e8f0",
+                background:"#f8fafc", color:"#374151", fontSize:12,
                 fontFamily:"'Inter',sans-serif", cursor:"pointer" }}>
               {ALL_BUCKETS.map(b => <option key={b}>{b}</option>)}
             </select>
-            <button onClick={() => setNotes(s => !s)}
-              style={{ padding:"10px 18px", borderRadius:8,
-                border:`1.5px solid ${showNotes ? "#0891b2" : "#e2e8f0"}`,
-                background: showNotes ? "#e0f9ff" : "#ffffff",
-                color: showNotes ? "#0891b2" : "#6b7280",
-                fontSize:14, fontFamily:"'Inter',sans-serif", cursor:"pointer", fontWeight:600, whiteSpace:"nowrap" }}>
-              {showNotes ? "Hide Notes" : "Show Notes"}
-            </button>
-            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
-              <button onClick={() => { setSearch(""); setBucket("All"); setFamily("All"); setTier("All"); setOrgFilter("All"); }}
-                style={{ padding:"10px 18px", borderRadius:8, border:"1px solid #e2e8f0",
-                  background:"#ffffff", color:"#6b7280", fontSize:14,
-                  fontFamily:"'Inter',sans-serif", cursor:"pointer" }}>
-                Clear filters
-              </button>
-            )}
-            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
-              <span style={{ fontSize:12, color:"#64748b", fontFamily:"'IBM Plex Mono',monospace",
-                whiteSpace:"nowrap", marginLeft:4 }}>
-                Showing {filtered.length} of {allJobs.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length}
-              </span>
-            )}
-          </div>
 
-          {/* Salary tier filter row */}
-          <div style={{ display:"flex", gap:6, marginBottom:6, alignItems:"center", flexWrap:"wrap" }}>
-            <span style={{ fontSize:11, color:"#94a3b8", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", marginRight:4, letterSpacing:"0.08em" }}>SALARY:</span>
+            {/* Salary divider */}
+            <span style={{ fontSize:10, color:"#cbd5e1", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.08em", whiteSpace:"nowrap" }}>SALARY</span>
             <button onClick={() => setTier("All")}
-              style={{ fontSize:13, fontWeight:600, padding:"5px 14px", borderRadius:6,
+              style={{ fontSize:11, fontWeight:600, padding:"4px 9px", borderRadius:5,
                 border:"1.5px solid #e2e8f0",
                 background: tierFilter === "All" ? "#0f172a" : "#ffffff",
                 color: tierFilter === "All" ? "#ffffff" : "#6b7280",
-                cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
+                cursor:"pointer", fontFamily:"'Inter',sans-serif", whiteSpace:"nowrap" }}>
               All ({allJobs.length})
             </button>
-            {Object.entries(TIER_META).map(([tier, m]) => (
+            {Object.entries(TIER_META).map(([tier, tm2]) => (
               <button key={tier} onClick={() => setTier(tierFilter === tier ? "All" : tier)}
-                style={{ fontSize:13, fontWeight:700, padding:"5px 16px", borderRadius:6,
-                  border:`1.5px solid ${m.color}`,
-                  background: tierFilter === tier ? m.color : "#ffffff",
-                  color: tierFilter === tier ? "#ffffff" : m.color,
+                style={{ fontSize:11, fontWeight:700, padding:"4px 10px", borderRadius:5,
+                  border:`1.5px solid ${tm2.color}`,
+                  background: tierFilter === tier ? tm2.color : "#ffffff",
+                  color: tierFilter === tier ? "#ffffff" : tm2.color,
                   cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif" }}>
-                {tier === "A" ? "★ " : ""}{m.label} ({tierCounts[tier]})
+                {tier === "A" ? "★ " : ""}{tm2.label} ({tierCounts[tier]})
               </button>
             ))}
-          </div>
 
-          {/* Org quality (stoplight) filter row */}
-          <div style={{ display:"flex", gap:6, marginBottom:8, alignItems:"center", flexWrap:"wrap" }}>
-            <span style={{ fontSize:11, color:"#94a3b8", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", marginRight:4, letterSpacing:"0.08em" }}>ORG TIER:</span>
+            {/* Org divider */}
+            <span style={{ fontSize:10, color:"#cbd5e1", fontWeight:600, fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.08em", whiteSpace:"nowrap" }}>ORG</span>
             <button onClick={() => setOrgFilter("All")}
-              style={{ fontSize:13, fontWeight:600, padding:"5px 14px", borderRadius:6,
+              style={{ fontSize:11, fontWeight:600, padding:"4px 9px", borderRadius:5,
                 border:"1.5px solid #e2e8f0",
                 background: orgFilter === "All" ? "#0f172a" : "#ffffff",
                 color: orgFilter === "All" ? "#ffffff" : "#6b7280",
                 cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
               All
             </button>
-            {Object.entries(ORG_QUALITY_META).map(([key, m]) => (
+            {Object.entries(ORG_QUALITY_META).map(([key, om]) => (
               <button key={key} onClick={() => setOrgFilter(orgFilter === key ? "All" : key)}
-                style={{ fontSize:13, fontWeight:700, padding:"5px 16px", borderRadius:6,
-                  border:`1.5px solid ${m.color}`,
-                  background: orgFilter === key ? m.color : "#ffffff",
-                  color: orgFilter === key ? "#ffffff" : m.color,
+                style={{ fontSize:11, fontWeight:700, padding:"4px 10px", borderRadius:5,
+                  border:`1.5px solid ${om.color}`,
+                  background: orgFilter === key ? om.color : "#ffffff",
+                  color: orgFilter === key ? "#ffffff" : om.color,
                   cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif",
-                  display:"flex", alignItems:"center", gap:6 }}>
-                <span style={{ width:8, height:8, borderRadius:"50%",
-                  background: orgFilter === key ? "#ffffff" : m.dot,
+                  display:"flex", alignItems:"center", gap:4 }}>
+                <span style={{ width:6, height:6, borderRadius:"50%",
+                  background: orgFilter === key ? "#ffffff" : om.dot,
                   display:"inline-block", flexShrink:0 }} />
-                {m.label}
+                {om.label}
               </button>
             ))}
-            <span style={{ fontSize:11, color:"#94a3b8", fontFamily:"'IBM Plex Mono',monospace",
-              marginLeft:4, lineHeight:1.4 }}>
-              {orgFilter !== "All" ? ORG_QUALITY_META[orgFilter]?.desc : "Green = attack first · Yellow = after green exhausted · Red = backup only"}
-            </span>
+
+            {/* Notes + Clear */}
+            <button onClick={() => setNotes(s => !s)}
+              style={{ padding:"4px 10px", borderRadius:5,
+                border:`1.5px solid ${showNotes ? "#0891b2" : "#e2e8f0"}`,
+                background: showNotes ? "#e0f9ff" : "#ffffff",
+                color: showNotes ? "#0891b2" : "#6b7280",
+                fontSize:11, fontFamily:"'Inter',sans-serif", cursor:"pointer", fontWeight:600, whiteSpace:"nowrap" }}>
+              Notes
+            </button>
+            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
+              <button onClick={() => { setSearch(""); setBucket("All"); setFamily("All"); setTier("All"); setOrgFilter("All"); }}
+                style={{ padding:"4px 10px", borderRadius:5, border:"1px solid #e2e8f0",
+                  background:"#ffffff", color:"#6b7280", fontSize:11,
+                  fontFamily:"'Inter',sans-serif", cursor:"pointer", whiteSpace:"nowrap" }}>
+                Clear
+              </button>
+            )}
           </div>
 
-          {/* Role family filter row */}
-          <div style={{ display:"flex", gap:5, flexWrap:"wrap", marginBottom:10 }}>
+          {/* Filter bar row 2: family tags + disclaimer — full width */}
+          <div style={{ display:"flex", gap:4, alignItems:"center", marginBottom:6 }}>
             {Object.entries(FAMILY_LABELS).map(([k, v]) => (
               <button key={k} onClick={() => setFamily(familyFilter === k ? "All" : k)}
-                style={{ fontSize:12, fontWeight:600, padding:"4px 12px", borderRadius:6,
+                style={{ fontSize:10, fontWeight:600, padding:"3px 8px", borderRadius:4,
                   border:`1.5px solid ${FAMILY_COLORS[k]}`,
                   background: familyFilter === k ? FAMILY_COLORS[k] : "#ffffff",
                   color: familyFilter === k ? "#ffffff" : FAMILY_COLORS[k],
@@ -1537,12 +1524,17 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                 {k}
               </button>
             ))}
-          </div>
-
-          {/* Disclaimer */}
-          <div style={{ background:"#f0f9ff", border:"1px solid #bae6fd", borderRadius:8, padding:"8px 14px",
-            fontSize:12, color:"#0369a1", lineHeight:1.5, fontFamily:"'IBM Plex Mono',monospace" }}>
-            All listings confirmed active Apr–May 2026. "Various" entries = active role category — search each company's career page + LinkedIn. Verify before applying.
+            <div style={{ flex:1, background:"#f0f9ff", border:"1px solid #bae6fd", borderRadius:5,
+              padding:"3px 10px", fontSize:10, color:"#0369a1", fontFamily:"'IBM Plex Mono',monospace",
+              whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis", marginLeft:4 }}>
+              All listings confirmed active Apr–May 2026 · Verify before applying
+            </div>
+            {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
+              <span style={{ fontSize:10, color:"#64748b", fontFamily:"'IBM Plex Mono',monospace",
+                whiteSpace:"nowrap" }}>
+                {filtered.length} of {allJobs.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length} shown
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -1551,7 +1543,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
       <div style={{ flex:1, overflowY:"auto" }}>
 
       {/* ── BODY ───────────────────────────────────────────────── */}
-      <div style={{ maxWidth:1120, margin:"0 auto", padding:"22px 28px 60px" }}>
+      <div style={{ padding:"14px 24px 40px" }}>
         {Object.values(B).map(bucket => {
           const m = META[bucket];
           const items = byBucket[bucket];
@@ -1559,23 +1551,23 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
           const isOpen = !collapsed[bucket];
 
           return (
-            <div key={bucket} style={{ marginBottom:28 }}>
+            <div key={bucket} style={{ marginBottom:16 }}>
               {/* Bucket header button */}
               <button onClick={() => toggle(bucket)}
                 style={{ width:"100%", background:"none", border:"none", cursor:"pointer", textAlign:"left", padding:0 }}>
-                <div style={{ background:m.c, borderRadius: isOpen ? "10px 10px 0 0" : "10px", padding:"13px 20px",
+                <div style={{ background:m.c, borderRadius: isOpen ? "8px 8px 0 0" : "8px", padding:"9px 16px",
                   display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                   <div>
-                    <span style={{ fontSize:17, fontWeight:700, color:"#ffffff", fontFamily:"'Inter',sans-serif" }}>
+                    <span style={{ fontSize:14, fontWeight:700, color:"#ffffff", fontFamily:"'Inter',sans-serif" }}>
                       {bucket}
-                      <span style={{ fontSize:13, fontWeight:500, background:"rgba(255,255,255,0.2)",
-                        padding:"2px 10px", borderRadius:5, marginLeft:10 }}>
+                      <span style={{ fontSize:11, fontWeight:500, background:"rgba(255,255,255,0.2)",
+                        padding:"2px 8px", borderRadius:4, marginLeft:8 }}>
                         {items.length} roles
                       </span>
                     </span>
-                    <div style={{ fontSize:12, color:"rgba(255,255,255,0.75)", marginTop:3, fontFamily:"'Inter',sans-serif" }}>{m.sub}</div>
+                    <div style={{ fontSize:11, color:"rgba(255,255,255,0.75)", marginTop:2, fontFamily:"'Inter',sans-serif" }}>{m.sub}</div>
                   </div>
-                  <span style={{ color:"rgba(255,255,255,0.8)", fontSize:14, fontFamily:"'IBM Plex Mono',monospace" }}>
+                  <span style={{ color:"rgba(255,255,255,0.8)", fontSize:12, fontFamily:"'IBM Plex Mono',monospace" }}>
                     {isOpen ? "▲" : "▼"}
                   </span>
                 </div>
@@ -1590,158 +1582,151 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                     return (
                       <div key={job.id}
                         style={{ background: sd?.tier === "A" ? "#fffef5" : "#ffffff",
-                          borderLeft:`4px solid ${tm ? tm.color : m.c}`,
-                          padding:"16px 20px",
-                          borderTop: idx === 0 ? "none" : "1px solid #f1f5f9",
+                          borderLeft:`3px solid ${tm ? tm.color : m.c}`,
+                          borderTop: idx === 0 ? "none" : "2px solid #e2e8f0",
                           transition:"background 0.1s" }}
                         onMouseEnter={e => e.currentTarget.style.background="#f8fafc"}
                         onMouseLeave={e => e.currentTarget.style.background = sd?.tier === "A" ? "#fffef5" : "#ffffff"}>
-                        <div style={{ display:"flex", justifyContent:"space-between", gap:14, alignItems:"flex-start" }}>
 
-                          {/* LEFT */}
-                          <div style={{ flex:1 }}>
-                            {/* Badge + title row */}
-                            <div style={{ display:"flex", alignItems:"center", gap:7, marginBottom:6, flexWrap:"wrap" }}>
-                              <span style={{ fontSize:12, color:"#cbd5e1", fontFamily:"'IBM Plex Mono',monospace", minWidth:28 }}>#{idx+1}</span>
-                              {/* Stoplight org quality dot */}
-                              {(() => {
-                                const oq = orgQuality(job.id, job.company);
-                                const om = ORG_QUALITY_META[oq];
-                                return (
+                        {/* 2-line tile — clean, uniform, no column dividers */}
+                        {(() => {
+                          const oq = orgQuality(job.id, job.company);
+                          const om = ORG_QUALITY_META[oq];
+                          const pSt = pipelineStatusMap.has(job.id) ? pipelineStatusMap.get(job.id) : null;
+                          const pSm = pSt ? (PIPELINE_STATUS_META[pSt] || {}) : null;
+                          const visibleTags = (job.tags||[]).slice(0, 5);
+                          const extraTags = (job.tags||[]).length - visibleTags.length;
+                          const salaryColor = sd?.tier === "A" ? "#b45309" : sd?.tier === "B" ? "#1d4ed8" : "#4b5563";
+                          return (
+                            <div style={{ display:"flex", alignItems:"center", gap:12,
+                              padding:"7px 14px", minHeight:52 }}>
+
+                              {/* Left: 2-line content block */}
+                              <div style={{ flex:1, minWidth:0 }}>
+
+                                {/* Line 1: grade → title → color-coded badges */}
+                                <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:4, flexWrap:"wrap" }}>
+                                  {/* org dot */}
                                   <span title={`${om.label}: ${om.desc}`}
-                                    style={{ width:9, height:9, borderRadius:"50%",
-                                      background: om.dot, flexShrink:0,
-                                      boxShadow:`0 0 0 2px ${om.dot}40`,
-                                      cursor:"help" }} />
-                                );
-                              })()}
-                              {/* Prior history warning */}
-                              {flaggedCompanies.has(job.company?.toLowerCase().trim()) && (
-                                <span title="Prior engagement with this company — marked No Thanks or Not Moving Forward in Activity Log"
-                                  style={{ fontSize:10, fontWeight:700, color:"#be185d",
-                                    background:"#fdf2f8", border:"1px solid #fbcfe8",
-                                    padding:"1px 7px", borderRadius:4,
-                                    fontFamily:"'IBM Plex Mono',monospace", cursor:"help" }}>
-                                  ⚠ prior history
-                                </span>
-                              )}
-                              {tm && (
-                                <span style={{ fontSize:11, fontWeight:700, fontFamily:"'IBM Plex Mono',monospace",
-                                  color: sd.tier === "A" ? "#92400e" : tm.color,
-                                  background: tm.bg, border:`1.5px solid ${tm.color}50`,
-                                  padding:"2px 9px", borderRadius:5, letterSpacing:"0.05em" }}>
-                                  {sd.tier === "A" ? "★ TIER A" : sd.tier === "B" ? "TIER B" : "TIER C"}
-                                </span>
-                              )}
-                              <span style={{ fontSize:11, fontWeight:600, fontFamily:"'IBM Plex Mono',monospace",
-                                color:fc, background:fc+"15", border:`1.5px solid ${fc}40`,
-                                padding:"2px 9px", borderRadius:5 }}>
-                                {job.family}
-                              </span>
-                              {pipelineStatusMap.has(job.id) && (() => {
-                                const st = pipelineStatusMap.get(job.id);
-                                const sm = PIPELINE_STATUS_META[st] || {};
-                                return (
-                                  <span style={{ fontSize:11, fontWeight:700, fontFamily:"'IBM Plex Mono',monospace",
-                                    color: sm.color, background: sm.bg, border:`1.5px solid ${sm.color}50`,
-                                    padding:"2px 9px", borderRadius:5, letterSpacing:"0.05em" }}>
-                                    {sm.label || st}
+                                    style={{ width:7, height:7, borderRadius:"50%", flexShrink:0,
+                                      background:om.dot, boxShadow:`0 0 0 2px ${om.dot}40`, cursor:"help" }} />
+                                  {/* tier / grade badge */}
+                                  {tm && (
+                                    <span style={{ fontSize:10, fontWeight:800, color:"#fff", flexShrink:0,
+                                      background: sd.tier==="A" ? "#b45309" : sd.tier==="B" ? "#1d4ed8" : "#4b5563",
+                                      padding:"2px 7px", borderRadius:4, fontFamily:"'IBM Plex Mono',monospace" }}>
+                                      {sd.tier==="A" ? "★ A" : sd.tier}
+                                    </span>
+                                  )}
+                                  {/* TITLE — dominant, immediately after grade */}
+                                  <span style={{ fontSize:13, fontWeight:700, color:"#0f172a",
+                                    fontFamily:"'Inter',sans-serif", lineHeight:1.3 }}>
+                                    {job.title}
                                   </span>
-                                );
-                              })()}
-                              <span style={{ fontSize:16, fontWeight:700, color:"#0f172a", lineHeight:1.3, fontFamily:"'Inter',sans-serif" }}>
-                                {job.title}
-                              </span>
-                            </div>
+                                  {/* color-coded family badge */}
+                                  <span style={{ fontSize:10, fontWeight:600, flexShrink:0, whiteSpace:"nowrap",
+                                    fontFamily:"'IBM Plex Mono',monospace", color:fc,
+                                    background:fc+"18", border:`1px solid ${fc}35`,
+                                    padding:"1px 6px", borderRadius:3 }}>
+                                    {job.family}
+                                  </span>
+                                  {/* pipeline status badge */}
+                                  {pSm && (
+                                    <span style={{ fontSize:10, fontWeight:700, flexShrink:0, whiteSpace:"nowrap",
+                                      color:pSm.color, background:pSm.bg, border:`1px solid ${pSm.color}40`,
+                                      padding:"1px 6px", borderRadius:3, fontFamily:"'IBM Plex Mono',monospace" }}>
+                                      {pSm.label || pSt}
+                                    </span>
+                                  )}
+                                  {/* prior history flag */}
+                                  {flaggedCompanies.has(job.company?.toLowerCase().trim()) && (
+                                    <span title="Prior engagement — marked No Thanks or Not Moving Forward"
+                                      style={{ fontSize:10, color:"#be185d", flexShrink:0, cursor:"help" }}>⚠</span>
+                                  )}
+                                </div>
 
-                            {/* Company / city / salary */}
-                            <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:8, marginBottom:8 }}>
-                              <span style={{ fontSize:15, fontWeight:600, color:"#1e293b", fontFamily:"'Inter',sans-serif" }}>{job.company}</span>
-                              <span style={{ fontSize:14, color:"#cbd5e1" }}>·</span>
-                              <span style={{ fontSize:14, color:"#64748b", fontFamily:"'Inter',sans-serif" }}>{job.city}</span>
-                              {sd && <>
-                                <span style={{ fontSize:14, color:"#cbd5e1" }}>·</span>
-                                <span style={{ fontSize:13, fontWeight:600, fontFamily:"'IBM Plex Mono',monospace",
-                                  color: sd.tier === "A" ? "#b45309" : sd.tier === "B" ? "#1d4ed8" : "#4b5563" }}>
-                                  {sd.est}{job.salary && job.salary !== sd.est ? " (listed)" : ""}
-                                </span>
-                              </>}
-                            </div>
-
-                            {/* Tags */}
-                            <div style={{ display:"flex", flexWrap:"wrap", gap:5, marginBottom: showNotes && job.notes ? 9 : 0 }}>
-                              {(job.tags||[]).map(t => (
-                                <span key={t} style={{ fontSize:12, fontFamily:"'IBM Plex Mono',monospace",
-                                  background:m.bg, color:m.c,
-                                  padding:"3px 9px", borderRadius:5, border:`1px solid ${m.c}30` }}>
-                                  {t}
-                                </span>
-                              ))}
-                            </div>
-
-                            {/* Notes */}
-                            {showNotes && job.notes && (
-                              <div style={{ fontSize:13, color:"#475569", lineHeight:1.65,
-                                paddingTop:5, paddingLeft:12,
-                                borderLeft:`3px solid ${m.bg}`,
-                                fontFamily:"'Inter',sans-serif" }}>
-                                {job.notes}
+                                {/* Line 2: company · city · salary · tags */}
+                                <div style={{ display:"flex", alignItems:"center", gap:5, flexWrap:"wrap" }}>
+                                  <span style={{ fontSize:12, fontWeight:600, color:"#334155",
+                                    fontFamily:"'Inter',sans-serif", whiteSpace:"nowrap" }}>
+                                    {job.company}
+                                  </span>
+                                  {job.city && <>
+                                    <span style={{ fontSize:11, color:"#cbd5e1" }}>·</span>
+                                    <span style={{ fontSize:11, color:"#64748b", fontFamily:"'Inter',sans-serif",
+                                      whiteSpace:"nowrap" }}>
+                                      {job.city}
+                                    </span>
+                                  </>}
+                                  {sd && <>
+                                    <span style={{ fontSize:11, color:"#cbd5e1" }}>·</span>
+                                    <span style={{ fontSize:11, fontWeight:700, whiteSpace:"nowrap",
+                                      fontFamily:"'IBM Plex Mono',monospace", color:salaryColor }}>
+                                      {sd.est}
+                                    </span>
+                                  </>}
+                                  {visibleTags.map(t => (
+                                    <span key={t} style={{ fontSize:10, fontFamily:"'IBM Plex Mono',monospace",
+                                      background:m.bg, color:m.c, whiteSpace:"nowrap",
+                                      padding:"1px 6px", borderRadius:3, border:`1px solid ${m.c}20` }}>
+                                      {t}
+                                    </span>
+                                  ))}
+                                  {extraTags > 0 && (
+                                    <span title={(job.tags||[]).slice(5).join(", ")}
+                                      style={{ fontSize:10, color:"#94a3b8", fontFamily:"'IBM Plex Mono',monospace",
+                                        cursor:"help" }}>
+                                      +{extraTags} more
+                                    </span>
+                                  )}
+                                </div>
                               </div>
-                            )}
-                          </div>
 
-                          {/* RIGHT */}
-                          <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6, flexShrink:0 }}>
-                            <span style={{ fontSize:12, color:"#94a3b8", fontFamily:"'IBM Plex Mono',monospace" }}>📅 {job.posted}</span>
-                            <span style={{ fontSize:11, color:"#94a3b8", background:"#f8fafc",
-                              padding:"3px 9px", borderRadius:5, border:"1px solid #e2e8f0",
-                              fontFamily:"'IBM Plex Mono',monospace" }}>
-                              {job.source}
-                            </span>
-                            <button onClick={() => onSelectRole ? onSelectRole(job) : window.open(job.url,"_blank")}
-                              style={{ fontSize:14, fontWeight:700, color:"#ffffff",
-                                background: pipelineStatusMap.get(job.id) === "TARGETED" ? "#6366f1"
-                                  : pipelineRoleIds.has(job.id) ? "#059669" : "#0891b2",
-                                padding:"9px 18px", borderRadius:8, border:"none",
-                                cursor:"pointer", marginTop:2, whiteSpace:"nowrap",
-                                fontFamily:"'Inter',sans-serif",
-                                boxShadow: pipelineRoleIds.has(job.id) ? "0 2px 6px rgba(99,102,241,0.35)" : "0 2px 6px rgba(8,145,178,0.35)" }}>
-                              {pipelineStatusMap.get(job.id) === "TARGETED" ? "Queued →" : pipelineRoleIds.has(job.id) ? "In Log ✓" : "Track + Apply →"}
-                            </button>
-                            {job._custom && (
-                              <span style={{ fontSize:10, fontWeight:700, color:"#7c3aed",
-                                background:"#ede9fe", border:"1px solid #c4b5fd",
-                                padding:"2px 8px", borderRadius:4,
-                                fontFamily:"'IBM Plex Mono',monospace" }}>
-                                CUSTOM
-                              </span>
-                            )}
-                            <button
-                              onClick={() => dismissRole(job.id)}
-                              title="Not a fit — hide from board"
-                              style={{ fontSize:11, fontWeight:500, color:"#cbd5e1", background:"none",
-                                border:"1px solid #e2e8f0", borderRadius:6, padding:"4px 10px",
-                                cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace",
-                                transition:"color .15s, border-color .15s" }}
-                              onMouseEnter={e => { e.currentTarget.style.color="#ef4444"; e.currentTarget.style.borderColor="#fca5a5"; }}
-                              onMouseLeave={e => { e.currentTarget.style.color="#cbd5e1"; e.currentTarget.style.borderColor="#e2e8f0"; }}>
-                              ✕ no thanks
-                            </button>
-                            {job._custom && (
-                              <button
-                                onClick={() => deleteCustomRole(job.id)}
-                                title="Delete this custom role permanently"
-                                style={{ fontSize:11, fontWeight:500, color:"#cbd5e1", background:"none",
-                                  border:"1px solid #e2e8f0", borderRadius:6, padding:"4px 10px",
-                                  cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace",
-                                  transition:"color .15s, border-color .15s" }}
-                                onMouseEnter={e => { e.currentTarget.style.color="#be185d"; e.currentTarget.style.borderColor="#fbcfe8"; }}
-                                onMouseLeave={e => { e.currentTarget.style.color="#cbd5e1"; e.currentTarget.style.borderColor="#e2e8f0"; }}>
-                                × delete
-                              </button>
-                            )}
-                          </div>
-                        </div>
+                              {/* Right: actions pinned */}
+                              <div style={{ flexShrink:0, display:"flex", flexDirection:"column",
+                                alignItems:"flex-end", gap:5 }}>
+                                <span style={{ fontSize:10, color:"#94a3b8",
+                                  fontFamily:"'IBM Plex Mono',monospace", whiteSpace:"nowrap" }}>
+                                  {job.posted}
+                                </span>
+                                <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+                                  <button
+                                    onClick={() => onSelectRole ? onSelectRole(job) : window.open(job.url,"_blank")}
+                                    style={{ fontSize:11, fontWeight:700, color:"#fff",
+                                      background: pSt==="TARGETED" ? "#6366f1"
+                                        : pipelineRoleIds.has(job.id) ? "#059669" : "#0891b2",
+                                      padding:"5px 13px", borderRadius:6, border:"none",
+                                      cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif" }}>
+                                    {pSt==="TARGETED" ? "Queued →" : pipelineRoleIds.has(job.id) ? "In Log ✓" : "Track →"}
+                                  </button>
+                                  {job._custom && (
+                                    <span style={{ fontSize:9, fontWeight:700, color:"#7c3aed",
+                                      background:"#ede9fe", border:"1px solid #c4b5fd",
+                                      padding:"1px 5px", borderRadius:3, fontFamily:"'IBM Plex Mono',monospace" }}>
+                                      CUSTOM
+                                    </span>
+                                  )}
+                                  <button onClick={() => dismissRole(job.id)} title="Not a fit"
+                                    style={{ fontSize:13, color:"#cbd5e1", background:"none", border:"none",
+                                      cursor:"pointer", padding:0, lineHeight:1, transition:"color .15s" }}
+                                    onMouseEnter={e => e.currentTarget.style.color="#ef4444"}
+                                    onMouseLeave={e => e.currentTarget.style.color="#cbd5e1"}>
+                                    ✕
+                                  </button>
+                                  {job._custom && (
+                                    <button onClick={() => deleteCustomRole(job.id)} title="Delete permanently"
+                                      style={{ fontSize:13, color:"#cbd5e1", background:"none", border:"none",
+                                        cursor:"pointer", padding:0, lineHeight:1, transition:"color .15s" }}
+                                      onMouseEnter={e => e.currentTarget.style.color="#be185d"}
+                                      onMouseLeave={e => e.currentTarget.style.color="#cbd5e1"}>
+                                      ×
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </div>
                     );
                   })}
@@ -1903,7 +1888,7 @@ export default function App() {
       {/* Top nav */}
       <div style={{ background:"#ffffff", borderBottom:"1px solid #e2e8f0",
         zIndex:30, boxShadow:"0 1px 4px rgba(0,0,0,0.06)", flexShrink:0 }}>
-        <div style={{ maxWidth:1400, margin:"0 auto", padding:"10px 28px",
+        <div style={{ padding:"10px 24px",
           display:"flex", alignItems:"center", gap:8 }}>
           <div style={{ fontSize:18, fontWeight:800, color:"#0f172a",
             fontFamily:"'Inter',sans-serif", letterSpacing:-.3, marginRight:16 }}>
