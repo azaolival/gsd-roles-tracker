@@ -1,7 +1,8 @@
 // Pipeline.jsx — GSD job search kanban · unified grid view with search
 
-const TIER_COLOR = { A:"#b45309", B:"#1d4ed8", C:"#4b5563" };
-const TIER_BG    = { A:"#fef3c7", B:"#dbeafe", C:"#f3f4f6" };
+const QUEUE_CAP  = 20;
+const TIER_COLOR = { "A+":"#7c3aed", A:"#b45309", B:"#1d4ed8", C:"#4b5563" };
+const TIER_BG    = { "A+":"#faf5ff", A:"#fef3c7", B:"#dbeafe", C:"#f3f4f6" };
 
 const FLOW_COLS = [
   { key:"TARGETED",     label:"Queue",         sub:"Identified — not applied",   color:"#6366f1", bg:"#eef2ff", border:"#c7d2fe", action:true },
@@ -160,10 +161,12 @@ function Card({ card, onOpen, compact }) {
   );
 }
 
-function QueueCard({ card, onOpen, position }) {
+function QueueCard({ card, onOpen, position, overCap }) {
   const done = stepsCount(card.steps);
   const tier = card.tier;
   const isNext = position === 0;
+  const isTopTier = tier === "A+" || tier === "A";
+  const isAutoPriority = card.source === "job_hunter_auto" && isTopTier && daysAgo(card.dateAdded) <= 2;
   const ageDays = daysAgo(card.dateAdded);
   const staleColor = ageDays >= 14 ? "#f97316" : ageDays >= 7 ? "#f59e0b" : null;
 
@@ -171,12 +174,12 @@ function QueueCard({ card, onOpen, position }) {
     <div
       onClick={() => onOpen(card)}
       style={{
-        background: isNext ? "#fefce8" : "#ffffff",
-        border: `2px solid ${isNext ? "#fde047" : "#e2e8f0"}`,
+        background: isNext ? "#fefce8" : overCap ? "#fff5f5" : "#ffffff",
+        border: `2px solid ${isNext ? "#fde047" : overCap ? "#fca5a5" : tier === "A+" ? "#ddd6fe" : "#e2e8f0"}`,
         borderRadius: 10,
         padding: "13px 14px",
         cursor: "pointer",
-        boxShadow: isNext ? "0 2px 12px rgba(234,179,8,0.2)" : "0 1px 3px rgba(0,0,0,0.05)",
+        boxShadow: isNext ? "0 2px 12px rgba(234,179,8,0.2)" : overCap ? "0 1px 3px rgba(239,68,68,0.1)" : tier === "A+" ? "0 2px 8px rgba(124,58,237,0.12)" : "0 1px 3px rgba(0,0,0,0.05)",
         transition: "box-shadow .15s, transform .1s",
         position: "relative",
       }}
@@ -197,6 +200,24 @@ function QueueCard({ card, onOpen, position }) {
           background: "#fde047", padding: "1px 9px", borderRadius: 10,
           fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.05em" }}>
           ▶ NEXT UP
+        </div>
+      )}
+      {!isNext && isAutoPriority && (
+        <div style={{ position: "absolute", top: -10, left: 12,
+          fontSize: 10, fontWeight: 700, color: "#7c3aed",
+          background: "#faf5ff", padding: "1px 9px", borderRadius: 10,
+          fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.04em",
+          border: "1px solid #ddd6fe" }}>
+          ⚡ AUTO-PRIORITY
+        </div>
+      )}
+      {overCap && (
+        <div style={{ position: "absolute", top: -10, left: 12,
+          fontSize: 10, fontWeight: 700, color: "#dc2626",
+          background: "#fef2f2", padding: "1px 9px", borderRadius: 10,
+          fontFamily: "'IBM Plex Mono',monospace", letterSpacing: "0.04em",
+          border: "1px solid #fecaca" }}>
+          ↓ over cap
         </div>
       )}
       {card.actionNeeded && (
@@ -235,8 +256,10 @@ function QueueCard({ card, onOpen, position }) {
         {tier && (
           <span style={{ fontSize: 11, fontWeight: 700, fontFamily: "'IBM Plex Mono',monospace",
             color: TIER_COLOR[tier] || "#4b5563", background: TIER_BG[tier] || "#f3f4f6",
-            padding: "2px 8px", borderRadius: 5, flexShrink: 0, marginTop: 1 }}>
-            {tier === "A" ? "★ A" : tier}
+            padding: "2px 8px", borderRadius: 5, flexShrink: 0, marginTop: 1,
+            border: tier === "A+" ? "1px solid #c4b5fd" : "none",
+            boxShadow: tier === "A+" ? "0 0 6px rgba(124,58,237,0.2)" : "none" }}>
+            {tier === "A+" ? "⚡ A+" : tier === "A" ? "★ A" : tier}
           </span>
         )}
       </div>
@@ -369,7 +392,7 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
     else byStatus["GHOSTED"].push(c);
   });
 
-  const tierOrder = { A: 0, B: 1, C: 2 };
+  const tierOrder = { "A+": 0, A: 1, B: 2, C: 3 };
   byStatus["TARGETED"].sort((a, b) => {
     const ta = tierOrder[a.tier] ?? 9, tb = tierOrder[b.tier] ?? 9;
     if (ta !== tb) return ta - tb;
@@ -384,7 +407,8 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
   const totalCards      = (cards || []).length;
   const appliedToday    = (cards || []).filter(c => c.dateApplied === today()).length;
   const hotCount        = HOT_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
-  const queueCount      = byStatus["TARGETED"].length + byStatus["IN_PROGRESS"].length;
+  const targetedCount   = byStatus["TARGETED"].length;
+  const queueCount      = targetedCount + byStatus["IN_PROGRESS"].length;
   const submittedCount  = byStatus["APPLIED"].length + hotCount;
   const deadCount       = DEAD_COLS.reduce((n, col) => n + byStatus[col.key].length, 0);
   const deadStatuses = new Set(DEAD_COLS.map(c => c.key));
@@ -442,7 +466,7 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
       <div style={{ background:"#0f172a", padding:"10px 20px",
         display:"flex", alignItems:"center", flexShrink:0, gap:0, overflowX:"auto" }}>
         {[
-          { label:"Queue",          value:queueCount,       color:queueCount>0?"#fde047":"#475569",        sub:queueCount>0?"ready to work":"all clear" },
+          { label:"Queue",          value:`${targetedCount}/${QUEUE_CAP}`, color:targetedCount>=QUEUE_CAP?"#ef4444":targetedCount>=QUEUE_CAP-5?"#f97316":targetedCount>0?"#fde047":"#475569", sub:targetedCount>=QUEUE_CAP?"at cap — bump lower tier":targetedCount>0?"ready to work":"all clear" },
           { label:"Action Needed",  value:actionNeedCount, color:actionNeedCount>0?"#ef4444":"#475569", sub:actionNeedCount>0?"your decision required":"all clear" },
           { label:"Applied Today",  value:appliedToday,    color:"#38bdf8",                               sub:"this session" },
           { label:"Submitted",      value:submittedCount,  color:"#94a3b8",                               sub:"applied + callbacks" },
@@ -662,12 +686,23 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
                       </div>
                     )}
                   </div>
-                  <span style={{ fontSize:12, fontWeight:800, flexShrink:0,
-                    color: col.isDead ? "#cbd5e1" : col.color,
-                    fontFamily:"'IBM Plex Mono',monospace",
-                    background:"rgba(255,255,255,0.7)", padding:"2px 7px", borderRadius:5 }}>
-                    {isFiltered ? `${colCards.length}/${allColCards.length}` : colCards.length}
-                  </span>
+                  {isQueue && !isFiltered ? (
+                    <span style={{ fontSize:12, fontWeight:800, flexShrink:0,
+                      fontFamily:"'IBM Plex Mono',monospace",
+                      padding:"2px 7px", borderRadius:5,
+                      background:"rgba(255,255,255,0.7)",
+                      color: allColCards.length >= QUEUE_CAP ? "#dc2626" : allColCards.length >= QUEUE_CAP - 5 ? "#f97316" : col.color,
+                      border: allColCards.length >= QUEUE_CAP ? "1px solid #fca5a5" : "none" }}>
+                      {allColCards.length}/{QUEUE_CAP}
+                    </span>
+                  ) : (
+                    <span style={{ fontSize:12, fontWeight:800, flexShrink:0,
+                      color: col.isDead ? "#cbd5e1" : col.color,
+                      fontFamily:"'IBM Plex Mono',monospace",
+                      background:"rgba(255,255,255,0.7)", padding:"2px 7px", borderRadius:5 }}>
+                      {isFiltered ? `${colCards.length}/${allColCards.length}` : colCards.length}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -692,7 +727,18 @@ export function Pipeline({ cards, moveCard, deleteCard, exportData, importData, 
 
                 {/* Queue cards with NEXT UP treatment */}
                 {isQueue && colCards.map((card, idx) => (
-                  <QueueCard key={card.id} card={card} onOpen={onOpenDrawer} position={idx} />
+                  <React.Fragment key={card.id}>
+                    {idx === QUEUE_CAP && !isFiltered && (
+                      <div style={{ margin:"4px 0 2px", padding:"5px 10px",
+                        background:"#fef2f2", borderRadius:6, border:"1px solid #fecaca",
+                        fontSize:10, fontWeight:700, color:"#dc2626",
+                        fontFamily:"'IBM Plex Mono',monospace", textAlign:"center",
+                        letterSpacing:"0.03em" }}>
+                        — CAP REACHED · {colCards.length - QUEUE_CAP} over · bump B/C tier back →
+                      </div>
+                    )}
+                    <QueueCard card={card} onOpen={onOpenDrawer} position={idx} overCap={idx >= QUEUE_CAP} />
+                  </React.Fragment>
                 ))}
 
                 {/* Working: empty state */}
