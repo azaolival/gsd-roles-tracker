@@ -5,6 +5,26 @@ const KEY       = "gsd_pipeline_v1";
 const SAVED_KEY = "gsd_pipeline_savedAt_v1";
 const CLOUD_URL = "/pipeline.json";
 
+export const QUEUE_CAP = 20;
+
+const TIER_WEIGHT = { "A+": 0, A: 1, B: 2, C: 3 };
+
+// Top QUEUE_CAP cards by weight → TARGETED. Rest → PROSPECT. IN_PROGRESS untouched.
+function rebalanceQueue(cards) {
+  const preApply = cards.filter(c => c.status === "TARGETED" || c.status === "PROSPECT");
+  const rest     = cards.filter(c => c.status !== "TARGETED" && c.status !== "PROSPECT");
+  const sorted   = [...preApply].sort((a, b) => {
+    const ta = TIER_WEIGHT[a.tier] ?? 9, tb = TIER_WEIGHT[b.tier] ?? 9;
+    if (ta !== tb) return ta - tb;
+    const ra = (a.location||"").toLowerCase().includes("remote") ? 0 : 1;
+    const rb = (b.location||"").toLowerCase().includes("remote") ? 0 : 1;
+    if (ra !== rb) return ra - rb;
+    return (a.dateAdded||"").localeCompare(b.dateAdded||"");
+  });
+  const rebalanced = sorted.map((c, idx) => ({ ...c, status: idx < QUEUE_CAP ? "TARGETED" : "PROSPECT" }));
+  return [...rest, ...rebalanced];
+}
+
 function loadLocal() {
   try { const r = localStorage.getItem(KEY); if (r) return JSON.parse(r); } catch {}
   return null;
@@ -41,16 +61,17 @@ async function fetchCloud() {
 }
 
 export function usePipeline() {
-  const [cards, setCards] = useState(() => loadLocal() ?? SEED_CARDS);
+  const [cards, setCards] = useState(() => rebalanceQueue(loadLocal() ?? SEED_CARDS));
   const [cloudSynced, setCloudSynced] = useState(false);
 
   const syncFromCloud = useCallback(async () => {
     const cloud = await fetchCloud();
     if (!cloud) return;
     setCards(prev => {
-      const merged = mergeCards(prev, cloud);
-      if (merged.length !== prev.length) saveLocal(merged);
-      return merged;
+      const merged    = mergeCards(prev, cloud);
+      const rebalanced = rebalanceQueue(merged);
+      if (rebalanced.length !== prev.length) saveLocal(rebalanced);
+      return rebalanced;
     });
     setCloudSynced(true);
   }, []);
@@ -76,7 +97,7 @@ export function usePipeline() {
         c.title.toLowerCase() === card.title.toLowerCase()
       );
       if (dupe) return prev;
-      return [{ ...card, id: `card_${Date.now()}` }, ...prev];
+      return rebalanceQueue([{ ...card, id: `card_${Date.now()}` }, ...prev]);
     });
   }, [_set]);
 
@@ -85,7 +106,7 @@ export function usePipeline() {
   }, [_set]);
 
   const moveCard = useCallback((id, status) => {
-    _set(prev => prev.map(c => c.id === id ? { ...c, status } : c));
+    _set(prev => rebalanceQueue(prev.map(c => c.id === id ? { ...c, status } : c)));
   }, [_set]);
 
   const deleteCard = useCallback((id) => {
