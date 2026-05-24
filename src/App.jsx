@@ -1933,7 +1933,10 @@ export default function App() {
               letterSpacing:.2, whiteSpace:"nowrap" }}>
               {pstClock} PST
             </span>
-            <button onClick={() => window.location.reload()} title="Refresh page" style={iconBtn}>
+            <button onClick={pipeline.exportData} title="Export pipeline to JSON (saves current state)" style={iconBtn}>
+              ⬇
+            </button>
+            <button onClick={() => window.location.reload()} title="Reload page (re-reads from local cache — does NOT save)" style={iconBtn}>
               ↻
             </button>
             <button onClick={toggleDark} title={darkMode ? "Switch to light mode" : "Switch to dark mode"} style={iconBtn}>
