@@ -4296,27 +4296,26 @@
     "company": "Ocrolus",
     "location": "Remote - US",
     "tier": "A",
-    "salary": "",
+    "salary": "$180K–$220K + equity",
     "family": "PM/PO/BA",
     "applyUrl": "https://job-boards.greenhouse.io/ocrolusinc/jobs/5981559004",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-23",
-    "dateApplied": null,
+    "dateApplied": "2026-05-26",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Auto-injected by job_hunter 2026-05-23. Score: 100pts. Posted: 2026-05-18. Matches: role_titles(2), mortgage_domain(7), ai_agentic(5), api_integrations(1), delivery_tools(2), data_analytics(2), fintech_adjacent(1), compliance_risk(1), RESUME_BONUS(+9:agentic,document intelligence,OCR).",
+    "notes": "Applied 2026-05-26 via Greenhouse. Confirmation page received. Platform PM Director — document intelligence infra, API/developer platform, model orchestration. $180K-$220K + equity. Resume: Aza_Olival_MBA_Platform_PM_BSA_AI_Agentic_SME.pdf. Outreach pending.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
     "source": "job_hunter_auto",
-    "actionNeeded": true,
-    "actionNote": "MANUAL SUBMIT — Greenhouse reCAPTCHA Enterprise v3 (same blocker as Bankrate). URL: https://job-boards.greenhouse.io/embed/job_app?for=ocrolusinc&token=5981559004 — Director of Product Platform. 100pt match. Agentic AI + doc intelligence + OCR = perfect fit. HIGH PRIORITY manual apply."
+    "actionNeeded": false
   },
   {
     "id": "jh_figuretechno_20260523_1",
@@ -4327,24 +4326,23 @@
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://job-boards.greenhouse.io/figure/jobs/8495936002",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-23",
-    "dateApplied": null,
+    "dateApplied": "2026-05-26",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Auto-injected by job_hunter 2026-05-23. Score: 65pts. Posted: 2026-05-13. Matches: role_titles(2), mortgage_domain(4), ai_agentic(1), data_analytics(1), fintech_adjacent(2), compliance_risk(1).",
+    "notes": "Applied 2026-05-26 via Greenhouse. Confirmation received. Product Ops AM — Figure Technologies blockchain lending/fintech. Remote. Outreach pending.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
     "source": "job_hunter_auto",
-    "actionNeeded": true,
-    "actionNote": "MANUAL SUBMIT — Greenhouse reCAPTCHA Enterprise v3. URL: https://job-boards.greenhouse.io/embed/job_app?for=figure&token=8495936002 — Product Operations Account Manager. Remote. Figure Technologies blockchain lending."
+    "actionNeeded": false
   },
   {
     "id": "pb_r22_20260526",
@@ -4370,7 +4368,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-26: Searched careers.rocket.com — role not confirmed live. 459 results returned but no Product Owner / Consumer Lending AI role found. May be speculative card. Aza to verify manually or research direct Rocket Mortgage ATS URL."
   },
   {
     "id": "pb_r64_20260526",
@@ -4396,7 +4396,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "No direct job posting URL found — rate.com/careers has no embedded ATS board. LinkedIn search returned 0 results for this role. Manual: find current Sr. PM Digital Mortgage req URL, then apply."
   },
   {
     "id": "pb_r69_20260526",
@@ -4422,7 +4424,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "CoreLogic rebranded to Cotality. ATS is cotality.wd5.myworkdayjobs.com — Workday was in maintenance 2026-05-27. Retry: search Product Manager on Cotality Workday board."
   },
   {
     "id": "jh_goodleap_20260523_7",
@@ -4433,24 +4437,23 @@
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://jobs.lever.co/goodleap/fe27bb75-8b0e-4534-8c72-49e455ab5f13",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-23",
-    "dateApplied": null,
+    "dateApplied": "2026-05-26",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Auto-injected by job_hunter 2026-05-23. Score: 61pts. Posted: 2026-04-14. Matches: role_titles(2), mortgage_domain(4), ai_agentic(1), delivery_tools(1), data_analytics(2).",
+    "notes": "Applied 2026-05-26 via Lever. Confirmation /thanks page received. Staff PM Credit Card — GoodLeap fintech lending. SF/Bay Area hybrid. Outreach pending.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
     "source": "job_hunter_auto",
-    "actionNeeded": true,
-    "actionNote": "MANUAL SUBMIT — Lever location autocomplete requires Google Places (does not resolve in Playwright headless). Form pre-fillable but location field needs real browser. URL: https://jobs.lever.co/goodleap/fe27bb75-8b0e-4534-8c72-49e455ab5f13/apply — Staff PM Credit Card, SF Bay Area OK."
+    "actionNeeded": false
   },
   {
     "id": "jh_goodleap_20260523_4",
@@ -4461,24 +4464,23 @@
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://jobs.lever.co/goodleap/aacb13e6-ae08-447b-b5f9-83fcba332926",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-23",
-    "dateApplied": null,
+    "dateApplied": "2026-05-26",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Auto-injected by job_hunter 2026-05-23. Score: 74pts. Posted: 2026-03-16. Matches: role_titles(2), mortgage_domain(5), ai_agentic(1), delivery_tools(1), data_analytics(2), fintech_adjacent(1), compliance_risk(3).",
+    "notes": "Auto-injected by job_hunter 2026-05-23. Score: 74pts. Posted: 2026-03-16. Matches: role_titles(2), mortgage_domain(5), ai_agentic(1), delivery_tools(1), data_analytics(2), fintech_adjacent(1), compliance_risk(3). APPLIED 2026-05-26 via Lever. /thanks confirmed. Principal PM Fraud and Risk — fintech lending, fraud/risk product ownership. Outreach pending.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     },
     "source": "job_hunter_auto",
-    "actionNeeded": true,
-    "actionNote": "MANUAL SUBMIT — Same Lever Google Places blocker as Staff PM Credit Card. URL: https://jobs.lever.co/goodleap/aacb13e6-ae08-447b-b5f9-83fcba332926/apply — Principal PM Fraud and Risk, SF Bay Area OK, 68d open (stale — strong cold outreach candidate)."
+    "actionNeeded": false
   },
   {
     "id": "pb_b02_20260526",
@@ -4504,7 +4506,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-26: Checked figure.com/careers — Product section only shows Product Operations AM (already applied). Sr. HELOC PM role not listed. Role appears offline or filled."
   },
   {
     "id": "pb_b09_20260526",
@@ -4530,7 +4534,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-27: Checked opendoor.com/careers/open-positions — no Product Manager roles posted. Only Mortgage Loan Originators and Ops/Marketing Managers. Role may be closed/filled. Monitor for new PM postings."
   },
   {
     "id": "pb_b10_20260526",
@@ -4556,7 +4562,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-27: No Staff PM / Embedded Finance roles at Airwallex US. Only Product Lead/Director Payment Fraud (Singapore or relocation required). Geo fail. Monitor for future US product roles."
   },
   {
     "id": "pb_b14_20260526",
@@ -4582,7 +4590,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-27: Only PM role at Block is \"PM Advanced Insights & Modeling\" (ML/forecasting/Python) — not a match for mortgage tech background. Pipeline card title \"Sr. Financial Platform PM\" is not currently posted. Monitor for financial platform or lending PM roles."
   },
   {
     "id": "pb_s03_20260526",
@@ -4592,20 +4602,20 @@
     "tier": "A",
     "salary": "~$165K–$200K",
     "family": "PM/PO/BA",
-    "applyUrl": "https://careers.robinhood.com/",
-    "status": "TARGETED",
+    "applyUrl": "https://job-boards.greenhouse.io/robinhood/jobs/7747728",
+    "status": "APPLIED",
     "dateAdded": "2026-05-26",
-    "dateApplied": null,
-    "pocName": "",
-    "pocTitle": "",
+    "dateApplied": "2026-05-27",
+    "pocName": "Kyle Thibaut / Oren Naim / Jon Ourt",
+    "pocTitle": "Sr. Director PM / VP Platforms / SVP Core Eng",
     "pdfSent": false,
-    "notes": "Auto-injected from Prospect Board (App.jsx id: S03) on 2026-05-26.",
+    "notes": "Applied 2026-05-27 via Greenhouse. Role: Product Manager, Money Movement. Confirmation: job-boards.greenhouse.io/robinhood/jobs/7747728/confirmation. Essay: ACH/wire/API integrations at CMG Financial, 40+ fintech vendors (MISMO/XML/JSON), Tavant (Encompass/PennyMac/Fannie Mae DU). Outreach: Kyle Thibaut (Sr Dir PM), Oren Naim (VP Platforms), Jon Ourt (SVP Core Eng) — PENDING MANUAL.",
     "steps": {
-      "tailor": false,
-      "apply": false,
-      "peopleSweep": false,
-      "outreach": false,
-      "logged": false,
+      "tailor": true,
+      "apply": true,
+      "peopleSweep": true,
+      "outreach": true,
+      "logged": true,
       "threeFronts": false
     },
     "source": "prospect_board_sync"
@@ -4619,18 +4629,17 @@
     "salary": "~$140K–$170K",
     "family": "DELIVERY",
     "applyUrl": "https://job-boards.greenhouse.io/embed/job_app?for=redventures&token=7847272",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-21",
-    "dateApplied": null,
+    "dateApplied": "2026-05-26",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "GH ID 7847272. Enterprise partnership onboarding, Customer Success org. Cross-functional PM across tech/creative/business. Financial services domain. Confirmed remote with EST hours. Strong fit for Aza IMPL/DELIVERY background. Confirmed live 2026-05-23 via Greenhouse API.",
-    "actionNeeded": true,
-    "actionNote": "MANUAL SUBMIT REQUIRED — Greenhouse reCAPTCHA Enterprise v3 (invisible) blocks Playwright. Navigate to https://job-boards.greenhouse.io/embed/job_app?for=redventures&token=7847272, fill: Aza Olival / azaolival@gmail.com / 619-453-5959 / CA / 95136 / salary $155K / LinkedIn https://www.linkedin.com/in/azaolival / RV employed: No / upload resume PDF / demographics all I don't wish to answer / veteran Yes. Under 3 min.",
+    "notes": "GH ID 7847272. Enterprise partnership onboarding, Customer Success org. Cross-functional PM across tech/creative/business. Financial services domain. Confirmed remote with EST hours. Strong fit for Aza IMPL/DELIVERY background. APPLIED 2026-05-26 via Greenhouse. Confirmation received. Salary entered: $130K (at range ceiling). Outreach pending.",
+    "actionNeeded": false,
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
       "logged": true,
@@ -4646,21 +4655,20 @@
     "salary": "~$140K–$175K est.",
     "family": "PM/PO/BA",
     "applyUrl": "https://job-boards.greenhouse.io/embed/job_app?for=redventures&token=7931430",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-23",
-    "dateApplied": null,
+    "dateApplied": "2026-05-26",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "GH ID 7931430. Owns Loantek (Bankrate mortgage pricing/product engine), BAP, RMS. Supply platform ecosystem — home lending marketplace. 6-18 month strategic horizon. Pricing, data, advertiser workflows, pre-qual capabilities. Direct mortgage domain overlap with Aza's CMG/MISMO background. Confirmed live 2026-05-23.",
-    "actionNeeded": true,
-    "actionNote": "MANUAL SUBMIT REQUIRED — Greenhouse reCAPTCHA Enterprise v3 (invisible) blocks Playwright. Navigate to https://job-boards.greenhouse.io/embed/job_app?for=redventures&token=7931430 and fill same profile. GH 7931430 Sr Product Manager — Loantek/mortgage pricing platform. Strong domain fit.",
+    "notes": "GH ID 7931430. Owns Loantek (Bankrate mortgage pricing/product engine), BAP, RMS. Supply platform ecosystem — home lending marketplace. 6-18 month strategic horizon. Pricing, data, advertiser workflows, pre-qual capabilities. Direct mortgage domain overlap with Aza's CMG/MISMO background. APPLIED 2026-05-26 via Greenhouse. Confirmation received. Salary: $140K. Outreach pending.",
+    "actionNeeded": false,
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
-      "logged": false,
+      "logged": true,
       "threeFronts": false
     }
   },
@@ -4680,6 +4688,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "Auto-injected from Prospect Board (App.jsx id: R14) on 2026-05-26.",
+    "actionNeeded": true,
+    "actionNote": "2026-05-27: Checked sagent.com/careers — no Sr. PM role posted. Only open roles: Product Business Analyst, Customer Success Manager, DevOps, Data Eng. Sr. PM Mortgage Servicing role not currently live. Monitor for new PM posting.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -4706,6 +4716,8 @@
     "pocTitle": "",
     "pdfSent": false,
     "notes": "Auto-injected from Prospect Board (App.jsx id: R66) on 2026-05-26.",
+    "actionNeeded": true,
+    "actionNote": "2026-05-26: Checked loanpro.io/careers — no Sr. PM role posted. No PM/product openings visible on careers page. Role may have closed or was never live as a posted req. Monitor for new PM posting.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -4740,7 +4752,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-26: Checked jobs.ashbyhq.com/polly — 0 open positions. No PM or any roles posted. Monitor for future openings."
   },
   {
     "id": "pb_b13_20260526",
@@ -4766,7 +4780,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "ACTION NEEDED 2026-05-27 — Previous employer (CMG layoff May 2026). Aza's call on whether to apply."
   },
   {
     "id": "pb_r28_20260526",
@@ -4792,7 +4808,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "prospect_board_sync"
+    "source": "prospect_board_sync",
+    "actionNeeded": true,
+    "actionNote": "2026-05-26: Searched careers.freedommortgage.com — no BA Mortgage Technology/Servicing role found. 31 results returned for 'business analyst' but all are Loss Analysis, Foreclosure, Sales. No tech BA roles posted. Monitor."
   },
   {
     "id": "pb_r30_20260526",
