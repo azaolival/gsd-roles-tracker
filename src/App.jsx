@@ -1267,7 +1267,7 @@ function AddRoleForm({ boardId, onSubmit, onCancel }) {
   );
 }
 
-export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs, pipelineCards = [] }) {
+export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs, pipelineCards = [], onAddCard = null, onMoveCard = null }) {
   const dismissedKey = boardId === "mortgage" ? "gsd-dismissed" : `gsd-dismissed-${boardId}`;
   const pipelineRoleIds = useMemo(() => new Set(pipelineStatusMap.keys()), [pipelineStatusMap]);
   const [search, setSearch]       = useState("");
@@ -1281,7 +1281,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
   const [customRoles, setCustomRoles] = useState(() => JSON.parse(localStorage.getItem(`gsd-custom-${boardId}`) || "[]"));
   const [showAddModal, setShowAddModal] = useState(false);
 
-  // Companies that company passed on Aza — flag on prospect board for awareness
+  // Companies that passed on Aza — ⚠ flag on prospect board
   const flaggedCompanies = useMemo(() => {
     const s = new Set();
     pipelineCards.forEach(c => {
@@ -1291,12 +1291,63 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     return s;
   }, [pipelineCards]);
 
-  const dismissRole = (id) => setDismissed(prev => {
-    const next = new Set(prev);
-    next.add(id);
-    localStorage.setItem(dismissedKey, JSON.stringify([...next]));
-    return next;
-  });
+  // Companies with active pipeline (APPLIED and beyond) — 🔒 badge regardless of roleId linkage
+  // Priority order determines which status badge shows when a company has multiple cards
+  const ACTIVE_PIPELINE_PRIORITY = { OFFER:6, INTERVIEW:5, CALLBACK:4, APPLIED:3, IN_PROGRESS:2, COLD_OUTREACH:1 };
+  const companiesInActivePipeline = useMemo(() => {
+    const m = new Map();
+    pipelineCards.forEach(c => {
+      if (!ACTIVE_PIPELINE_PRIORITY[c.status] || !c.company) return;
+      const key = c.company.toLowerCase().trim();
+      const cur = m.get(key);
+      if (!cur || (ACTIVE_PIPELINE_PRIORITY[c.status] || 0) > (ACTIVE_PIPELINE_PRIORITY[cur] || 0))
+        m.set(key, c.status);
+    });
+    return m;
+  }, [pipelineCards]);
+
+  // Company+title fallback lookup — catches pipeline cards without roleId
+  const pipelineCompanyTitleMap = useMemo(() => {
+    const m = new Map();
+    pipelineCards.forEach(c => {
+      if (!c.company || !c.title) return;
+      const key = `${c.company.toLowerCase().trim()}::${c.title.toLowerCase().trim()}`;
+      m.set(key, c.status);
+    });
+    return m;
+  }, [pipelineCards]);
+
+  const dismissToNoThanks = useCallback((job) => {
+    const compKey = (job.company||"").toLowerCase().trim();
+    const titleKey = (job.title||"").toLowerCase().trim();
+    const existing = pipelineCards.find(c =>
+      c.id === job.id ||
+      ((c.company||"").toLowerCase().trim() === compKey && (c.title||"").toLowerCase().trim() === titleKey)
+    );
+    if (existing) {
+      if ((existing.status === "PROSPECT" || existing.status === "TARGETED") && onMoveCard) {
+        onMoveCard(existing.id, "NO_THANKS");
+      }
+    } else if (onAddCard) {
+      onAddCard({
+        title: job.title,
+        company: job.company || "",
+        location: job.city || job.location || "",
+        tier: job.tier || "C",
+        family: job.family || "",
+        status: "NO_THANKS",
+        dateAdded: new Date().toISOString().slice(0, 10),
+        source: "prospect_dismiss",
+        roleId: job.id,
+      });
+    }
+    setDismissed(prev => {
+      const next = new Set(prev);
+      next.add(job.id);
+      localStorage.setItem(dismissedKey, JSON.stringify([...next]));
+      return next;
+    });
+  }, [pipelineCards, onAddCard, onMoveCard, dismissedKey]);
 
   const restoreAll = () => {
     localStorage.removeItem(dismissedKey);
@@ -1333,7 +1384,10 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     return allJobs
       .filter(j => {
         if (dismissed.has(j.id)) return false;
-        if (pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED") return false;
+        const statusById = pipelineStatusMap.get(j.id);
+        const statusByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+        const effectiveStatus = statusById || statusByKey;
+        if (effectiveStatus && effectiveStatus !== "TARGETED") return false;
         const ms = !q || [j.title, j.company, j.city, j.family, ...(j.tags||[]), j.notes||""]
           .join(" ").toLowerCase().includes(q);
         const mb = bucketFilter === "All" || j.bucket === bucketFilter;
@@ -1350,7 +1404,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
         const ob = ORG_TIER_ORDER[orgQuality(b.id, b.company)] ?? 9;
         return oa - ob;
       });
-  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, dismissed, allJobs, getSalary]);
+  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, pipelineCompanyTitleMap, dismissed, allJobs, getSalary]);
 
   const byBucket = useMemo(() => {
     const g = {};
@@ -1409,9 +1463,9 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
               {dismissed.size > 0 && (
                 <div style={{ borderLeft:"2px solid #e2e8f0", paddingLeft:14, textAlign:"center" }}>
                   <div style={{ fontSize:22, fontWeight:700, color:"#94a3b8", lineHeight:1 }}>{dismissed.size}</div>
-                  <div style={{ fontSize:10, color:"#94a3b8", marginTop:2, fontFamily:"'IBM Plex Mono',monospace" }}>hidden</div>
-                  <button onClick={restoreAll} style={{ fontSize:10, color:"#0891b2", background:"none", border:"none", cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", padding:0, marginTop:2 }}>
-                    restore all
+                  <div style={{ fontSize:10, color:"#94a3b8", marginTop:2, fontFamily:"'IBM Plex Mono',monospace" }}>no thanks</div>
+                  <button onClick={restoreAll} title="Clear local cache only — manage status in Activity Log" style={{ fontSize:10, color:"#0891b2", background:"none", border:"none", cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", padding:0, marginTop:2 }}>
+                    undo dismiss
                   </button>
                 </div>
               )}
@@ -1638,6 +1692,22 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                                       {pSm.label || pSt}
                                     </span>
                                   )}
+                                  {/* company-level active pipeline badge — fires when company has APPLIED/CALLBACK/INTERVIEW/OFFER cards, even without roleId linkage */}
+                                  {(() => {
+                                    const compSt = companiesInActivePipeline.get(job.company?.toLowerCase().trim());
+                                    if (!compSt || compSt === pSt) return null;
+                                    const csm = PIPELINE_STATUS_META[compSt] || {};
+                                    return (
+                                      <span title={`${job.company} already in active pipeline — ${compSt}`}
+                                        style={{ fontSize:10, fontWeight:700, flexShrink:0, whiteSpace:"nowrap",
+                                          color:csm.color, background:csm.bg,
+                                          border:`1.5px solid ${csm.color}50`,
+                                          padding:"1px 7px", borderRadius:3,
+                                          fontFamily:"'IBM Plex Mono',monospace", cursor:"help" }}>
+                                        🔒 {csm.label || compSt}
+                                      </span>
+                                    );
+                                  })()}
                                   {/* prior history flag */}
                                   {flaggedCompanies.has(job.company?.toLowerCase().trim()) && (
                                     <span title="Prior engagement — marked No Thanks or Not Moving Forward"
@@ -1706,7 +1776,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                                       CUSTOM
                                     </span>
                                   )}
-                                  <button onClick={() => dismissRole(job.id)} title="Not a fit"
+                                  <button onClick={() => dismissToNoThanks(job)} title="No Thanks — archive to pipeline"
                                     style={{ fontSize:13, color:"#cbd5e1", background:"none", border:"none",
                                       cursor:"pointer", padding:0, lineHeight:1, transition:"color .15s" }}
                                     onMouseEnter={e => e.currentTarget.style.color="#ef4444"}
@@ -1949,7 +2019,7 @@ export default function App() {
 
       <div style={{ flex:1, overflow:"hidden", display:"flex", flexDirection:"column" }}>
         {tab === "board" && (
-          <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} pipelineCards={pipeline.cards} />
+          <RolesBoard onSelectRole={handleSelectRole} pipelineStatusMap={pipelineStatusMap} pipelineCards={pipeline.cards} onAddCard={pipeline.addCard} onMoveCard={pipeline.moveCard} />
         )}
         {tab === "pipeline" && (
           <Pipeline
@@ -1970,6 +2040,8 @@ export default function App() {
             boardId="non-mortgage"
             boardTitle="Non-Mortgage Prospect Board"
             jobsList={nonMortgageJobs}
+            onAddCard={pipeline.addCard}
+            onMoveCard={pipeline.moveCard}
           />
         )}
       </div>
