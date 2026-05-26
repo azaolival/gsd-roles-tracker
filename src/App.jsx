@@ -1269,7 +1269,6 @@ function AddRoleForm({ boardId, onSubmit, onCancel }) {
 
 export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardId = "mortgage", boardTitle = "Mortgage Prospect Board", jobsList = jobs, pipelineCards = [], onAddCard = null, onMoveCard = null }) {
   const dismissedKey = boardId === "mortgage" ? "gsd-dismissed" : `gsd-dismissed-${boardId}`;
-  const pipelineRoleIds = useMemo(() => new Set(pipelineStatusMap.keys()), [pipelineStatusMap]);
   const [search, setSearch]       = useState("");
   const [bucketFilter, setBucket] = useState("All");
   const [familyFilter, setFamily] = useState("All");
@@ -1383,7 +1382,11 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     const q = search.toLowerCase();
     return allJobs
       .filter(j => {
-        if (dismissed.has(j.id)) return false;
+        if (dismissed.has(j.id)) {
+          const sById = pipelineStatusMap.get(j.id);
+          const sByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+          if ((sById || sByKey) !== "TARGETED") return false;
+        }
         const statusById = pipelineStatusMap.get(j.id);
         const statusByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
         const effectiveStatus = statusById || statusByKey;
@@ -1404,7 +1407,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
         const ob = ORG_TIER_ORDER[orgQuality(b.id, b.company)] ?? 9;
         return oa - ob;
       });
-  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineRoleIds, pipelineStatusMap, pipelineCompanyTitleMap, dismissed, allJobs, getSalary]);
+  }, [search, bucketFilter, familyFilter, tierFilter, orgFilter, pipelineStatusMap, pipelineCompanyTitleMap, dismissed, allJobs, getSalary]);
 
   const byBucket = useMemo(() => {
     const g = {};
@@ -1586,7 +1589,13 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
             {(search || bucketFilter !== "All" || familyFilter !== "All" || tierFilter !== "All" || orgFilter !== "All") && (
               <span style={{ fontSize:10, color:"#64748b", fontFamily:"'IBM Plex Mono',monospace",
                 whiteSpace:"nowrap" }}>
-                {filtered.length} of {allJobs.filter(j => !dismissed.has(j.id) && !(pipelineStatusMap.has(j.id) && pipelineStatusMap.get(j.id) !== "TARGETED")).length} shown
+                {filtered.length} of {allJobs.filter(j => {
+                  const sById = pipelineStatusMap.get(j.id);
+                  const sByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+                  const eff = sById || sByKey;
+                  if (dismissed.has(j.id) && eff !== "TARGETED") return false;
+                  return !eff || eff === "TARGETED";
+                }).length} shown
               </span>
             )}
           </div>
@@ -1646,7 +1655,9 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                         {(() => {
                           const oq = orgQuality(job.id, job.company);
                           const om = ORG_QUALITY_META[oq];
-                          const pSt = pipelineStatusMap.has(job.id) ? pipelineStatusMap.get(job.id) : null;
+                          const pSt = pipelineStatusMap.get(job.id)
+                            || pipelineCompanyTitleMap.get(`${(job.company||"").toLowerCase().trim()}::${(job.title||"").toLowerCase().trim()}`)
+                            || null;
                           const pSm = pSt ? (PIPELINE_STATUS_META[pSt] || {}) : null;
                           const visibleTags = (job.tags||[]).slice(0, 5);
                           const extraTags = (job.tags||[]).length - visibleTags.length;
@@ -1894,9 +1905,23 @@ export default function App() {
     return m;
   }, [pipeline.cards]);
 
+  const pipelineCompanyTitleMapApp = useMemo(() => {
+    const m = new Map();
+    pipeline.cards.forEach(c => {
+      if (!c.company || !c.title) return;
+      m.set(`${c.company.toLowerCase().trim()}::${c.title.toLowerCase().trim()}`, c.status);
+    });
+    return m;
+  }, [pipeline.cards]);
+
   const prospectCount = useMemo(() =>
-    jobs.filter(j => !pipelineStatusMap.has(j.id) || pipelineStatusMap.get(j.id) === "TARGETED").length,
-    [pipelineStatusMap]
+    jobs.filter(j => {
+      const sById = pipelineStatusMap.get(j.id);
+      const sByKey = pipelineCompanyTitleMapApp.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+      const eff = sById || sByKey;
+      return !eff || eff === "TARGETED";
+    }).length,
+    [pipelineStatusMap, pipelineCompanyTitleMapApp]
   );
 
   const handleSelectRole = useCallback((job) => {
