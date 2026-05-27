@@ -1,5 +1,27 @@
 [
   {
+    "id": "ob_warm_track_20260526",
+    "title": "Product Manager — Open / Future Role",
+    "company": "Optimal Blue",
+    "location": "Remote",
+    "tier": "A",
+    "family": "PM/PO/BA",
+    "status": "COLD_OUTREACH",
+    "dateAdded": "2026-05-26",
+    "notes": "Warm relationship track — PPE Implementation Consultant role filled 5/26. Erin Wester (CPO) warm. DeAn Dawson (hiring mgr) connection pending. Engagement active and positive. Monitor for open PM/product roles and reach out when relevant role surfaces. Do not apply cold — relationship-first only.",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": true,
+      "outreach": true,
+      "logged": true,
+      "threeFronts": false
+    },
+    "source": "health_check_20260526",
+    "actionNeeded": true,
+    "actionNote": "Watch for open PM roles. Outreach via warm channel only — Erin Wester or DeAn Dawson."
+  },
+  {
     "id": "snapdocs_pm_notary_connect_20260526",
     "title": "Product Manager, Notary Connect",
     "company": "Snapdocs",
@@ -12,7 +34,14 @@
     "dateAdded": "2026-05-26",
     "dateApplied": "2026-05-26",
     "notes": "APPLIED 2026-05-26 via Ashby. Confirmation: application successfully submitted. Notary Connect scheduling + notary management platform. Expanding into new verticals + digital notarizations + AI-first automation. Real estate closing infrastructure — direct mortgage ecosystem fit. Zone 1 $140K-$175K, Zone 2 $122.5K-$153K. Outreach day 5/27.",
-    "steps": { "tailor": false, "apply": true, "peopleSweep": false, "outreach": false, "logged": true, "threeFronts": false },
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
     "source": "manual_scan_20260526",
     "actionNeeded": false
   },
@@ -29,7 +58,14 @@
     "dateAdded": "2026-05-26",
     "dateApplied": "2026-05-26",
     "notes": "APPLIED 2026-05-26 via Ashby. Confirmation: application successfully submitted. 0-to-1 product for lender-settlement coordination + integration strategy. 1 in 4 mortgage closings. AI-native + multi-party ecosystem + mortgage domain = direct match. Zone 1 Bay Area salary. 6/1 call already scheduled. Outreach day 5/27.",
-    "steps": { "tailor": false, "apply": true, "peopleSweep": false, "outreach": false, "logged": true, "threeFronts": false },
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
     "source": "manual_scan_20260526",
     "actionNeeded": false
   },
@@ -46,7 +82,14 @@
     "dateAdded": "2026-05-26",
     "dateApplied": "2026-05-26",
     "notes": "APPLIED 2026-05-26 via Greenhouse. Confirmation: application received. Enterprise POS implementation + migrations — ICE/Encompass + MeridianLink platform expertise required. CMG Financial implementation background = direct match. Outreach pending.",
-    "steps": { "tailor": false, "apply": true, "peopleSweep": false, "outreach": false, "logged": true, "threeFronts": false },
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
     "source": "manual_scan_20260526",
     "actionNeeded": false
   },
@@ -63,7 +106,14 @@
     "dateAdded": "2026-05-26",
     "dateApplied": "2026-05-26",
     "notes": "APPLIED 2026-05-26 via Greenhouse. Confirmation: application received. Player-coach AI PM role — document intelligence, workflow automation, data-driven decisioning embedded in mortgage POS. LLM/RAG/agentic AI + mortgage origination = direct match. CMG Financial agentic AI in production = strong credential. Outreach pending.",
-    "steps": { "tailor": false, "apply": true, "peopleSweep": false, "outreach": false, "logged": true, "threeFronts": false },
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
     "source": "manual_scan_20260526",
     "actionNeeded": false
   },
@@ -80,7 +130,14 @@
     "dateAdded": "2026-05-26",
     "dateApplied": "2026-05-26",
     "notes": "APPLIED 2026-05-26 via Ashby. Confirmation: application successfully submitted. LOS platform PM — mortgage origination workflows, loan pricing/decisioning, API integrations + AI/ML. CMG Financial LOS background = direct match. Outreach pending.",
-    "steps": { "tailor": false, "apply": true, "peopleSweep": false, "outreach": false, "logged": true, "threeFronts": false },
+    "steps": {
+      "tailor": false,
+      "apply": true,
+      "peopleSweep": false,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
     "source": "manual_scan_20260526",
     "actionNeeded": false
   },
@@ -537,31 +594,6 @@
     "pocTitle": "EVP CIO",
     "pdfSent": false,
     "notes": "Second Stewart role. Covered by same Stewart sweep 5/19.",
-    "steps": {
-      "tailor": true,
-      "apply": true,
-      "peopleSweep": true,
-      "outreach": true,
-      "logged": true,
-      "threeFronts": false
-    }
-  },
-  {
-    "id": "s_zillow_02",
-    "title": "Senior Technical Program Manager",
-    "company": "Zillow Group",
-    "location": "Remote",
-    "tier": "B",
-    "salary": "~$175K–$215K",
-    "family": "DELIVERY",
-    "applyUrl": "https://www.zillow.com/careers",
-    "status": "APPLIED",
-    "dateAdded": "2026-05-18",
-    "dateApplied": "2026-05-18",
-    "pocName": "Jon Mabe",
-    "pocTitle": "VP AI & Engineering",
-    "pdfSent": false,
-    "notes": "Jon Mabe VP AI & Eng connection sent 5/19.",
     "steps": {
       "tailor": true,
       "apply": true,
@@ -1172,31 +1204,6 @@
     }
   },
   {
-    "id": "s_ncino_01",
-    "title": "Senior Functional Consultant",
-    "company": "nCino",
-    "location": "Remote (NC)",
-    "tier": "A",
-    "salary": "~$130K–$160K",
-    "family": "IMPL",
-    "applyUrl": "",
-    "status": "APPLIED",
-    "dateAdded": "2026-05-19",
-    "dateApplied": "2026-05-19",
-    "pocName": "Jessica Johnson + Rachel Danforth",
-    "pocTitle": "Global Dir Product Specialist Team / Sr TA Lead",
-    "pdfSent": false,
-    "notes": "Applied 5/19 via LinkedIn Easy Apply. LOS functional consultant — direct match. Jessica Johnson (Product Specialist Team = impl/consulting org). Rachel Danforth recruiter (2nd degree). Messages drafted — PENDING MANUAL.",
-    "steps": {
-      "tailor": true,
-      "apply": true,
-      "peopleSweep": true,
-      "outreach": false,
-      "logged": true,
-      "threeFronts": false
-    }
-  },
-  {
     "id": "s_planet_02",
     "title": "AVP Loss Analysis",
     "company": "Planet Home Lending",
@@ -1598,31 +1605,6 @@
     }
   },
   {
-    "id": "s_valon_ny_01",
-    "title": "Deployment Strategist Lead",
-    "company": "Valon",
-    "location": "New York, NY",
-    "tier": "B",
-    "salary": "~$145K–$175K",
-    "family": "IMPL",
-    "applyUrl": "",
-    "status": "NOT_MOVING_FORWARD",
-    "dateAdded": "2026-05-15",
-    "dateApplied": null,
-    "pocName": "",
-    "pocTitle": "",
-    "pdfSent": false,
-    "notes": "NY geo mismatch — must be remote or Bay Area onsite. SF version applied as s_valon_03.",
-    "steps": {
-      "tailor": false,
-      "apply": false,
-      "peopleSweep": false,
-      "outreach": false,
-      "logged": true,
-      "threeFronts": false
-    }
-  },
-  {
     "id": "s_valon_ny_02",
     "title": "Deployment Strategist Manager",
     "company": "Valon",
@@ -1900,31 +1882,6 @@
     },
     "actionNeeded": true,
     "actionNote": "Job scanner resurface 5/22 — card is NOT_MOVING_FORWARD but Workday is showing this req as active (7 days old, 37pts, 2 locations). Confirm: is this genuinely dead or a Workday maintenance artifact? If live, move back to TARGETED."
-  },
-  {
-    "id": "s_savvy_02",
-    "title": "Product Owner II",
-    "company": "SavvyMoney",
-    "location": "Dublin CA / Remote",
-    "tier": "B",
-    "salary": "$145K–$170K",
-    "family": "PM/PO/BA",
-    "applyUrl": "https://jobs.ashbyhq.com/savvymoney/7c48f215-38b0-4c33-befa-8c90d5c5033f",
-    "status": "APPLIED",
-    "dateAdded": "2026-05-19",
-    "dateApplied": "2026-05-23",
-    "pocName": "",
-    "pocTitle": "",
-    "pdfSent": false,
-    "notes": "Applied 5/19 via Spectrum Equity portal. Re-applied 2026-05-23 directly via Ashby — success confirmed. $130k-$145k+Equity. Dublin CA or USA Remote. Ashby reCAPTCHA v2 invisible (NOT Enterprise) — passed. No duplicate detected by system.",
-    "steps": {
-      "tailor": true,
-      "apply": true,
-      "peopleSweep": false,
-      "outreach": false,
-      "logged": true,
-      "threeFronts": false
-    }
   },
   {
     "id": "s_savvy_impl",
@@ -2974,13 +2931,13 @@
     "salary": "~$120K–$145K",
     "family": "IMPL",
     "applyUrl": "https://www.optimalblue.com/careers/",
-    "status": "APPLIED",
+    "status": "NOT_MOVING_FORWARD",
     "dateAdded": "2026-05-18",
     "dateApplied": "2026-05-18",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "PINNED — LinkedIn limit hit 5/18. Find product leadership or impl team lead today.",
+    "notes": "Position filled as of 2026-05-26. Role no longer accepting applications. OB outreach remains warm — see Optimal Blue Warm Relationship card.",
     "steps": {
       "tailor": true,
       "apply": true,
@@ -4356,13 +4313,13 @@
     "salary": "",
     "family": "PM/PO/BA",
     "applyUrl": "https://www.newamericanfunding.com/about/careers/",
-    "status": "TARGETED",
+    "status": "NOT_MOVING_FORWARD",
     "dateAdded": "2026-05-19",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "",
+    "notes": "Req dead — iCIMS search returned 0 results on both 2026-05-22 and 2026-05-25. Position offline or filled. No longer accepting applicants.",
     "actionNeeded": true,
     "actionNote": "ACTION NEEDED: Role not found in iCIMS portal on 2026-05-22 AND 2026-05-25. iCIMS keyword search 'product owner' returns 0 results. Req may be filled or offline. NAF outreach queued for Tuesday 5/26 (Angel McGowan Duke, Amit Misar, Kathleen Gubbels) — may surface new opening or warm referral.",
     "steps": {
@@ -4850,13 +4807,13 @@
     "salary": "~$110K–$140K",
     "family": "PM/PO/BA",
     "applyUrl": "https://www.cmgfi.com/about/careers",
-    "status": "TARGETED",
+    "status": "NO_THANKS",
     "dateAdded": "2026-05-26",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Auto-injected from Prospect Board (App.jsx id: B13) on 2026-05-26.",
+    "notes": "Former employer — laid off May 2026. Timing not ideal. Giving org space. Onward and upward approach. If CMG wants to rehire, they will initiate. Auto-injected 2026-05-26, dismissed same day per Aza decision.",
     "steps": {
       "tailor": false,
       "apply": false,
