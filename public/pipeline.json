@@ -4795,24 +4795,23 @@
     "salary": "$112,400–$149,800",
     "family": "PM/PO/BA",
     "applyUrl": "https://firstam.wd1.myworkdayjobs.com/en-US/firstamericancareers/job/USA%2C-California%2C-Santa-Ana/Product-Manager_R056432/apply/applyManually",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-26",
-    "dateApplied": null,
+    "dateApplied": "2026-05-27",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Posted 2026-05-26. Product Mgmt, API-integrated platform, cross-functional delivery. 4th First American role. Salary $112K-$150K — target $130K+. Workday ATS at firstam.wd1.myworkdayjobs.com. BLOCKER CONFIRMED 2026-05-27: Playwright attempted full account creation (Create Account form submitted, redirected to Sign In). Sign-in failed with 'wrong email or password or account locked'. Forgot Password flow submitted — zero emails received (checked all Gmail including spam). firstam.wd1 is not sending auth emails to azaolival@gmail.com. Account does not exist on this tenant or email is being blocked. AZA MANUAL PATH: Open careers.firstam.com in browser → create account → check email for verification link → verify → apply to R056432 at https://firstam.wd1.myworkdayjobs.com/en-US/firstamericancareers/job/USA%2C-California%2C-Santa-Ana/Product-Manager_R056432/apply/applyManually",
+    "notes": "APPLIED 2026-05-27 — Aza manual via Workday firstam.wd1 (Playwright blocked on email verification gate). Product Mgmt, API-integrated platform, cross-functional delivery. 4th First American role. Salary $112K-$150K. Outreach pending.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
       "logged": false,
       "threeFronts": false
     },
     "source": "manual_inject_20260526",
-    "actionNeeded": true,
-    "actionNote": "MANUAL ACTION: firstam.wd1 Workday tenant has no valid account. Create new account at firstam.wd1.myworkdayjobs.com with azaolival@gmail.com, verify email, then apply to R056432. Apply URL: https://firstam.wd1.myworkdayjobs.com/en-US/firstamericancareers/job/USA%2C-California%2C-Santa-Ana/Product-Manager_R056432/apply/applyManually"
+    "actionNeeded": false
   },
   {
     "id": "experian_pm_lead_data_4617_20260526",
