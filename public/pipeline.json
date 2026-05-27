@@ -4331,14 +4331,14 @@
     "tier": "A",
     "salary": "~$155K–$190K",
     "family": "DATA",
-    "applyUrl": "https://www.corelogic.com/careers/",
-    "status": "TARGETED",
+    "applyUrl": "https://cotality.wd115.myworkdayjobs.com/Global",
+    "status": "NOT_MOVING_FORWARD",
     "dateAdded": "2026-05-26",
     "dateApplied": null,
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Auto-injected from Prospect Board (App.jsx id: R69) on 2026-05-26.",
+    "notes": "Prospect board target — role not confirmed open. CoreLogic rebranded to Cotality. Checked Cotality Workday 2026-05-27: 41 PM results scanned across 2 pages. No 'Mortgage Data & Analytics' PM role exists. Only PM titles: Senior Technical Product Manager (Irvine CA — geo fail, Araya/SDAP platform focus, not mortgage). Dead end. Removed from apply queue.",
     "steps": {
       "tailor": false,
       "apply": false,
@@ -4348,8 +4348,7 @@
       "threeFronts": false
     },
     "source": "prospect_board_sync",
-    "actionNeeded": true,
-    "actionNote": "CoreLogic rebranded to Cotality. ATS is cotality.wd5.myworkdayjobs.com — Workday was in maintenance 2026-05-27. Retry: search Product Manager on Cotality Workday board."
+    "actionNeeded": false
   },
   {
     "id": "jh_goodleap_20260523_7",
