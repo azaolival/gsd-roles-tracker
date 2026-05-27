@@ -1090,6 +1090,54 @@ const jobs = [
 const nonMortgageJobs = [];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// COMPANY NAME NORMALIZATION
+// Maps any known alias/abbreviation to the canonical company name used in
+// pipeline.json. Applied in ALL company-keyed Maps so naming variations in
+// either the roles board or the pipeline never cause a missed collision.
+// Rule: when adding a card under a new company name, add the alias here too.
+// ─────────────────────────────────────────────────────────────────────────────
+const COMPANY_ALIASES = {
+  // Maxwell variants
+  "maxwell":                        "maxwell financial",
+  "maxwell financial labs":         "maxwell financial",
+  // NAF variants
+  "naf":                            "new american funding",
+  "naf (new american funding)":     "new american funding",
+  "new american funding (naf)":     "new american funding",
+  // nCino / SimpleNexus variants
+  "ncino (simplexnexus)":           "ncino",
+  "simplexnexus / ncino":           "ncino",
+  "simplexnexus":                   "ncino",
+  "simplenexus":                    "ncino",
+  "simplenexus / ncino":            "ncino",
+  // Rocket variants
+  "rocket companies":               "rocket mortgage",
+  "rocket companies, inc.":         "rocket mortgage",
+  // First American variants
+  "first american financial":       "first american",
+  "first american title":           "first american",
+  "first american financial corp":  "first american",
+  // Lakeview variants
+  "lakeview":                       "lakeview loan servicing",
+  "bayview / lakeview":             "lakeview loan servicing",
+  "lakeview loan servicing (bayview)": "lakeview loan servicing",
+  // ICE variants
+  "ice mortgage technology":        "ice mortgage technology",
+  "black knight":                   "ice mortgage technology",
+  "ice / black knight":             "ice mortgage technology",
+  // Freddie Mac variants
+  "freddie mac":                    "freddie mac",
+  // Fannie Mae variants
+  "fannie mae":                     "fannie mae",
+};
+
+function normalizeCompany(name) {
+  if (!name) return "";
+  const lower = name.toLowerCase().trim();
+  return COMPANY_ALIASES[lower] ?? lower;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1297,7 +1345,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     const m = new Map();
     pipelineCards.forEach(c => {
       if (!ACTIVE_PIPELINE_PRIORITY[c.status] || !c.company) return;
-      const key = c.company.toLowerCase().trim();
+      const key = normalizeCompany(c.company);
       const cur = m.get(key);
       if (!cur || (ACTIVE_PIPELINE_PRIORITY[c.status] || 0) > (ACTIVE_PIPELINE_PRIORITY[cur] || 0))
         m.set(key, c.status);
@@ -1310,18 +1358,18 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
     const m = new Map();
     pipelineCards.forEach(c => {
       if (!c.company || !c.title) return;
-      const key = `${c.company.toLowerCase().trim()}::${c.title.toLowerCase().trim()}`;
+      const key = `${normalizeCompany(c.company)}::${c.title.toLowerCase().trim()}`;
       m.set(key, c.status);
     });
     return m;
   }, [pipelineCards]);
 
   const dismissToNoThanks = useCallback((job) => {
-    const compKey = (job.company||"").toLowerCase().trim();
+    const compKey = normalizeCompany(job.company||"");
     const titleKey = (job.title||"").toLowerCase().trim();
     const existing = pipelineCards.find(c =>
       c.id === job.id ||
-      ((c.company||"").toLowerCase().trim() === compKey && (c.title||"").toLowerCase().trim() === titleKey)
+      (normalizeCompany(c.company||"") === compKey && (c.title||"").toLowerCase().trim() === titleKey)
     );
     if (existing) {
       if ((existing.status === "PROSPECT" || existing.status === "TARGETED") && onMoveCard) {
@@ -1384,11 +1432,11 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
       .filter(j => {
         if (dismissed.has(j.id)) {
           const sById = pipelineStatusMap.get(j.id);
-          const sByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+          const sByKey = pipelineCompanyTitleMap.get(`${normalizeCompany(j.company||"")}::${(j.title||"").toLowerCase().trim()}`);
           if ((sById || sByKey) !== "TARGETED") return false;
         }
         const statusById = pipelineStatusMap.get(j.id);
-        const statusByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+        const statusByKey = pipelineCompanyTitleMap.get(`${normalizeCompany(j.company||"")}::${(j.title||"").toLowerCase().trim()}`);
         const effectiveStatus = statusById || statusByKey;
         if (effectiveStatus && effectiveStatus !== "TARGETED") return false;
         const ms = !q || [j.title, j.company, j.city, j.family, ...(j.tags||[]), j.notes||""]
@@ -1591,7 +1639,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                 whiteSpace:"nowrap" }}>
                 {filtered.length} of {allJobs.filter(j => {
                   const sById = pipelineStatusMap.get(j.id);
-                  const sByKey = pipelineCompanyTitleMap.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+                  const sByKey = pipelineCompanyTitleMap.get(`${normalizeCompany(j.company||"")}::${(j.title||"").toLowerCase().trim()}`);
                   const eff = sById || sByKey;
                   if (dismissed.has(j.id) && eff !== "TARGETED") return false;
                   return !eff || eff === "TARGETED";
@@ -1656,7 +1704,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                           const oq = orgQuality(job.id, job.company);
                           const om = ORG_QUALITY_META[oq];
                           const pSt = pipelineStatusMap.get(job.id)
-                            || pipelineCompanyTitleMap.get(`${(job.company||"").toLowerCase().trim()}::${(job.title||"").toLowerCase().trim()}`)
+                            || pipelineCompanyTitleMap.get(`${normalizeCompany(job.company||"")}::${(job.title||"").toLowerCase().trim()}`)
                             || null;
                           const pSm = pSt ? (PIPELINE_STATUS_META[pSt] || {}) : null;
                           const visibleTags = (job.tags||[]).slice(0, 5);
@@ -1705,7 +1753,7 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                                   )}
                                   {/* company-level active pipeline badge — fires when company has APPLIED/CALLBACK/INTERVIEW/OFFER cards, even without roleId linkage */}
                                   {(() => {
-                                    const compSt = companiesInActivePipeline.get(job.company?.toLowerCase().trim());
+                                    const compSt = companiesInActivePipeline.get(normalizeCompany(job.company||""));
                                     if (!compSt || compSt === pSt) return null;
                                     const csm = PIPELINE_STATUS_META[compSt] || {};
                                     return (
@@ -1775,10 +1823,10 @@ export function RolesBoard({ onSelectRole, pipelineStatusMap = new Map(), boardI
                                     onClick={() => onSelectRole ? onSelectRole(job) : window.open(job.url,"_blank")}
                                     style={{ fontSize:11, fontWeight:700, color:"#fff",
                                       background: pSt==="TARGETED" ? "#6366f1"
-                                        : pipelineRoleIds.has(job.id) ? "#059669" : "#0891b2",
+                                        : pSt ? "#059669" : "#0891b2",
                                       padding:"5px 13px", borderRadius:6, border:"none",
                                       cursor:"pointer", whiteSpace:"nowrap", fontFamily:"'Inter',sans-serif" }}>
-                                    {pSt==="TARGETED" ? "Queued →" : pipelineRoleIds.has(job.id) ? "In Log ✓" : "Track →"}
+                                    {pSt==="TARGETED" ? "Queued →" : pSt ? "In Log ✓" : "Track →"}
                                   </button>
                                   {job._custom && (
                                     <span style={{ fontSize:9, fontWeight:700, color:"#7c3aed",
@@ -1909,7 +1957,7 @@ export default function App() {
     const m = new Map();
     pipeline.cards.forEach(c => {
       if (!c.company || !c.title) return;
-      m.set(`${c.company.toLowerCase().trim()}::${c.title.toLowerCase().trim()}`, c.status);
+      m.set(`${normalizeCompany(c.company)}::${c.title.toLowerCase().trim()}`, c.status);
     });
     return m;
   }, [pipeline.cards]);
@@ -1917,7 +1965,7 @@ export default function App() {
   const prospectCount = useMemo(() =>
     jobs.filter(j => {
       const sById = pipelineStatusMap.get(j.id);
-      const sByKey = pipelineCompanyTitleMapApp.get(`${(j.company||"").toLowerCase().trim()}::${(j.title||"").toLowerCase().trim()}`);
+      const sByKey = pipelineCompanyTitleMapApp.get(`${normalizeCompany(j.company||"")}::${(j.title||"").toLowerCase().trim()}`);
       const eff = sById || sByKey;
       return !eff || eff === "TARGETED";
     }).length,
