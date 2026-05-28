@@ -4469,24 +4469,24 @@
     "salary": "$190K–$270K + equity + bonus",
     "family": "PM/PO/BA",
     "applyUrl": "https://jobs.ashbyhq.com/airwallex/d18f4a94-34a8-4548-b3e4-85589f2c620d/application",
-    "status": "TARGETED",
+    "status": "APPLIED",
     "dateAdded": "2026-05-26",
-    "dateApplied": null,
+    "dateApplied": "2026-05-28",
     "pocName": "",
     "pocTitle": "",
     "pdfSent": false,
-    "notes": "Live role confirmed 2026-05-28 by Bay Area triage. Staff PM Embedded Finance Scale Platform. SF hybrid 3 days/week (Mon/Wed/Thu). $190K-$270K+equity+bonus. Ashby ATS. Prior card NMF (5/27 — no role found); role posted since then.",
+    "notes": "Applied 2026-05-28 via Ashby. Staff PM Embedded Finance Scale Platform. SF hybrid 3 days/week (Mon/Wed/Thu). $190K-$270K+equity+bonus. AI Policy agreed. GPA 3.5 submitted. Resume: Aza_Olival_MBA_Platform_PM_BSA_AI_Agentic_SME.pdf.",
     "steps": {
       "tailor": false,
-      "apply": false,
+      "apply": true,
       "peopleSweep": false,
       "outreach": false,
       "logged": false,
       "threeFronts": false
     },
     "source": "prospect_board_sync",
-    "actionNeeded": true,
-    "actionNote": "MANUAL APPLY REQUIRED: (1) Airwallex Ashby form has AI Policy clause — form asks applicant to agree not to use AI tools. (2) Undergraduate GPA is a required field. Aza applies manually. URL: https://jobs.ashbyhq.com/airwallex/d18f4a94-34a8-4548-b3e4-85589f2c620d/application"
+    "actionNeeded": false,
+    "actionNote": ""
   },
   {
     "id": "pb_b14_20260526",
