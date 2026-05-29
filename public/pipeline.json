@@ -4320,8 +4320,8 @@
       "threeFronts": false
     },
     "source": "prospect_board_sync",
-    "actionNeeded": true,
-    "actionNote": "2026-05-26: Searched careers.rocket.com — role not confirmed live. 459 results returned but no Product Owner / Consumer Lending AI role found. May be speculative card. Aza to verify manually or research direct Rocket Mortgage ATS URL."
+    "actionNeeded": false,
+    "actionNote": "CONFIRMED DEAD 2026-05-29: Searched careers.rocket.com — Product Owner R-083020 FILLED, PM Performance & Enablement FILLED (Seattle), PM Home Tours FILLED (Seattle/real estate). Zero live PM/PO roles matching mortgage tech profile. Consumer Lending AI/LOS card was never a confirmed live req. Monitor weekly."
   },
   {
     "id": "pb_r64_20260526",
@@ -4348,8 +4348,8 @@
       "threeFronts": false
     },
     "source": "prospect_board_sync",
-    "actionNeeded": true,
-    "actionNote": "No direct job posting URL found — rate.com/careers has no embedded ATS board. LinkedIn search returned 0 results for this role. Manual: find current Sr. PM Digital Mortgage req URL, then apply."
+    "actionNeeded": false,
+    "actionNote": "CONFIRMED DEAD 2026-05-29: LinkedIn shows 2 GR jobs, both AVP wrong role. rate.com ATS iframe inaccessible. No Sr PM or PM roles confirmed live anywhere. Monitor rate.com/careers/open-positions weekly."
   },
   {
     "id": "pb_r69_20260526",
