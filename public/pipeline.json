@@ -431,6 +431,34 @@
     }
   },
   {
+    "id": "s_lakeview_impl_coord",
+    "title": "Lead, Servicing Implementation & Coordination",
+    "company": "Lakeview Loan Servicing",
+    "location": "Remote",
+    "tier": "B",
+    "salary": "$120K–$155K + bonus",
+    "family": "PM/PO/BA",
+    "applyUrl": "https://careers.bayview.com/lls/jobs",
+    "status": "INTERVIEW",
+    "dateAdded": "2026-05-28",
+    "dateApplied": null,
+    "pocName": "Dee Mencia (SVP Product)",
+    "pocTitle": "SVP Head of Product",
+    "pdfSent": false,
+    "notes": "MSR Portfolio Services, Dept: AI Development, reports to SVP. Servicing modernization / transformation coordination role — TPM/BSA hybrid. Title says Lead but JD verbs are coordination/execution (support, assist, track). 5+ yrs residential servicing. Strong fit — Waterfall Evaluator proof-of-work bridges servicing ops + tech, which is their exact language. WARM DOOR: Dee Mencia (INTERVIEW 5/21 on s_lakeview_cos) said other reqs coming they'd want Aza for — this may be one of them. STATUS UPDATED TARGETED→INTERVIEW 2026-05-29 — confirmed in interview for both Lakeview roles.",
+    "steps": {
+      "tailor": false,
+      "apply": false,
+      "peopleSweep": true,
+      "outreach": false,
+      "logged": true,
+      "threeFronts": false
+    },
+    "source": "manual",
+    "actionNeeded": true,
+    "actionNote": "PRE-FLIGHT STOP: Lakeview org HOT — INTERVIEW live (s_lakeview_cos) + 2 APPLIED + warm contact Dee Mencia. DO NOT fire Playwright cold apply. Leverage the Dee Mencia interview thread to surface this req directly. Confirm it is distinct from the CoS role before any apply."
+  },
+  {
     "id": "s_hometap_02",
     "title": "Principal PM, Growth",
     "company": "Hometap",
