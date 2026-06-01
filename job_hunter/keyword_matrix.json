@@ -1,0 +1,152 @@
+{
+  "role_titles": {
+    "weight": 10,
+    "required_group": true,
+    "notes": "Must match at least one — these are all the title variants for roles Aza can own",
+    "terms": [
+      "product manager", "product owner", "platform owner",
+      "technical product manager", "tpm",
+      "business systems analyst", "bsa",
+      "business analyst", "sr. ba", "sr ba", "lead ba", "senior ba",
+      "delivery lead", "product lead", "product director",
+      "program manager", "release manager", "product strategist",
+      "vp product", "vp of product", "director of product",
+      "head of product", "head of technology",
+      "senior product", "sr product", "lead product",
+      "product operations", "product analyst",
+      "principal product", "staff product",
+      "solutions architect", "mortgage solutions",
+      "implementation manager", "implementation lead",
+      "product development manager"
+    ]
+  },
+  "mortgage_domain": {
+    "weight": 8,
+    "required_group": true,
+    "notes": "Must match at least one — no mortgage, no dice",
+    "terms": [
+      "mortgage", "los", "loan origination", "home lending",
+      "mortgage banking", "home loans", "residential lending",
+      "loan lifecycle", "origination", "loan servicing", "fulfillment",
+      "underwriting", "home equity", "heloc", "refinance refi",
+      "correspondent", "wholesale lending", "retail lending",
+      "mortgage technology", "mortgage platform",
+      "residential mortgage", "consumer lending",
+      "home purchase", "purchase mortgage",
+      "mortgage automation", "digital mortgage"
+    ]
+  },
+  "ai_agentic": {
+    "weight": 7,
+    "notes": "AI/agentic tech — Aza's differentiator, boosts score significantly",
+    "terms": [
+      "artificial intelligence", "machine learning", "agentic",
+      "automation", "ocr", "document intelligence", "nlp",
+      "generative ai", "genai", "large language model", "llm",
+      "intelligent automation", "rpa", "workflow automation",
+      "ai powered", "ai-powered", "ai platform",
+      "document automation", "intelligent document",
+      "computer vision", "decision engine",
+      "autonomous", "conversational ai", "chatbot"
+    ]
+  },
+  "los_pos_platforms": {
+    "weight": 6,
+    "notes": "Universal LOS SME — knows every major platform except Mortgage Cadence. Any LOS name in a JD = strong match.",
+    "terms": [
+      "encompass", "ice mortgage", "ice mortgage technology",
+      "black knight", "dark matter technologies",
+      "empower los", "empower platform", "empower lос",
+      "bytepro", "byte software", "bytepro enterprise",
+      "mortgage builder", "constellation software",
+      "openclose", "lendingqb",
+      "calyx point", "calyx path", "calyx",
+      "meridianlink", "mortgagware", "fics mortgage",
+      "mortgagebot", "finastra",
+      "wipro gallagher", "gallagher solutions",
+      "jack henry mortgage",
+      "pclender",
+      "arive", "tpo connect",
+      "simplenexus", "ncino",
+      "blend", "cloudvirga", "roostify",
+      "besmartee", "mortgagehippo", "floify",
+      "maxwell financial", "lendingpad",
+      "msp servicing", "lsams", "sagent",
+      "clarifire", "indisoft", "rxoffice",
+      "fiserv mortgageserv",
+      "optimal blue", "polly pricing", "loansifter",
+      "los platform", "loan origination system",
+      "los implementation", "los migration",
+      "los integration", "los configuration",
+      "los sme", "los subject matter expert",
+      "docutech", "ids ",
+      "mismo", "urla", "1003", "form 1003",
+      "du ", "desktop underwriter",
+      "lpa ", "loan product advisor",
+      "aus ", "automated underwriting",
+      "pos platform", "point of sale", "digital pos"
+    ]
+  },
+  "api_integrations": {
+    "weight": 5,
+    "notes": "Integration/data work Aza has deep hands-on experience in",
+    "terms": [
+      "api integration", "rest api", "restful", "web services",
+      "xml", "json", "mismo",
+      "data mapping", "field mapping",
+      "webhook", "microservices",
+      "system integration", "platform integration",
+      "storage layer", "data architecture",
+      "etl", "data pipeline"
+    ]
+  },
+  "delivery_tools": {
+    "weight": 4,
+    "notes": "Delivery methodology and tooling",
+    "terms": [
+      "agile", "scrum", "sdlc",
+      "roadmap", "backlog", "sprint",
+      "uat", "user acceptance",
+      "azure devops", "jira", "github",
+      "user stories", "acceptance criteria",
+      "release management", "release readiness",
+      "requirements", "technical documentation"
+    ]
+  },
+  "data_analytics": {
+    "weight": 3,
+    "notes": "Data/analytics skills",
+    "terms": [
+      "sql", "mysql", "database",
+      "data model", "analytics", "reporting",
+      "business intelligence", "bi",
+      "data governance", "data quality",
+      "hmda", "reporting"
+    ]
+  },
+  "fintech_adjacent": {
+    "weight": 4,
+    "notes": "Fintech/proptech adjacent — expands scope without losing relevance",
+    "terms": [
+      "fintech", "financial technology",
+      "lending platform", "lending technology",
+      "mortgage technology", "proptech",
+      "real estate technology", "insurtech",
+      "digital lending", "embedded finance",
+      "financial services technology",
+      "consumer finance"
+    ]
+  },
+  "compliance_risk": {
+    "weight": 3,
+    "notes": "Risk/compliance — Aza's background at National MI, BofA",
+    "terms": [
+      "compliance", "risk management", "regulatory",
+      "tila-respa", "qm", "hmda", "hoepa",
+      "pmiermers", "fannie mae", "freddie mac",
+      "gse", "ginnie mae",
+      "credit risk", "risk modeling",
+      "audit", "controls"
+    ]
+  }
+}

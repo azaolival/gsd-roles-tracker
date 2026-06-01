@@ -1,0 +1,152 @@
+{
+  "name": "Aza Olival, MBA",
+  "title": "Technical PM | LOS SME (Encompass · Empower · BytePro) | Mortgage Technology | AI/Agentic Delivery Lead | BSA",
+  "location": "San Jose, CA",
+  "veteran": true,
+
+  "hard_skills": [
+    "MISMO", "MISMO v3.4", "MISMO Boot Camp",
+
+    "Encompass", "ICE Mortgage Technology", "ICE",
+    "Empower", "Black Knight Empower", "Dark Matter Technologies",
+    "BytePro Enterprise", "BytePro",
+    "LOS", "loan origination system", "LOS SME", "LOS platform",
+
+    "DU", "Desktop Underwriter", "LPA", "Loan Product Advisor",
+    "URLA", "URLA 2021", "Form 1003",
+    "IDS", "Docutech",
+    "Fannie Mae DU/EC", "Freddie Mac LPA/LCA",
+
+    "API integration", "REST", "XML", "JSON", "SQL", "MySQL",
+    "Azure DevOps", "Jira", "GitHub", "Claude Code",
+    "OCR", "document intelligence", "agentic AI",
+    "workflow orchestration", "agentic workflow",
+    "storage layer mapping", "data mapping",
+    "API field mapping"
+  ],
+
+  "los_platforms": {
+    "note": "Universal LOS SME. Knows every major platform in the market EXCEPT Mortgage Cadence (BofA). This covers virtually the entire US mortgage origination + servicing + broker tech stack.",
+    "enterprise_origination": [
+      "Encompass (ICE Mortgage Technology)",
+      "Empower (Dark Matter Technologies / fka Black Knight)",
+      "BytePro Enterprise (Byte Software)",
+      "Mortgage Builder (Constellation / Dark Matter)",
+      "OpenClose",
+      "LendingQB (MCM)"
+    ],
+    "bank_cu_origination": [
+      "MeridianLink Mortgage (fka FICS / MortgageWare)",
+      "Mortgagebot / MortgagebotLOS (Finastra)",
+      "Gallagher Bassett / Wipro Gallagher",
+      "Jack Henry Mortgage",
+      "PCLender"
+    ],
+    "broker_tpo": [
+      "Calyx Point",
+      "Calyx Path",
+      "ARIVE",
+      "Encompass TPO Connect",
+      "LendingPad",
+      "Maxwell Financial Labs"
+    ],
+    "pos_digital_app": [
+      "SimpleNexus / nCino",
+      "Blend",
+      "Cloudvirga (ICE)",
+      "Roostify (Blend)",
+      "BeSmartee",
+      "MortgageHippo",
+      "Floify"
+    ],
+    "servicing": [
+      "MSP (Black Knight / ICE)",
+      "LSAMS (Black Knight)",
+      "Sagent",
+      "CLARIFIRE",
+      "IndiSoft RxOffice",
+      "Fiserv MortgageServ"
+    ],
+    "pricing_engines": [
+      "Optimal Blue (ICE)",
+      "Polly",
+      "LoanSifter"
+    ],
+    "NOT_known": [
+      "Mortgage Cadence (Accenture / BofA)"
+    ]
+  },
+
+  "domain_expertise": [
+    "mortgage", "loan origination", "LOS", "POS",
+    "origination", "fulfillment", "servicing", "post-close",
+    "risk", "compliance", "loan lifecycle",
+    "HMDA", "TILA-RESPA", "QM", "HOEPA", "PMIERs",
+    "Fannie Mae", "Freddie Mac", "Ginnie Mae",
+    "URLA", "Form 1003", "loan lifecycle",
+    "wholesale", "retail", "correspondent",
+    "reinsurance", "mortgage insurance",
+    "underwriting", "credit risk",
+    "structured transactions", "MILAR",
+    "Countrywide", "impaired assets",
+    "forensic mortgage review"
+  ],
+
+  "certifications": [
+    "PMP", "CPM", "CSM", "CRU",
+    "Project Management", "Scrum Master",
+    "Certified Residential Underwriter",
+    "Risk Management Certificate",
+    "MISMO Boot Camp",
+    "API Technical Writing",
+    "XML Schema Architecture"
+  ],
+
+  "delivery": [
+    "product manager", "product owner", "platform owner",
+    "business systems analyst", "BSA", "business analyst",
+    "roadmap", "backlog", "stakeholder intake",
+    "requirements", "UAT", "release delivery",
+    "SDLC", "Agile", "Scrum",
+    "user stories", "acceptance criteria",
+    "technical documentation",
+    "sprint planning", "sprint review"
+  ],
+
+  "ai_agentic": [
+    "agentic AI", "agentic workflow orchestration",
+    "AI-powered OCR", "document intelligence",
+    "Claude Code", "AI code development",
+    "rapid prototyping", "autonomous SDLC",
+    "AI-assisted workflows", "hands-on code development",
+    "generative AI", "LLM"
+  ],
+
+  "employers": [
+    "CMG Financial", "Tavant", "National MI",
+    "Bank of America", "MetLife Home Loans",
+    "First National Bank of Arizona", "GreenPoint Bank"
+  ],
+
+  "companies_worked_with": [
+    "PennyMac", "Flagstar Bank", "Fairway Independent Mortgage",
+    "Fannie Mae", "Freddie Mac", "MGIC",
+    "JPMorgan Chase", "Wells Fargo", "Quicken Loans",
+    "Aon Benfield", "Docutech"
+  ],
+
+  "education": [
+    "MBA Golden Gate University",
+    "BS Business Managerial Economics University of Phoenix",
+    "AS General Finance Kansas State University"
+  ],
+
+  "score_bonus_keywords": [
+    "MISMO", "BytePro", "Encompass", "Empower",
+    "agentic", "Claude Code",
+    "document intelligence", "OCR",
+    "PennyMac", "Flagstar",
+    "LOS platform", "loan origination system",
+    "workflow orchestration", "Black Knight"
+  ]
+}

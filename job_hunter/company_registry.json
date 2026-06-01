@@ -1,0 +1,1285 @@
+[
+  {
+    "name": "ICE Mortgage Technology (Encompass/Black Knight)",
+    "ats": "direct",
+    "url": "https://careers.ice.com/jobs",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "Owns Encompass LOS — Aza's core platform expertise. Massive PM/product need."
+  },
+  {
+    "name": "Rocket Mortgage",
+    "ats": "workday",
+    "tenant": "rocket",
+    "wday_n": 5,
+    "site": "rocket_careers",
+    "tier": 1,
+    "type": "imb",
+    "notes": "Rocket Logic AI system = direct CMG parallel. Acquiring Mr. Cooper. #1 by units."
+  },
+  {
+    "name": "PennyMac",
+    "ats": "direct",
+    "url": "https://careers-pennymac.icims.com/jobs/search",
+    "tier": 1,
+    "type": "imb",
+    "notes": "Aza integrated their LOS at Tavant. 35+ AI tools in flight. $700B servicing book."
+  },
+  {
+    "name": "loanDepot",
+    "ats": "direct",
+    "url": "https://jobs.jobvite.com/loandepot",
+    "tier": 1,
+    "type": "imb",
+    "notes": "Vision 2025 digital rebuild. Active PM hiring. Post-cyberattack tech overhaul."
+  },
+  {
+    "name": "Better.com",
+    "ats": "direct",
+    "tier": 1,
+    "type": "imb",
+    "notes": "ChatGPT-powered mortgage in 47s. Full AI-first stack. Engineering culture. GH board deactivated post-layoffs.",
+    "url": "https://better.com/careers"
+  },
+  {
+    "name": "Blend",
+    "ats": "greenhouse",
+    "slug": "blend",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "Digital lending platform. CCM + many bank partnerships. Strong PM culture."
+  },
+  {
+    "name": "Polly",
+    "ats": "lever",
+    "slug": "pollyex",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "PPE + AI mortgage pricing. Rapid growth. Product-led org."
+  },
+  {
+    "name": "NewRez / Shellpoint",
+    "ats": "workday",
+    "tenant": "newrez",
+    "wday_n": 1,
+    "site": "NRZ",
+    "tier": 1,
+    "type": "imb",
+    "notes": "Revenue +66% YoY. 15% AI cost reduction target. 2 active AI partnerships."
+  },
+  {
+    "name": "Veterans United Home Loans",
+    "ats": "workday",
+    "tenant": "veteransunited",
+    "wday_n": 1,
+    "site": "VUHL",
+    "tier": 1,
+    "type": "imb",
+    "notes": "VA specialist. Army Veteran cultural fit. Digital UX investment."
+  },
+  {
+    "name": "Tavant",
+    "ats": "direct",
+    "tier": 1,
+    "type": "consulting",
+    "notes": "Aza's former employer. Warm network. Mortgage fintech consulting.",
+    "url": "https://tavant.com/careers"
+  },
+  {
+    "name": "SimpleNexus / nCino",
+    "ats": "workday",
+    "tenant": "ncino",
+    "wday_n": 5,
+    "site": "nCinoCareers",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "Mobile mortgage POS platform. LOS integrations. PM-heavy product org."
+  },
+  {
+    "name": "Sagent Lending Technologies",
+    "ats": "greenhouse",
+    "slug": "sagent",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "Servicing platform. Direct Encompass/servicing LOS overlap."
+  },
+  {
+    "name": "Maxwell Financial Labs",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Small IMB digital stack. POS + workflow automation.",
+    "url": "https://www.himaxwell.com/about/careers"
+  },
+  {
+    "name": "Finance of America",
+    "ats": "direct",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Reverse + forward. Transformation. Platform modernization.",
+    "url": "https://careers.financeofamerica.com"
+  },
+  {
+    "name": "Planet Home Lending",
+    "ats": "ashby",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Top 25 by volume. Servicing + origination growth.",
+    "org": "planet"
+  },
+  {
+    "name": "Rate (fka Guaranteed Rate)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Top 10 by dollar volume. Heavy retail. AI/digital investment. Confirmed dead for PM roles 5/29.",
+    "url": "https://rate.com/careers"
+  },
+  {
+    "name": "CrossCountry Mortgage",
+    "ats": "workday",
+    "tenant": "crosscountrymortgage",
+    "wday_n": 1,
+    "site": "CCMCareers",
+    "tier": 1,
+    "type": "imb",
+    "notes": "3rd by units (125K). Blend integration. Rapid growth."
+  },
+  {
+    "name": "Movement Mortgage",
+    "ats": "direct",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Top 25. Mission-driven culture. Digital investment.",
+    "url": "https://movement.com/careers"
+  },
+  {
+    "name": "Homeward",
+    "ats": "direct",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Cash offer / mortgage hybrid. Fintech-first.",
+    "url": "https://www.homeward.com/careers"
+  },
+  {
+    "name": "Orchard (Home Loans)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Buy-before-sell + mortgage. Proptech/fintech hybrid.",
+    "url": "https://www.orchard.com/careers"
+  },
+  {
+    "name": "Optimal Blue (ICE)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Now part of ICE. Use ICE careers page.",
+    "url": "https://careers.ice.com/jobs"
+  },
+  {
+    "name": "Tidalwave",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Agentic AI for mortgage brokers. Fannie/Freddie + ICE integrations.",
+    "url": "https://tidalwavehq.com/careers"
+  },
+  {
+    "name": "Vesta (LOS)",
+    "ats": "ashby",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "LOS modernization platform. MISMO-native.",
+    "org": "vesta"
+  },
+  {
+    "name": "Floify",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "POS platform. Workflow automation. Acquired by Velocity/Mutual of Omaha.",
+    "url": "https://www.floify.com/about-us/careers"
+  },
+  {
+    "name": "Mortgage Coach / Surefire CRM",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Acquired by Salesforce. Use Salesforce careers.",
+    "url": "https://careers.salesforce.com"
+  },
+  {
+    "name": "Snapdocs",
+    "ats": "ashby",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Digital closing platform. eClose / RON. MISMO + LOS integrations.",
+    "org": "snapdocs"
+  },
+  {
+    "name": "Stavvy",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Digital closing + servicing workflow. Remote online notarization.",
+    "url": "https://stavvy.com/careers"
+  },
+  {
+    "name": "Dark Matter Technologies (fka Constellation)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Empower LOS owner. Direct Aza platform expertise.",
+    "url": "https://dm.tech/careers"
+  },
+  {
+    "name": "LoanStream Mortgage",
+    "ats": "direct",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Wholesale + non-QM focus. Growing.",
+    "url": "https://www.loanstreammortgage.com/about/careers"
+  },
+  {
+    "name": "Guild Mortgage",
+    "ats": "direct",
+    "url": "https://www.guildmortgage.com/careers/",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Top 8 by units (86K). Strong retail footprint."
+  },
+  {
+    "name": "Fairway Independent Mortgage",
+    "ats": "direct",
+    "url": "https://www.fairwaymc.com/fairway-careers/",
+    "tier": 1,
+    "type": "imb",
+    "notes": "Aza integrated their MISMO/LOS at Tavant. Warm network target."
+  },
+  {
+    "name": "Flagstar Bank (mortgage ops)",
+    "ats": "direct",
+    "url": "https://www.flagstar.com/about-us/careers.html",
+    "tier": 2,
+    "type": "mortgage_bank",
+    "notes": "MORTGAGE-FIRST bank — mortgage IS their primary business. Aza integrated their systems at Tavant. NYCB merger added complexity but mortgage ops remain core."
+  },
+  {
+    "name": "Freedom Mortgage",
+    "ats": "direct",
+    "url": "https://www.freedommortgage.com/about/careers",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Large originator/servicer. Top 25 by volume."
+  },
+  {
+    "name": "UWM (United Wholesale Mortgage)",
+    "ats": "direct",
+    "url": "https://uwmcareers.com/teams/technology",
+    "tier": 1,
+    "type": "imb",
+    "notes": "#1 by dollar volume ($163B). Mia/Leo agentic AI. Tech team portal."
+  },
+  {
+    "name": "Mr. Cooper",
+    "ats": "direct",
+    "url": "https://www.mrcooper.com/company/careers",
+    "tier": 2,
+    "type": "servicer",
+    "notes": "Largest servicer. Pending Rocket acquisition. Massive tech/platform work."
+  },
+  {
+    "name": "CMG Financial",
+    "ats": "direct",
+    "url": "https://www.cmgfi.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Aza's most recent employer. Backfill or new role possible."
+  },
+  {
+    "name": "DHI Mortgage",
+    "ats": "direct",
+    "url": "https://dhimortgage.wd5.myworkdayjobs.com/DHIM",
+    "tier": 2,
+    "type": "imb",
+    "notes": "D.R. Horton builder-captive. $25.68B vol. Workday ATS."
+  },
+  {
+    "name": "Carrington Mortgage Services",
+    "ats": "direct",
+    "url": "https://carringtonholdings.com/careers",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Non-QM + conventional. Full lifecycle origination + servicing."
+  },
+  {
+    "name": "AmeriHome Mortgage",
+    "ats": "direct",
+    "url": "https://www.amerihome.com/about/careers",
+    "tier": 2,
+    "type": "imb",
+    "notes": "WF subsidiary. Correspondent-heavy. +24.6% YoY."
+  },
+  {
+    "name": "Homebridge Financial Services",
+    "ats": "direct",
+    "url": "https://www.homebridge.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Mid-size national retail."
+  },
+  {
+    "name": "Academy Mortgage",
+    "ats": "direct",
+    "url": "https://academymortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "National retail. Culture-driven."
+  },
+  {
+    "name": "Sierra Pacific Mortgage",
+    "ats": "direct",
+    "url": "https://www.sierrapacificmortgage.com/about/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "West Coast retail. HQ near Aza."
+  },
+  {
+    "name": "American Pacific Mortgage",
+    "ats": "direct",
+    "url": "https://www.apmortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "West Coast. Retail origination."
+  },
+  {
+    "name": "AnnieMac Home Mortgage",
+    "ats": "direct",
+    "url": "https://www.annie-mac.com/company/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "East Coast growing IMB."
+  },
+  {
+    "name": "Kind Lending",
+    "ats": "direct",
+    "url": "https://kindlending.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Glenn Stearns founded. Growing aggressively."
+  },
+  {
+    "name": "Atlantic Bay Mortgage Group",
+    "ats": "direct",
+    "url": "https://atlanticbay.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Southeast retail."
+  },
+  {
+    "name": "Churchill Mortgage",
+    "ats": "direct",
+    "url": "https://www.churchillmortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "National retail. Dave Ramsey endorsed."
+  },
+  {
+    "name": "NFM Lending",
+    "ats": "direct",
+    "url": "https://www.nfmlending.com/about/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Mid-Atlantic retail."
+  },
+  {
+    "name": "Embrace Home Loans",
+    "ats": "direct",
+    "url": "https://www.embracehomeloans.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "East Coast retail."
+  },
+  {
+    "name": "Geneva Financial",
+    "ats": "direct",
+    "url": "https://www.genevafi.com/join-us",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Growing IMB. Tech-forward culture."
+  },
+  {
+    "name": "Prosperity Home Mortgage",
+    "ats": "direct",
+    "url": "https://www.prosperityhomemortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "NVR builder-captive. National footprint."
+  },
+  {
+    "name": "Draper and Kramer Mortgage",
+    "ats": "direct",
+    "url": "https://www.dkhmortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Midwest. RE + mortgage combined."
+  },
+  {
+    "name": "Luminate Home Loans",
+    "ats": "direct",
+    "url": "https://www.luminatehomeloans.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Regional growing IMB."
+  },
+  {
+    "name": "Citywide Home Loans",
+    "ats": "direct",
+    "url": "https://citywidehomeloans.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Western US retail."
+  },
+  {
+    "name": "Highlands Residential Mortgage",
+    "ats": "direct",
+    "url": "https://www.hrmmortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Texas/SE retail."
+  },
+  {
+    "name": "Cornerstone Home Lending",
+    "ats": "direct",
+    "url": "https://www.houseloan.com/about/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "TX-based retail. Culture driven."
+  },
+  {
+    "name": "Bay Equity Home Loans",
+    "ats": "direct",
+    "url": "https://www.bayequityloans.com/about/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "West Coast. Redfin-acquired (now Rocket ecosystem)."
+  },
+  {
+    "name": "NOVA Home Loans",
+    "ats": "direct",
+    "url": "https://www.novahomeloans.com/about/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Southwest regional."
+  },
+  {
+    "name": "Alcova Mortgage",
+    "ats": "direct",
+    "url": "https://www.alcovamortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Virginia/SE retail."
+  },
+  {
+    "name": "RPM Mortgage",
+    "ats": "direct",
+    "url": "https://www.rpmmortgage.com/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "CA-based retail. Aza's home state."
+  },
+  {
+    "name": "Pacific Residential Mortgage",
+    "ats": "direct",
+    "url": "https://www.pacificresidential.com/about-prmg/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "West Coast retail."
+  },
+  {
+    "name": "Lennar Mortgage",
+    "ats": "direct",
+    "url": "https://corporate.lennar.com/careers",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Builder-captive (Lennar). Top 25. National scale."
+  },
+  {
+    "name": "Onity Group (fka Ocwen)",
+    "ats": "direct",
+    "url": "https://www.onitygroup.com/careers",
+    "tier": 2,
+    "type": "servicer",
+    "notes": "Large servicer. Servicing platform work."
+  },
+  {
+    "name": "Lakeview Loan Servicing",
+    "ats": "direct",
+    "url": "https://www.lakeviewloanservicing.com/careers",
+    "tier": 3,
+    "type": "servicer",
+    "notes": "Servicer. Tech investment."
+  },
+  {
+    "name": "MGIC",
+    "ats": "direct",
+    "url": "https://careers.mgic.com",
+    "tier": 2,
+    "type": "mi_insurer",
+    "notes": "Aza partnered with MGIC at Tavant on risk/UW transformation. Warm network."
+  },
+  {
+    "name": "National MI (NMI)",
+    "ats": "direct",
+    "url": "https://www.nationalmi.com/about/careers/",
+    "tier": 2,
+    "type": "mi_insurer",
+    "notes": "Aza's former employer. $5.5B Fannie Mae portfolio. Warm network."
+  },
+  {
+    "name": "Radian Group",
+    "ats": "direct",
+    "tier": 2,
+    "type": "mi_insurer",
+    "notes": "MI + data/analytics/title. Fintech-forward.",
+    "url": "https://www.radian.com/about/careers"
+  },
+  {
+    "name": "Essent Guaranty",
+    "ats": "direct",
+    "tier": 3,
+    "type": "mi_insurer",
+    "notes": "MI company. Smaller but tech-forward.",
+    "url": "https://essentgroup.com/careers"
+  },
+  {
+    "name": "Accenture (Mortgage Practice)",
+    "ats": "direct",
+    "url": "https://www.accenture.com/us-en/careers",
+    "tier": 2,
+    "type": "consulting",
+    "notes": "Large SI with mortgage practice. Consulting PM/BSA roles."
+  },
+  {
+    "name": "Deloitte (Mortgage / FS)",
+    "ats": "direct",
+    "url": "https://jobs2.deloitte.com",
+    "tier": 2,
+    "type": "consulting",
+    "notes": "Digital mortgage consulting. SME/BSA roles."
+  },
+  {
+    "name": "Cognizant (Mortgage Tech)",
+    "ats": "direct",
+    "url": "https://careers.cognizant.com",
+    "tier": 2,
+    "type": "consulting",
+    "notes": "Mortgage technology consulting. LOS integrations."
+  },
+  {
+    "name": "Infosys (BFS / Mortgage)",
+    "ats": "direct",
+    "url": "https://career.infosys.com",
+    "tier": 2,
+    "type": "consulting",
+    "notes": "BFS mortgage practice. MISMO, Encompass work."
+  },
+  {
+    "name": "JPMorgan Chase",
+    "ats": "direct",
+    "url": "https://careers.jpmorgan.com/us/en/jobs?search=mortgage+product+manager",
+    "tier": 99,
+    "type": "bank_mega",
+    "notes": "EXCLUDED — mega bank conglomerate. Mortgage is a small division of a massive bank. Not Aza's culture."
+  },
+  {
+    "name": "Bank of America",
+    "ats": "direct",
+    "url": "https://careers.bankofamerica.com/en-us/search-jobs",
+    "tier": 99,
+    "type": "bank_mega",
+    "notes": "EXCLUDED — mega bank. Aza's former employer, did not like the culture. Not a target."
+  },
+  {
+    "name": "U.S. Bank",
+    "ats": "direct",
+    "url": "https://careers.usbank.com",
+    "tier": 99,
+    "type": "bank_mega",
+    "notes": "EXCLUDED — mega bank conglomerate."
+  },
+  {
+    "name": "Truist",
+    "ats": "direct",
+    "url": "https://careers.truist.com",
+    "tier": 99,
+    "type": "bank_mega",
+    "notes": "EXCLUDED — mega bank conglomerate."
+  },
+  {
+    "name": "Citizens Bank",
+    "ats": "direct",
+    "url": "https://jobs.citizensbank.com",
+    "tier": 99,
+    "type": "bank_mega",
+    "notes": "EXCLUDED — mega bank conglomerate."
+  },
+  {
+    "name": "Pennymac TPO",
+    "ats": "direct",
+    "url": "https://careers-pennymac.icims.com/jobs/search",
+    "tier": 1,
+    "type": "imb",
+    "notes": "Wholesale arm of PennyMac. Separate tech buildout possible."
+  },
+  {
+    "name": "ServiceMac",
+    "ats": "direct",
+    "url": "https://www.servicemac.com/careers",
+    "tier": 2,
+    "type": "servicer",
+    "notes": "FHLBank-backed subservicer. Technology investment."
+  },
+  {
+    "name": "TMS (The Money Source)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "servicer",
+    "notes": "Servicer + subservicer. Tech-driven operations.",
+    "url": "https://www.tmsmortgage.com/careers"
+  },
+  {
+    "name": "Computershare Loan Services",
+    "ats": "direct",
+    "url": "https://careers.computershare.com",
+    "tier": 2,
+    "type": "servicer",
+    "notes": "Subservicer. Platform and tech teams."
+  },
+  {
+    "name": "PHH Mortgage (Onity)",
+    "ats": "direct",
+    "url": "https://www.onitygroup.com/careers",
+    "tier": 3,
+    "type": "servicer",
+    "notes": "Onity/PHH brand. Servicing tech."
+  },
+  {
+    "name": "Open Mortgage",
+    "ats": "direct",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Reverse + forward. Smaller IMB.",
+    "url": "https://www.openmortgage.com/careers"
+  },
+  {
+    "name": "Kind Lending",
+    "ats": "direct",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Glenn Stearns. Growing.",
+    "url": "https://kindlending.com/careers"
+  },
+  {
+    "name": "loancore capital",
+    "ats": "direct",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Mid-size lender.",
+    "url": "https://www.loancorefinancial.com/careers"
+  },
+  {
+    "name": "Caliber Home Loans (NewRez)",
+    "ats": "greenhouse",
+    "slug": "caliber",
+    "tier": 2,
+    "type": "imb",
+    "notes": "NewRez brand. Full origination + servicing."
+  },
+  {
+    "name": "Guaranteed Rate Affinity",
+    "ats": "direct",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Rate JV with Realogy/Anywhere.",
+    "url": "https://rate.com/careers"
+  },
+  {
+    "name": "Intercap Lending",
+    "ats": "direct",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Mid-size IMB.",
+    "url": "https://intercaplending.com/careers"
+  },
+  {
+    "name": "Tomo Mortgage",
+    "ats": "ashby",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Digital-only purchase mortgage startup. AI-first.",
+    "org": "tomo"
+  },
+  {
+    "name": "Neat Capital",
+    "ats": "direct",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Digital mortgage startup.",
+    "url": "https://www.neatcapital.com/careers"
+  },
+  {
+    "name": "Beeline Loans",
+    "ats": "direct",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "AI-powered mortgage. Speed-to-close focus.",
+    "url": "https://beeline.loans/careers"
+  },
+  {
+    "name": "Credibly (fka Retail Capital)",
+    "ats": "direct",
+    "tier": 3,
+    "type": "fintech",
+    "notes": "Small business lending adjacent.",
+    "url": "https://www.credibly.com/careers"
+  },
+  {
+    "name": "Figure Technologies",
+    "ats": "greenhouse",
+    "slug": "figure",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Blockchain HELOC. Digital-first. PM roles."
+  },
+  {
+    "name": "Knock",
+    "ats": "greenhouse",
+    "slug": "knock",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Buy-before-sell fintech. Mortgage embedded."
+  },
+  {
+    "name": "EasyKnock",
+    "ats": "direct",
+    "tier": 3,
+    "type": "fintech",
+    "notes": "Sale-leaseback / home equity access.",
+    "url": "https://www.easyknock.com/careers"
+  },
+  {
+    "name": "Divvy Homes",
+    "ats": "direct",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Acquired by Brookfield 2024 — verify still active.",
+    "url": "https://www.divvyhomes.com/careers"
+  },
+  {
+    "name": "Ribbon Home",
+    "ats": "direct",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "Cash offer / mortgage. Proptech. Possibly wound down — verify.",
+    "url": "https://www.ribbonhome.com/careers"
+  },
+  {
+    "name": "Homepoint (archived)",
+    "ats": "direct",
+    "tier": 3,
+    "type": "imb",
+    "notes": "ARCHIVED — wound down 2023. Very low priority.",
+    "url": "https://www.homepoint.com/careers"
+  },
+  {
+    "name": "Fannie Mae",
+    "ats": "workday",
+    "tenant": "fanniemae",
+    "wday_n": 1,
+    "site": "FannieMaeCareers",
+    "tier": 1,
+    "type": "gse",
+    "notes": "Aza integrated DU/EC at Tavant. Enterprise Technology + Single Family Tech. DU, MISMO, UCD all live here."
+  },
+  {
+    "name": "Freddie Mac",
+    "ats": "workday",
+    "tenant": "freddiemac",
+    "wday_n": 5,
+    "site": "External",
+    "tier": 1,
+    "type": "gse",
+    "notes": "Aza integrated LPA/LCA at Tavant. Technology division. MISMO working groups. CreditSmart + SingleFamily tech."
+  },
+  {
+    "name": "CoreLogic (ICE Data Services)",
+    "ats": "workday",
+    "tenant": "corelogic",
+    "wday_n": 5,
+    "site": "Global",
+    "tier": 1,
+    "type": "data",
+    "notes": "Property data, AVM, flood, fraud. Now part of ICE. MISMO-mapped. PM/BA roles in product + data."
+  },
+  {
+    "name": "First American Financial",
+    "ats": "workday",
+    "tier": 2,
+    "type": "title",
+    "notes": "Title + settlement + data/analytics. FASTWeb, DataTree, 1st ADA. Strong PM org.",
+    "tenant": "firstam",
+    "wday_n": 1,
+    "site": "FirstAmericanCareers"
+  },
+  {
+    "name": "Fidelity National Financial (FNF)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "title",
+    "notes": "Largest US title insurer. Technology division. Acquired Doma/States Title.",
+    "url": "https://jobs.fnf.com"
+  },
+  {
+    "name": "Stewart Title",
+    "ats": "direct",
+    "tier": 3,
+    "type": "title",
+    "notes": "National title + settlement. Tech transformation underway.",
+    "url": "https://careers.stewart.com"
+  },
+  {
+    "name": "WFG National Title",
+    "ats": "direct",
+    "url": "https://www.wfgnationaltitle.com/careers",
+    "tier": 3,
+    "type": "title",
+    "notes": "Independent title. Tech investment."
+  },
+  {
+    "name": "Equifax Workforce Solutions (The Work Number)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "data",
+    "notes": "Income + employment verification. The Work Number. MISMO Day1 Certainty integration. PM/product roles.",
+    "url": "https://careers.equifax.com"
+  },
+  {
+    "name": "Truework",
+    "ats": "greenhouse",
+    "slug": "truework",
+    "tier": 2,
+    "type": "data",
+    "notes": "Income + employment verification fintech. Encompass integration. Fast-growing."
+  },
+  {
+    "name": "Argyle",
+    "ats": "direct",
+    "tier": 2,
+    "type": "data",
+    "notes": "Payroll data / income verification. API-first. MISMO alignment.",
+    "url": "https://argyle.com/careers"
+  },
+  {
+    "name": "LexisNexis Risk Solutions (Mortgage)",
+    "ats": "direct",
+    "url": "https://risk.lexisnexis.com/about-us/careers",
+    "tier": 2,
+    "type": "data",
+    "notes": "Fraud, identity, compliance for mortgage. MISMO data standards."
+  },
+  {
+    "name": "DataVerify",
+    "ats": "direct",
+    "url": "https://www.dataverify.com/company/careers",
+    "tier": 2,
+    "type": "data",
+    "notes": "Fraud + income verification. Encompass-integrated. LOS ecosystem."
+  },
+  {
+    "name": "Plaid (Mortgage / Assets)",
+    "ats": "ashby",
+    "tier": 2,
+    "type": "data",
+    "notes": "Bank data / asset verification for mortgage. API-heavy. DU/LPA integration.",
+    "org": "plaid"
+  },
+  {
+    "name": "Enact (fka Genworth Mortgage Insurance)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "mi",
+    "notes": "Top-5 MI insurer. Tech modernization. PMIERs, risk, MISMO. Aza knows this space from National MI.",
+    "url": "https://enactmi.com/about/careers"
+  },
+  {
+    "name": "Arch MI",
+    "ats": "direct",
+    "tier": 2,
+    "type": "mi",
+    "notes": "Growing MI insurer. Technology investment. API + MISMO integration work.",
+    "url": "https://www.archmi.com/about/careers"
+  },
+  {
+    "name": "MGIC",
+    "ats": "direct",
+    "url": "https://careers.mgic.com",
+    "tier": 1,
+    "type": "mi",
+    "notes": "Aza partnered with MGIC at Tavant on UW/doc automation transformation. Warm network. Milwaukee HQ but may have remote."
+  },
+  {
+    "name": "Clear Capital",
+    "ats": "lever",
+    "slug": "clearcapital",
+    "tier": 2,
+    "type": "appraisal",
+    "notes": "AVM + appraisal automation. Hybrid appraisal, desktop. Reno CA (Bay Area-ish). MISMO UAD standards."
+  },
+  {
+    "name": "Reggora",
+    "ats": "direct",
+    "tier": 2,
+    "type": "appraisal",
+    "notes": "Appraisal management tech startup. Encompass integration. PM roles.",
+    "url": "https://www.reggora.com/careers"
+  },
+  {
+    "name": "Veros Real Estate Solutions",
+    "ats": "direct",
+    "url": "https://www.veros.com/careers",
+    "tier": 3,
+    "type": "appraisal",
+    "notes": "AVM + appraisal workflow. GSE Day1 Certainty. MISMO PIRT."
+  },
+  {
+    "name": "DocMagic",
+    "ats": "direct",
+    "url": "https://www.docmagic.com/company/careers",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Mortgage doc prep + eClose. MISMO-compliant docs. Aza has Docutech/IDS parallel."
+  },
+  {
+    "name": "Notarize / Proof",
+    "ats": "greenhouse",
+    "slug": "proof",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "RON / remote online notarization. eClose. LOS integrations."
+  },
+  {
+    "name": "Pavaso",
+    "ats": "direct",
+    "url": "https://www.pavaso.com/careers",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Digital closing platform. MISMO-integrated eClose workflow."
+  },
+  {
+    "name": "Wolters Kluwer (Compliance One / NFRP)",
+    "ats": "greenhouse",
+    "slug": "wk",
+    "tier": 2,
+    "type": "regtech",
+    "notes": "Mortgage compliance software. TILA-RESPA, HMDA, state regs. Product + BA roles."
+  },
+  {
+    "name": "ComplianceSystems",
+    "ats": "direct",
+    "url": "https://compliancesystems.com/careers",
+    "tier": 3,
+    "type": "regtech",
+    "notes": "Mortgage compliance docs + content. LOS integrated."
+  },
+  {
+    "name": "Total Expert",
+    "ats": "lever",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Mortgage CRM + marketing automation. Encompass integration. Growing SaaS.",
+    "slug": "totalexpert"
+  },
+  {
+    "name": "Salesforce (Financial Services Cloud / Mortgage)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Uses Workday not Greenhouse. FSC mortgage module PM roles.",
+    "url": "https://careers.salesforce.com"
+  },
+  {
+    "name": "Angel Oak Mortgage",
+    "ats": "direct",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Non-QM + wholesale pioneer. Growing platform. Atlanta HQ but remote roles exist.",
+    "url": "https://www.angeloakmortgage.com/careers"
+  },
+  {
+    "name": "Deephaven Mortgage",
+    "ats": "direct",
+    "url": "https://www.deephavenmortgage.com/about/careers",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Non-QM wholesale. Charlotte NC but product/tech roles may be remote."
+  },
+  {
+    "name": "Plaza Home Mortgage",
+    "ats": "direct",
+    "url": "https://www.plazahomemortgage.com/about-plaza/careers",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Wholesale + correspondent. San Diego HQ. LOS + platform work."
+  },
+  {
+    "name": "LoanStream Mortgage",
+    "ats": "direct",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Non-QM + wholesale. Irvine CA (Southern CA). Growing platform.",
+    "url": "https://www.loanstreammortgage.com/about/careers"
+  },
+  {
+    "name": "Acra Lending",
+    "ats": "direct",
+    "url": "https://www.acralending.com/about/careers",
+    "tier": 3,
+    "type": "imb",
+    "notes": "Non-QM wholesale. Irvine CA. Growing."
+  },
+  {
+    "name": "LoanLogics",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Loan quality + data integrity. AI-powered data extraction. MISMO + LOS integrations.",
+    "url": "https://www.loanlogics.com/careers"
+  },
+  {
+    "name": "ServiceLink",
+    "ats": "direct",
+    "url": "https://www.servicelink.com/careers",
+    "tier": 2,
+    "type": "servicer",
+    "notes": "FNF subsidiary. Closing, flood, default servicing. Title + closing tech."
+  },
+  {
+    "name": "CLARIFIRE",
+    "ats": "direct",
+    "url": "https://www.eclarifire.com/careers",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Servicing workflow automation (loss mit, default). MISMO-mapped. Directly relevant to Aza's servicing domain."
+  },
+  {
+    "name": "Texas Capital Bank (Warehouse Lending)",
+    "ats": "direct",
+    "url": "https://www.texascapitalbank.com/about-us/careers",
+    "tier": 3,
+    "type": "mortgage_bank",
+    "notes": "MORTGAGE-FIRST niche — warehouse lending technology. API + LOS integration work."
+  },
+  {
+    "name": "Guild Mortgage (Guild Savings Bank)",
+    "ats": "direct",
+    "url": "https://www.guildmortgage.com/careers/",
+    "tier": 2,
+    "type": "mortgage_bank",
+    "notes": "MORTGAGE-FIRST — operates under savings bank charter but mortgage IS the company. Top 8 by units."
+  },
+  {
+    "name": "Movement Bank (Movement Mortgage)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "mortgage_bank",
+    "notes": "MORTGAGE-FIRST — Movement Mortgage operates Movement Bank as secondary piece. Mortgage is the heartbeat.",
+    "url": "https://movement.com/careers"
+  },
+  {
+    "name": "HomeStreet Bank",
+    "ats": "direct",
+    "url": "https://www.homestreet.com/about-us/careers",
+    "tier": 3,
+    "type": "mortgage_bank",
+    "notes": "MORTGAGE-FIRST Pacific NW bank — mortgage volume is primary business line. Tech modernization."
+  },
+  {
+    "name": "Glacier Bancorp / Glacier Mortgage",
+    "ats": "direct",
+    "url": "https://www.glacierbancorp.com/about/careers",
+    "tier": 3,
+    "type": "mortgage_bank",
+    "notes": "MORTGAGE-FIRST regional — mortgage is significant line of business."
+  },
+  {
+    "name": "Black Knight (now ICE — MDM/Data)",
+    "ats": "direct",
+    "url": "https://www.icemortech.com/careers",
+    "tier": 1,
+    "type": "data",
+    "notes": "MSP servicing system + data/analytics. Empower LOS. Aza has Empower experience. Part of ICE now."
+  },
+  {
+    "name": "Meridian Link",
+    "ats": "ashby",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Consumer lending LOS (banks/CUs). Adjacent to mortgage. API + product roles.",
+    "org": "meridianlink"
+  },
+  {
+    "name": "LendingPad",
+    "ats": "direct",
+    "url": "https://www.lendingpad.com/about",
+    "tier": 3,
+    "type": "tech_vendor",
+    "notes": "Cloud LOS. MISMO-native. Small team, PM/BA opportunities."
+  },
+  {
+    "name": "Blend Labs",
+    "ats": "direct",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "Digital lending platform (also banking). SF HQ. Strong PM culture. Aza geo match. NOTE: Use Blend GH slug (covered by Blend entry). This entry redirects to same page.",
+    "url": "https://blend.com/company/careers"
+  },
+  {
+    "name": "Roostify (Blend subsidiary)",
+    "ats": "direct",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Absorbed into Blend. Use Blend GH slug instead.",
+    "url": "https://www.blend.com/careers"
+  },
+  {
+    "name": "Loftium",
+    "ats": "direct",
+    "tier": 3,
+    "type": "fintech",
+    "notes": "Down payment assistance + mortgage. Small but innovative. Small startup — verify still active.",
+    "url": "https://www.loftium.com/careers"
+  },
+  {
+    "name": "SavvyMoney",
+    "ats": "direct",
+    "url": "https://careers.spectrumequity.com/companies/savvymoney-inc/",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "Dublin CA fintech — 1,500+ bank/CU partners, 5 confirmed active roles (Sr. Implementation Manager, Sr. Implementation Lead, Partner Impl. Manager, Sr. Solutions Consultant, Sr. Manager Partner Onboarding, Sr. Technical PM). $145K–$170K TPM. Bay Area hybrid or remote. HIGH PRIORITY."
+  },
+  {
+    "name": "Loancrate",
+    "ats": "ashby",
+    "url": "https://jobs.ashbyhq.com/loancrate/f58e74ca-b2b3-40d0-a1d7-ae0aaf7b0449",
+    "tier": 1,
+    "type": "tech_vendor",
+    "notes": "AI-native mortgage LOS startup. Menlo Park CA. $85B+ loans powered. TPM + AI workflow automation role confirmed active May 2026.",
+    "org": "loancrate"
+  },
+  {
+    "name": "GoodLeap",
+    "ats": "lever",
+    "slug": "goodleap",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Home improvement + solar + mortgage platform. Sr. PM Mortgage role on Lever (Feb 3, 2026). Remote."
+  },
+  {
+    "name": "New American Funding",
+    "ats": "icims",
+    "url": "https://careers-nafinc.icims.com/jobs/7090/senior-product-owner/job",
+    "tier": 2,
+    "type": "imb",
+    "notes": "NAF. Two confirmed active PO roles: Sr. PO Consumer Web Portal ($130K–$150K) and PO Internal Apps ($110K–$130K). Remote outside Southern CA."
+  },
+  {
+    "name": "Experian Mortgage",
+    "ats": "direct",
+    "url": "https://jobs.experian.com/job/senior-product-manager-digital-mortgage-remote-in-united-states-jid-2739",
+    "tier": 2,
+    "type": "data",
+    "notes": "Sr. PM Digital Mortgage (B2B2C) confirmed active. Lifecycle, data, personalization. Remote."
+  },
+  {
+    "name": "Realtor.com (Move Inc.)",
+    "ats": "greenhouse",
+    "slug": "rdccareers",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Lead PM Consumer Finance & Mortgage Experience. Greenhouse ATS. Feb 6, 2026 posted. Remote (Santa Clara HQ)."
+  },
+  {
+    "name": "Ocrolus",
+    "ats": "greenhouse",
+    "slug": "ocrolusinc",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "AI mortgage fintech. 400+ lender clients (SoFi, Better, PayPal). Product Analyst contract $60/hr confirmed active. Greenhouse ATS."
+  },
+  {
+    "name": "Brace",
+    "ats": "direct",
+    "url": "https://brace.ai/careers/",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Mortgage servicing modernization — loss mitigation, borrower hardship. Backed by Point72 Ventures + 8vc. PM role active. Remote."
+  },
+  {
+    "name": "Treliant Consulting",
+    "ats": "direct",
+    "url": "https://treliant.com/careers/",
+    "tier": 2,
+    "type": "consulting",
+    "notes": "Mortgage/banking consulting. MSP fluency valued. Technology Consultant + Compliance Analyst (UDAAP testing) roles active. Remote."
+  },
+  {
+    "name": "SitusAMC",
+    "ats": "direct",
+    "url": "https://www.situsamc.com/careers",
+    "tier": 2,
+    "type": "consulting",
+    "notes": "Sr. BSA Mortgage/Loan Servicing ($110K–$130K) confirmed active Apr 2026. Secondary market + QA/BA hybrid. Remote."
+  },
+  {
+    "name": "Aspen Grove Solutions",
+    "ats": "direct",
+    "url": "https://www.aspengrovesolutions.com/careers",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Property, workflow & loan management platform for US mortgage servicers/banks. PO/BA role confirmed active May 1, 2026. Remote."
+  },
+  {
+    "name": "Benchmark Mortgage",
+    "ats": "linkedin",
+    "url": "https://www.linkedin.com/jobs/view/lending-application-scrum-master-remote-at-benchmark-mortgage-nmls-%232143-4411974629",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Confirmed active Scrum Master (Lending Application) posted 1 week ago May 2026. Remote. Plano TX HQ."
+  },
+  {
+    "name": "Upstart",
+    "ats": "direct",
+    "url": "https://www.upstart.com/careers",
+    "tier": 2,
+    "type": "fintech",
+    "notes": "AI-driven lender expanding into home loans. Sr. PM Consumer Mortgage/Home Loans active Apr–May 2026. San Mateo CA (Peninsula) hybrid."
+  },
+  {
+    "name": "Redfin Home Loans",
+    "ats": "direct",
+    "url": "https://www.redfin.com/about/jobs",
+    "tier": 2,
+    "type": "imb",
+    "notes": "Lead PM Home Loans Local Market Sales (AI/automation focus) confirmed active Apr–May 2026. SF Bay Area hybrid."
+  },
+  {
+    "name": "Credible (Fox Corp)",
+    "ats": "direct",
+    "url": "https://www.credible.com/careers",
+    "tier": 2,
+    "type": "tech_vendor",
+    "notes": "Mortgage + student loan marketplace. Fox Corp subsidiary. PM Consumer Finance & Mortgage Marketplace active. SF hybrid."
+  }
+]
