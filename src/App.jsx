@@ -1129,6 +1129,22 @@ const COMPANY_ALIASES = {
   "freddie mac":                    "freddie mac",
   // Fannie Mae variants
   "fannie mae":                     "fannie mae",
+  // MeridianLink variants (scanner injects with space)
+  "meridian link":                  "meridianlink",
+  "meridian link, inc":             "meridianlink",
+  // Carrington variants
+  "carrington holding company":     "carrington holding",
+  "carrington mortgage services":   "carrington holding",
+  // Plaid variants
+  "plaid (mortgage / assets)":      "plaid",
+  "plaid (mortgage/assets)":        "plaid",
+  // Vesta variants
+  "vesta (los)":                    "vesta",
+  "vesta innovations inc.":         "vesta",
+  "vesta innovations":              "vesta",
+  // Sagent variants (scanner injects with different suffixes)
+  "sagent lending technologies":    "sagent",
+  "sagent (ice subsidiary)":        "sagent",
 };
 
 function normalizeCompany(name) {
