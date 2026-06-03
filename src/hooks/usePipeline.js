@@ -39,14 +39,14 @@ export function getLastSavedAt() {
   try { const v = localStorage.getItem(SAVED_KEY); return v ? Number(v) : null; } catch { return null; }
 }
 
-// Cloud adds new cards (by id). Local version of existing cards is preserved
-// so user's kanban status moves / notes edits are never overwritten.
+// Cloud is source of truth (pipeline.json is always an explicit export).
+// Existing cards take their state from cloud; locally-added cards not yet
+// exported are appended so no in-session work is lost.
 function mergeCards(local, cloud) {
   if (!Array.isArray(cloud) || !cloud.length) return local;
-  const localIds = new Set(local.map(c => c.id));
-  const newCards = cloud.filter(c => !localIds.has(c.id));
-  if (!newCards.length) return local;
-  return [...newCards, ...local];
+  const cloudIds = new Set(cloud.map(c => c.id));
+  const localOnly = local.filter(c => !cloudIds.has(c.id));
+  return [...cloud, ...localOnly];
 }
 
 async function fetchCloud() {
@@ -68,9 +68,9 @@ export function usePipeline() {
     const cloud = await fetchCloud();
     if (!cloud) return;
     setCards(prev => {
-      const merged    = mergeCards(prev, cloud);
+      const merged     = mergeCards(prev, cloud);
       const rebalanced = rebalanceQueue(merged);
-      if (rebalanced.length !== prev.length) saveLocal(rebalanced);
+      saveLocal(rebalanced); // always persist so next reload reflects cloud
       return rebalanced;
     });
     setCloudSynced(true);
