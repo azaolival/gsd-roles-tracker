@@ -1105,6 +1105,7 @@ const COMPANY_ALIASES = {
   "naf (new american funding)":     "new american funding",
   "new american funding (naf)":     "new american funding",
   // nCino / SimpleNexus variants
+  "ncino (simplenexus)":            "ncino",
   "ncino (simplexnexus)":           "ncino",
   "simplexnexus / ncino":           "ncino",
   "simplexnexus":                   "ncino",
@@ -1145,6 +1146,18 @@ const COMPANY_ALIASES = {
   // Sagent variants (scanner injects with different suffixes)
   "sagent lending technologies":    "sagent",
   "sagent (ice subsidiary)":        "sagent",
+  "sagent / various servicer vendors": "sagent",
+  // SitusAMC variants
+  "situs":                          "situsamc",
+  "situs amc":                      "situsamc",
+  // SoFi variants
+  "sofi technologies":              "sofi",
+  "sofi technologies, inc.":        "sofi",
+  // Ocrolus variants
+  "ocrolus (ai mortgage fintech)":  "ocrolus",
+  // Quicken / Rocket variants
+  "quicken":                        "rocket mortgage",
+  "quicken loans":                  "rocket mortgage",
 };
 
 function normalizeCompany(name) {
