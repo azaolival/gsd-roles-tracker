@@ -23,7 +23,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "job_hunter_auto"
+    "source": "job_hunter_auto",
+    "actionNeeded": true,
+    "actionNote": "Job scanner resurface 2026-06-03 — role re-appeared as active (-1d old, 47pts). Card is currently NO_THANKS. Confirm if genuinely dead or should move back to TARGETED."
   },
   {
     "id": "jh_savvymoney_20260602_14",
@@ -49,7 +51,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "job_hunter_auto"
+    "source": "job_hunter_auto",
+    "actionNeeded": true,
+    "actionNote": "Job scanner resurface 2026-06-03 — role re-appeared as active (-1d old, 100pts). Card is currently NO_THANKS. Confirm if genuinely dead or should move back to TARGETED."
   },
   {
     "id": "jh_savvymoney_20260602_13",
@@ -75,7 +79,9 @@
       "logged": false,
       "threeFronts": false
     },
-    "source": "job_hunter_auto"
+    "source": "job_hunter_auto",
+    "actionNeeded": true,
+    "actionNote": "Job scanner resurface 2026-06-03 — role re-appeared as active (-1d old, 79pts). Card is currently NO_THANKS. Confirm if genuinely dead or should move back to TARGETED."
   },
   {
     "id": "jh_meridianlink_20260602_12",
