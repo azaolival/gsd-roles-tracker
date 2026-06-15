@@ -79,12 +79,6 @@ export function usePipeline() {
   // Sync on mount
   useEffect(() => { syncFromCloud(); }, [syncFromCloud]);
 
-  // Re-sync whenever the tab regains focus (catches deploys that happened while away)
-  useEffect(() => {
-    const onFocus = () => syncFromCloud();
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus);
-  }, [syncFromCloud]);
 
   const _set = useCallback((fn) => {
     setCards(prev => { const next = fn(prev); saveLocal(next); return next; });
